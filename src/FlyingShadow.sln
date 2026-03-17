@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingShadow.Api", "FlyingShadow.Api\FlyingShadow.Api.csproj", "{C8D20912-6D12-43F3-BD1C-66F00DCFC67B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingShadow.Api.Tests", "FlyingShadow.Api.Tests\FlyingShadow.Api.Tests.csproj", "{9B6153BB-5DF5-43DD-B03B-47CF848CDC3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8D20912-6D12-43F3-BD1C-66F00DCFC67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D20912-6D12-43F3-BD1C-66F00DCFC67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D20912-6D12-43F3-BD1C-66F00DCFC67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D20912-6D12-43F3-BD1C-66F00DCFC67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6153BB-5DF5-43DD-B03B-47CF848CDC3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6153BB-5DF5-43DD-B03B-47CF848CDC3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6153BB-5DF5-43DD-B03B-47CF848CDC3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6153BB-5DF5-43DD-B03B-47CF848CDC3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

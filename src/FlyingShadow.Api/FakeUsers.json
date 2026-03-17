@@ -1,0 +1,12 @@
+[
+  {
+    "userId": "820bad3a-58cd-4f6f-970c-11e7aca30b89",
+    "email": "demo_user@sample.org",
+    "hash": "$2a$14$KuZSJNT9BXKjTy/sSx9bCeoTdK0nnRQO8mSAuQ7xNn3nIriTopO9u"
+  },
+  {
+    "userId": "58d6bc7b-06a7-421e-8f38-4f0e9d09420d",
+    "email": "john.doe@sample.org",
+    "hash": "$2a$14$9gA5NQ0op.s8IEB/sI4Y1eV1KMMVYvbRSsTRYWV53eFUj/BIlfGnW"
+  }
+]
