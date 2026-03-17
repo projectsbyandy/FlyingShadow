@@ -290,3 +290,6 @@ __pycache__/
 
 bin
 **/.DS_Store
+
+# local appsettings file, which may contain secrets and should not be checked in
+appsettings.local.json
