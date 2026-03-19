@@ -16,5 +16,61 @@
     <ItemGroup>
         <InternalsVisibleTo Include="FlyingShadow.Api.Tests" />
     </ItemGroup>
+    
+    <!-- Mock Data Generator - Execute program on build of the API project. This project will generate mock data needed
+    to execute and test the API without a DB --> 
 
+    <PropertyGroup>
+        <!-- Paths to the generated mock data files -->
+        <FakeUsersJsonPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeUsers.json</FakeUsersJsonPath>
+        <fakeDbUsersPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeDbUsers.json</fakeDbUsersPath>
+
+        <!-- Path to the MockDataGenerator project -->
+        <MockGeneratorProject>$(MSBuildProjectDirectory)\..\FlyingShadow.Api.MockDataGenerator\FlyingShadow.Api.MockDataGenerator.csproj</MockGeneratorProject>
+        <MockGeneratorBin>$(MSBuildProjectDirectory)\..\FlyingShadow.Api.MockDataGenerator\bin\Release\net10.0\FlyingShadow.Api.MockDataGenerator.exe</MockGeneratorBin>
+        <!-- On non-Windows the binary has no extension -->
+        <MockGeneratorBin Condition="!$([MSBuild]::IsOSPlatform('Windows'))">$(MSBuildProjectDirectory)/../FlyingShadow.Api.MockDataGenerator/bin/Release/net10.0/FlyingShadow.Api.MockDataGenerator</MockGeneratorBin>
+
+        <!-- Parameter to run Generate Mock Data program. Controlled by build props. If not present default is false -->
+        <GenerateMockData Condition="'$(GenerateMockData)' == ''">false</GenerateMockData>
+    </PropertyGroup>
+
+    <!-- ── 1. Generate mock data files before build ─────────────────────────── -->
+    <Target Name="RunMockDataGenerator"
+            BeforeTargets="Build"
+            Condition="'$(GenerateMockData)' == 'true'">
+
+        <Message Text="MockDataGenerator: flag is set, building tool..." Importance="normal" />
+
+        <!-- Build the generator tool (incremental: only recompiles when source changes) -->
+        <MSBuild
+                Projects="$(MockGeneratorProject)"
+                Targets="Build"
+                Properties="Configuration=Release"
+                BuildInParallel="false" />
+
+        <!-- Run the generator — it skips internally if both files already exist -->
+        <Exec Command='"$(MockGeneratorBin)" "$(FakeUsersJsonPath)" "$(fakeDbUsersPath)"'/>
+    </Target>
+
+    <!-- ── 2. Copy generated JSON files to output directory on every build ───── -->
+    <!--
+      CopyToOutputDirectory="Always"  — copies on every build, even if unchanged.
+      Use "PreserveNewest" instead if you only want to copy when the file is newer.
+   
+      The Condition guards ensure MSBuild does not warn about missing files on the
+      very first build before GenerateMockData has had a chance to run. After the
+      first build both files will exist and will be copied from then on.
+    -->
+    <ItemGroup>
+
+        <Content Include="$(fakeDbUsersPath)"
+                 Condition="Exists('$(fakeDbUsersPath)')"
+                 CopyToOutputDirectory="Always"
+                 Link="fakeDbUsers.json" />
+    </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="_GeneratedData\fakeDbUsers.json" />
+      <_ContentIncludedByDefault Remove="_GeneratedData\fakeUsers.json" />
+    </ItemGroup>
 </Project>

@@ -13,15 +13,15 @@ namespace FlyingShadow.Api.Tests.Services;
 
 public class AuthenticationServiceTests
 {
-    private readonly IAuthenticationService _sut = new AuthenticationService(new FakeUserRepository());
+    private static readonly Configuration Config = ConfigReader.GetConfiguration<Configuration>();
+    private readonly IAuthenticationService _sut = new AuthenticationService(new FakeUserRepository(Config));
     private const string ValidEmail = "john.doe@sample.org";
 
     [Fact]
     public void Verify_Successful_User_Validation()
     {
         // Arrange
-        var config = ConfigReader.GetConfiguration<Configuration>();
-        var user = config.ValidFakeUsers?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
+        var user = Config.FakeUsers?.Users?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
         Guard.Against.Null(user);
         
         // Act / Assert

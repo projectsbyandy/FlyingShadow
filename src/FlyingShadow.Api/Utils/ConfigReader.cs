@@ -27,7 +27,15 @@ public static class ConfigReader
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
             .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: false)
             .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: false)
+            .AddMockData()
             .AddEnvironmentVariables()
             .Build();
+    }
+
+    private static IConfigurationBuilder AddMockData(this IConfigurationBuilder builder)
+    {
+        return builder
+            .AddJsonFile("_GeneratedData/fakeDbUsers.json", optional: true)
+            .AddJsonFile("_GeneratedData/fakeUsers.json", optional: true);
     }
 }

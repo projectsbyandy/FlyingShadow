@@ -1,6 +1,8 @@
 using FlyingShadow.Api.DTO.Authenticate;
+using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Repositories.Internal;
+using FlyingShadow.Api.Utils;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -8,11 +10,12 @@ namespace FlyingShadow.Api.Tests.Repositories;
 
 public class FakeUserRepositoryTests
 {
+    private static readonly Configuration Config = ConfigReader.GetConfiguration<Configuration>();
     private readonly IUserRepository _sut;
     
     public FakeUserRepositoryTests()
     {
-        _sut = new FakeUserRepository();    
+        _sut = new FakeUserRepository(Config);    
     }
 
     [Fact]
@@ -36,8 +39,7 @@ public class FakeUserRepositoryTests
     [Fact]
     public void Verify_()
     {
-        IUserRepository fakeRepo = new FakeUserRepository();
-        fakeRepo.AddUser(new()
+        _sut.AddUser(new()
         {
             Email = "andy@test.com",
             Password = "password2"

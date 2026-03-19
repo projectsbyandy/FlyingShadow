@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <!-- Set to true to generate mock data files on build of the FlyingShadow.Api project -->
+        <GenerateMockData>true</GenerateMockData>
+    </PropertyGroup>
+</Project>

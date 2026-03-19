@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace FlyingShadow.Api.DTO.Authenticate;
 
-public record StoredUser
+public record DbUser
 {
     public Guid UserId { get; init; } = Guid.NewGuid();
     

@@ -293,3 +293,5 @@ bin
 
 # local appsettings file, which may contain secrets and should not be checked in
 appsettings.local.json
+
+_GeneratedData/

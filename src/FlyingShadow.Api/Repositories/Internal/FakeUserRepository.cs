@@ -1,41 +1,44 @@
 using FlyingShadow.Api.DTO.Authenticate;
+using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.DTO.ResultType;
-using FlyingShadow.Api.Utils;
 
 namespace FlyingShadow.Api.Repositories.Internal;
 
 internal class FakeUserRepository : IUserRepository
 {
-    private IList<StoredUser>? _storedUsers;
+    private readonly Configuration _configuration;
+    private IList<DbUser>? _dbUsers;
     
-    public FakeUserRepository()
+    public FakeUserRepository(Configuration configuration)
     {
-        SeededUsersAsync().Wait();
-    }
-    
-    public Result<StoredUser> GetUser(string email)
-    {
-        var user = _storedUsers?.SingleOrDefault(user => user.Email.Equals(email));
-        return user is not null 
-            ? Result<StoredUser>.Success(user)
-            : Result<StoredUser>.Failure(new Error("NOT_FOUND", $"User with {email} was not found"));
+        this._configuration = configuration;
+        AttachMockDbUsers();
     }
 
-    public Result<Guid> AddUser(User user)
+    private void AttachMockDbUsers()
+    {
+        _dbUsers = _configuration.FakeUsers?.DbUsers 
+                   ?? throw new ArgumentNullException(nameof(_configuration.FakeUsers.DbUsers), "Check the mock DbUsers json is present");
+    }
+
+    public Result<DbUser, Error> GetUser(string email)
+    {
+        var user = _dbUsers?.SingleOrDefault(user => user.Email.Equals(email));
+        return user is not null 
+            ? Result<DbUser, Error>.Success(user)
+            : Result<DbUser, Error>.Failure(new Error("NOT_FOUND", $"User with {email} was not found"));
+    }
+
+    public Result<Guid, Error> AddUser(User user)
     {
         var passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password, workFactor:14);
-        var userToCreate = new StoredUser()
+        var userToCreate = new DbUser()
         {
             Email = user.Email,
             Hash = passwordHash
         };
-        _storedUsers?.Add(userToCreate);
+        _dbUsers?.Add(userToCreate);
 
-        return Result<Guid>.Success(userToCreate.UserId);
-    }
-    
-    private async Task SeededUsersAsync()
-    {
-        _storedUsers = await FileReader.ReadAsync<IList<StoredUser>>("FakeUsers.json");
+        return Result<Guid, Error>.Success(userToCreate.UserId);
     }
 }

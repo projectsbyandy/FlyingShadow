@@ -1,18 +1,23 @@
 namespace FlyingShadow.Api.DTO.ResultType;
 
-public class Result<T>
+public class Result<T, TError>
 {
     public T? Value { get; }
-    public Error? Error { get; }
-    public bool IsSuccess  => Error is null;
-
-    private Result(T value) => Value = value;
-    private Result(Error error) => Error = error;
-
-    public static Result<T> Success(T value) => new(value);
-    public static Result<T> Failure(Error error) => new(error);
-    public static Result<TOut> Bind<TIn, TOut>(
-        Result<TIn> result,
-        Func<TIn, Result<TOut>> func)
-        => result.IsSuccess ? func(result.Value!) : Result<TOut>.Failure(result.Error!);
+    public TError? Error { get; }
+    public bool IsSuccess { get; } 
+ 
+    private Result(T value)
+    {
+        Value = value;
+        IsSuccess = true;
+    }
+ 
+    private Result(TError error)
+    {
+        Error = error;
+        IsSuccess = false;
+    }
+ 
+    public static Result<T, TError> Success(T value) => new(value);
+    public static Result<T, TError> Failure(TError error) => new(error);
 }
