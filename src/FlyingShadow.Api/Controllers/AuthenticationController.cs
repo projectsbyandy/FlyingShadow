@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FlyingShadow.Api.Controllers;
 
-[Controller]
-internal class AuthenticationController
+[ApiController]
+[Route("api/[controller]")]
+public class AuthenticationController : ControllerBase
 {
     private readonly IAuthenticationService _authenticationService;
     
@@ -17,6 +18,10 @@ internal class AuthenticationController
     [HttpPost("login")]
     public IActionResult Login([FromBody] User userRequest)
     {
-        throw new NotImplementedException();
+        var result = _authenticationService.ValidateCredentials(userRequest);
+        
+        return result.IsSuccess
+            ? Ok(result.Value)
+            : NotFound(result.Error);
     }
 }

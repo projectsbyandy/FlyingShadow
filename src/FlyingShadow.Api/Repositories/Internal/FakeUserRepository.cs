@@ -11,14 +11,17 @@ internal class FakeUserRepository : IUserRepository
     
     public FakeUserRepository(Configuration configuration)
     {
-        this._configuration = configuration;
+        _configuration = configuration;
         AttachMockDbUsers();
     }
 
     private void AttachMockDbUsers()
     {
-        _dbUsers = _configuration.FakeUsers?.DbUsers 
-                   ?? throw new ArgumentNullException(nameof(_configuration.FakeUsers.DbUsers), "Check the mock DbUsers json is present");
+        if (_configuration.FakeUsers is null)
+            Console.WriteLine("Mock data has not been configured");
+        
+        _dbUsers = _configuration.FakeUsers?.DbUsers;
+
     }
 
     public Result<DbUser, Error> GetUser(string email)

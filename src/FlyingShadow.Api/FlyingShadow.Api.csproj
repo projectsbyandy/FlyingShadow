@@ -15,6 +15,7 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="FlyingShadow.Api.Tests" />
+        <InternalsVisibleTo Include="FlyingShadow.Api.Integration.Tests" />
     </ItemGroup>
     
     <!-- Mock Data Generator - Execute program on build of the API project. This project will generate mock data needed
