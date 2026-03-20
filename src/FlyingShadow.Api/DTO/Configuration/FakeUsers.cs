@@ -1,10 +1,11 @@
 using FlyingShadow.Api.DTO.Authenticate;
+using FlyingShadow.Api.Models.Users;
 
 namespace FlyingShadow.Api.DTO.Configuration;
 
 internal class FakeUsers
 {
+    public IList<LoginDetails>? LoginDetailsList { get; init; } = default;
     public IList<User>? Users { get; init; } = default;
-    public IList<DbUser>? DbUsers { get; init; } = default;
 
 }

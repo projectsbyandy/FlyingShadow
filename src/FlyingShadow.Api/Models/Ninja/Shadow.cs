@@ -1,4 +1,4 @@
-namespace FlyingShadow.Api.DTO.Ninja;
+namespace FlyingShadow.Api.Models.Ninja;
 
 internal record Shadow
 {

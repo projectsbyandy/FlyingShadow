@@ -1,13 +1,13 @@
-using FlyingShadow.Api.DTO.Authenticate;
 using FlyingShadow.Api.DTO.Configuration;
-using FlyingShadow.Api.DTO.ResultType;
+using FlyingShadow.Api.Models.ResultType;
+using FlyingShadow.Api.Models.Users;
 
 namespace FlyingShadow.Api.Repositories.Internal;
 
 internal class FakeUserRepository : IUserRepository
 {
     private readonly Configuration _configuration;
-    private IList<DbUser>? _dbUsers;
+    private IList<User> _users = [];
     
     public FakeUserRepository(Configuration configuration)
     {
@@ -20,28 +20,30 @@ internal class FakeUserRepository : IUserRepository
         if (_configuration.FakeUsers is null)
             Console.WriteLine("Mock data has not been configured");
         
-        _dbUsers = _configuration.FakeUsers?.DbUsers;
+        _users = _configuration.FakeUsers?.Users!;
 
     }
 
-    public Result<DbUser, Error> GetUser(string email)
+    public Result<User, Error> GetUser(string email)
     {
-        var user = _dbUsers?.SingleOrDefault(user => user.Email.Equals(email));
+        var user = _users.SingleOrDefault(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         return user is not null 
-            ? Result<DbUser, Error>.Success(user)
-            : Result<DbUser, Error>.Failure(new Error("NOT_FOUND", $"User with {email} was not found"));
+            ? Result<User, Error>.Success(user)
+            : Result<User, Error>.Failure(new Error("NOT_FOUND", $"User with {email} was not found"));
     }
 
-    public Result<Guid, Error> AddUser(User user)
+    public Result<User, Error> AddUser(User user)
     {
-        var passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password, workFactor:14);
-        var userToCreate = new DbUser()
-        {
-            Email = user.Email,
-            Hash = passwordHash
-        };
-        _dbUsers?.Add(userToCreate);
+        _users.Add(user);
 
-        return Result<Guid, Error>.Success(userToCreate.UserId);
+        return Result<User, Error>.Success(user);
+    }
+
+    public Result<Outcome, Error> EnsureUserDoesNotExist(string email)
+    {
+        var exists = _users.Any(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        return exists
+            ? Result<Outcome, Error>.Failure(new Error("ALREADY_REGISTERED", $"User with {email} already registered"))
+            : Result<Outcome, Error>.Success(Outcome.Value);
     }
 }

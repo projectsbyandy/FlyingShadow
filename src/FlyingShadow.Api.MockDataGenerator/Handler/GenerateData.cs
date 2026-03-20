@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using FlyingShadow.Api.DTO.ResultType;
+using FlyingShadow.Api.Models.ResultType;
 
 namespace FlyingShadow.Api.MockDataGenerator.Handler;
 
@@ -24,11 +24,11 @@ internal static class GenerateData
         var credentials = StaticUsers.Select(u =>
         {
             var password = RandomPassword();
-            var hash     = BCrypt.Net.BCrypt.HashPassword(password, workFactor: 14);
+            var hashedPassword= BCrypt.Net.BCrypt.HashPassword(password, workFactor: 14);
  
             Console.WriteLine($"MockDataGenerator: Created {u.Email}");
  
-            return new UserCredentials(u.UserId, u.Email, password, hash);
+            return new UserCredentials(u.UserId, u.Email, password, hashedPassword);
         }).ToList();
  
         return Task.FromResult(Result<PipelineContext, int>.Success(context with
@@ -42,45 +42,44 @@ internal static class GenerateData
     {
         try
         {
+            Directory.CreateDirectory(Path.GetDirectoryName(context.FakeLoginDetailsListPath)!);
             Directory.CreateDirectory(Path.GetDirectoryName(context.FakeUsersPath)!);
-            Directory.CreateDirectory(Path.GetDirectoryName(context.FakeDbUsersPath)!);
  
-            var fakeUsersRoot = new
+            var fakeLoginDetailsListRoot = new
             {
                 jwt = new { secret = context.JwtSecret },
                 fakeUsers = new
                 {
-                    users = context.Credentials.Select(c => new
+                    loginDetailsList = context.Credentials.Select(c => new
                     {
-                        userId   = c.UserId,
                         email    = c.Email,
                         password = c.Password,
                     }),   
                 }
             };
 
-            var fakeDbUsersRoot = new
+            var fakeUsersRoot = new
             {
                 fakeUsers = new {
-                    dbUsers = context.Credentials.Select(c => new
+                    users = context.Credentials.Select(c => new
                     {
-                    userId = c.UserId,
-                    email = c.Email,
-                    hash = c.Hash,
+                        userId = c.UserId,
+                        email = c.Email,
+                        hashedPassword = c.HashedPassword
                     })
                 }
             };
             
             await File.WriteAllTextAsync(
+                context.FakeLoginDetailsListPath,
+                JsonSerializer.Serialize(fakeLoginDetailsListRoot, JsonOpts));
+ 
+            await File.WriteAllTextAsync(
                 context.FakeUsersPath,
                 JsonSerializer.Serialize(fakeUsersRoot, JsonOpts));
  
-            await File.WriteAllTextAsync(
-                context.FakeDbUsersPath,
-                JsonSerializer.Serialize(fakeDbUsersRoot, JsonOpts));
- 
+            Console.WriteLine($"MockDataGenerator: written {context.FakeLoginDetailsListPath}");
             Console.WriteLine($"MockDataGenerator: written {context.FakeUsersPath}");
-            Console.WriteLine($"MockDataGenerator: written {context.FakeDbUsersPath}");
  
             return Result<int, int>.Success(0);
         }

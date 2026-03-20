@@ -35,7 +35,7 @@ public static class ConfigReader
     private static IConfigurationBuilder AddMockData(this IConfigurationBuilder builder)
     {
         return builder
-            .AddJsonFile("_GeneratedData/fakeDbUsers.json", optional: true)
+            .AddJsonFile("_GeneratedData/fakeLoginDetailsList.json", optional: true)
             .AddJsonFile("_GeneratedData/fakeUsers.json", optional: true);
     }
 }

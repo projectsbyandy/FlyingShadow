@@ -1,10 +1,11 @@
-using FlyingShadow.Api.DTO.Authenticate;
-using FlyingShadow.Api.DTO.ResultType;
+using FlyingShadow.Api.Models.ResultType;
+using FlyingShadow.Api.Models.Users;
 
 namespace FlyingShadow.Api.Repositories;
 
 public interface IUserRepository
 {
-    public Result<DbUser, Error> GetUser(string name);
-    public Result<Guid, Error> AddUser(User user);
+    public Result<User, Error> GetUser(string email);
+    public Result<User, Error> AddUser(User user);
+    public Result<Outcome, Error> EnsureUserDoesNotExist(string email);
 }

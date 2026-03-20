@@ -1,8 +1,8 @@
 using Ardalis.GuardClauses;
 using FlyingShadow.Api.DTO.Authenticate;
 using FlyingShadow.Api.DTO.Configuration;
-using FlyingShadow.Api.DTO.ResultType;
 using FlyingShadow.Api.Integration.Tests.TestExtensions;
+using FlyingShadow.Api.Models.ResultType;
 using FlyingShadow.Api.Repositories.Internal;
 using FlyingShadow.Api.Services;
 using FlyingShadow.Api.Services.Internal;
@@ -18,19 +18,21 @@ public class AuthenticationServiceTests
     private readonly IAuthenticationService _sut = new AuthenticationService(new FakeUserRepository(Config));
     private const string ValidEmail = "john.doe@sample.org";
     
+    # region Validate Credentials
     [MockDataFact]
     public void Verify_Successful_User_Validation()
     {
         // Arrange
-        var user = Config.FakeUsers?.Users?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
-        Guard.Against.Null(user);
+        var loginDetails = Config.FakeUsers?.LoginDetailsList?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
+        Guard.Against.Null(loginDetails);
         
         // Act
-        var result = _sut.ValidateCredentials(user);
+        var result = _sut.ValidateCredentials(loginDetails);
         
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(result.Value, user);
+        Assert.Equal(loginDetails.Email, result.Value?.Email);
+        Assert.NotEqual(Guid.Empty, result.Value?.UserId);
     }
     
     [MockDataTheory]
@@ -39,7 +41,7 @@ public class AuthenticationServiceTests
     public void Verify_Unsuccessful_Validation_With_Valid_Email_Invalid_Password(string password)
     {
         // Arrange / Act
-        var result = _sut.ValidateCredentials(new User()
+        var result = _sut.ValidateCredentials(new LoginDetails()
         {
             Email = ValidEmail,
             Password = password
@@ -56,7 +58,7 @@ public class AuthenticationServiceTests
     public void Verify_Unsuccessful_Validation_With_Invalid_Email(string email)
     {
         // Arrange / Act
-        var result = _sut.ValidateCredentials(new User()
+        var result = _sut.ValidateCredentials(new LoginDetails()
         {
             Email = email,
             Password = "na"
@@ -66,4 +68,42 @@ public class AuthenticationServiceTests
         Assert.False(result.IsSuccess);
         Assert.Equal(result.Error, new Error("NOT_FOUND", $"User with {email} was not found"));
     }
+    #endregion
+    
+    #region Register User
+    
+    [MockDataFact]
+    public void Verify_A_User_Can_Be_Registered()
+    {
+        // Arrange
+        var user = new RegisterRequest()
+        {
+            Email = "test@test.com",
+            Password = "test123",
+        };
+        
+        // Act
+        var result = _sut.Register(user);
+        
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotEqual(Guid.Empty, result.Value?.UserId);
+        Assert.Equal(user.Email, result.Value?.Email);
+    }
+    
+    [MockDataFact]
+    public void Verify_An_Existing_User_Cannot_Be_Registered()
+    {
+        // Arrange
+        var existingLoginDetails = Config.FakeUsers?.LoginDetailsList?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
+        Guard.Against.Null(existingLoginDetails);
+        
+        // Act
+        var result = _sut.Register(existingLoginDetails);
+        
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(result.Error, new Error("ALREADY_REGISTERED", $"User with {existingLoginDetails.Email} already registered"));
+    }
+    # endregion
 }

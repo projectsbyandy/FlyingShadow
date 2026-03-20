@@ -5,7 +5,7 @@ public sealed class MockDataFactAttribute : FactAttribute
 {
     public MockDataFactAttribute()
     {
-        if (!File.Exists(MockDataPaths.FakeUsersPath) || !File.Exists(MockDataPaths.UserStorePath))
+        if (!File.Exists(MockDataPaths.FakeUsersPath) || !File.Exists(MockDataPaths.LoginDetailsListPath))
             Skip = "Mock data files not present. Run: dotnet build -p:GenerateMockData=true";
     }
 }

@@ -1,13 +1,13 @@
 using System.Text.Json.Serialization;
 
-namespace FlyingShadow.Api.DTO.Authenticate;
+namespace FlyingShadow.Api.Models.Users;
 
-public record DbUser
+public record User
 {
     public Guid UserId { get; init; } = Guid.NewGuid();
     
     public required string Email { get; init; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public required string Hash { get; init; }
+    public required string HashedPassword { get; init; }
 }

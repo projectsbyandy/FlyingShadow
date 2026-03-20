@@ -23,8 +23,8 @@
 
     <PropertyGroup>
         <!-- Paths to the generated mock data files -->
-        <FakeUsersJsonPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeUsers.json</FakeUsersJsonPath>
-        <fakeDbUsersPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeDbUsers.json</fakeDbUsersPath>
+        <FakeLoginDetailsListPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeloginDetailsList.json</FakeLoginDetailsListPath>
+        <fakeUsersPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeUsers.json</fakeUsersPath>
 
         <!-- Path to the MockDataGenerator project -->
         <MockGeneratorProject>$(MSBuildProjectDirectory)\..\FlyingShadow.Api.MockDataGenerator\FlyingShadow.Api.MockDataGenerator.csproj</MockGeneratorProject>
@@ -51,7 +51,7 @@
                 BuildInParallel="false" />
 
         <!-- Run the generator — it skips internally if both files already exist -->
-        <Exec Command='"$(MockGeneratorBin)" "$(FakeUsersJsonPath)" "$(fakeDbUsersPath)"'/>
+        <Exec Command='"$(MockGeneratorBin)" "$(FakeLoginDetailsListPath)" "$(fakeUsersPath)"'/>
     </Target>
 
     <!-- ── 2. Copy generated JSON files to output directory on every build ───── -->
@@ -71,7 +71,8 @@
                  Link="fakeDbUsers.json" />
     </ItemGroup>
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="_GeneratedData\fakeDbUsers.json" />
+      <_ContentIncludedByDefault Remove="_GeneratedData\fakeLoginDetailsList.json" />
       <_ContentIncludedByDefault Remove="_GeneratedData\fakeUsers.json" />
+      <_ContentIncludedByDefault Remove="_GeneratedData\fakeDbUsers.json" />
     </ItemGroup>
 </Project>

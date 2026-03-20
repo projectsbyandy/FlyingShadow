@@ -1,4 +1,4 @@
-namespace FlyingShadow.Api.DTO.ResultType;
+namespace FlyingShadow.Api.Models.ResultType;
 
 public class Result<T, TError>
 {
