@@ -9,10 +9,12 @@ namespace FlyingShadow.Api.Ioc;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddFlyingApiSupport(this IServiceCollection services)
+    public static IServiceCollection AddFlyingShadowApiSupport(this IServiceCollection services)
     {
         services.AddScoped<Configuration>(_ => ConfigReader.GetConfiguration<Configuration>())
             .AddScoped<IUserRepository, FakeUserRepository>()
+            .AddScoped<IShadowRepository, FakeShadowRepository>()
+            .AddScoped<IStealthMetricsRepository, FakeStealthMetricsRepository>()
             .AddScoped<IAuthenticationService, AuthenticationService>();
         
         return services;

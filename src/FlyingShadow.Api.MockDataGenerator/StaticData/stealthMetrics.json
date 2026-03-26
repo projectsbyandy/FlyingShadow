@@ -1,0 +1,1204 @@
+{
+  "fakeStealthMetrics": [
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000031",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000031",
+      "shadowBlendScore": 53,
+      "silenceRating": 28,
+      "invisibilityDurationMs": 3667,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000032",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000032",
+      "shadowBlendScore": 12,
+      "silenceRating": 7,
+      "invisibilityDurationMs": 4936,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000033",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000033",
+      "shadowBlendScore": 52,
+      "silenceRating": 55,
+      "invisibilityDurationMs": 4851,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000034",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000034",
+      "shadowBlendScore": 41,
+      "silenceRating": 75,
+      "invisibilityDurationMs": 2996,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000035",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000035",
+      "shadowBlendScore": 55,
+      "silenceRating": 48,
+      "invisibilityDurationMs": 1022,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000036",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000036",
+      "shadowBlendScore": 11,
+      "silenceRating": 49,
+      "invisibilityDurationMs": 3714,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000037",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000037",
+      "shadowBlendScore": 25,
+      "silenceRating": 65,
+      "invisibilityDurationMs": 1770,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000038",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000038",
+      "shadowBlendScore": 56,
+      "silenceRating": 100,
+      "invisibilityDurationMs": 4188,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000039",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000039",
+      "shadowBlendScore": 87,
+      "silenceRating": 52,
+      "invisibilityDurationMs": 3199,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000040",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000040",
+      "shadowBlendScore": 100,
+      "silenceRating": 11,
+      "invisibilityDurationMs": 1144,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000041",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000041",
+      "shadowBlendScore": 83,
+      "silenceRating": 66,
+      "invisibilityDurationMs": 3479,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000042",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000042",
+      "shadowBlendScore": 34,
+      "silenceRating": 55,
+      "invisibilityDurationMs": 4049,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000043",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000043",
+      "shadowBlendScore": 12,
+      "silenceRating": 22,
+      "invisibilityDurationMs": 2366,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000044",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000044",
+      "shadowBlendScore": 74,
+      "silenceRating": 91,
+      "invisibilityDurationMs": 4277,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000045",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000045",
+      "shadowBlendScore": 33,
+      "silenceRating": 11,
+      "invisibilityDurationMs": 1393,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000046",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000046",
+      "shadowBlendScore": 45,
+      "silenceRating": 31,
+      "invisibilityDurationMs": 1002,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000047",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000047",
+      "shadowBlendScore": 69,
+      "silenceRating": 95,
+      "invisibilityDurationMs": 4735,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000048",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000048",
+      "shadowBlendScore": 84,
+      "silenceRating": 22,
+      "invisibilityDurationMs": 4603,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000049",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000049",
+      "shadowBlendScore": 11,
+      "silenceRating": 71,
+      "invisibilityDurationMs": 2876,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000050",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000050",
+      "shadowBlendScore": 1,
+      "silenceRating": 28,
+      "invisibilityDurationMs": 3957,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000051",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000051",
+      "shadowBlendScore": 89,
+      "silenceRating": 14,
+      "invisibilityDurationMs": 2122,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000052",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000052",
+      "shadowBlendScore": 52,
+      "silenceRating": 6,
+      "invisibilityDurationMs": 1544,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000053",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000053",
+      "shadowBlendScore": 91,
+      "silenceRating": 96,
+      "invisibilityDurationMs": 4605,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000054",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000054",
+      "shadowBlendScore": 15,
+      "silenceRating": 8,
+      "invisibilityDurationMs": 1663,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000055",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000055",
+      "shadowBlendScore": 31,
+      "silenceRating": 2,
+      "invisibilityDurationMs": 3929,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000056",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000056",
+      "shadowBlendScore": 13,
+      "silenceRating": 72,
+      "invisibilityDurationMs": 1306,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000057",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000057",
+      "shadowBlendScore": 38,
+      "silenceRating": 82,
+      "invisibilityDurationMs": 4427,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000058",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000058",
+      "shadowBlendScore": 22,
+      "silenceRating": 41,
+      "invisibilityDurationMs": 2265,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000059",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000059",
+      "shadowBlendScore": 93,
+      "silenceRating": 36,
+      "invisibilityDurationMs": 3887,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000060",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000060",
+      "shadowBlendScore": 72,
+      "silenceRating": 35,
+      "invisibilityDurationMs": 3739,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000061",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000061",
+      "shadowBlendScore": 34,
+      "silenceRating": 28,
+      "invisibilityDurationMs": 1353,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000062",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000062",
+      "shadowBlendScore": 51,
+      "silenceRating": 80,
+      "invisibilityDurationMs": 3752,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000063",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000063",
+      "shadowBlendScore": 79,
+      "silenceRating": 91,
+      "invisibilityDurationMs": 3249,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000064",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000064",
+      "shadowBlendScore": 8,
+      "silenceRating": 30,
+      "invisibilityDurationMs": 1635,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000065",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000065",
+      "shadowBlendScore": 40,
+      "silenceRating": 35,
+      "invisibilityDurationMs": 1704,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000066",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000066",
+      "shadowBlendScore": 89,
+      "silenceRating": 30,
+      "invisibilityDurationMs": 4512,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000067",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000067",
+      "shadowBlendScore": 74,
+      "silenceRating": 71,
+      "invisibilityDurationMs": 3333,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000068",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000068",
+      "shadowBlendScore": 73,
+      "silenceRating": 85,
+      "invisibilityDurationMs": 2663,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000069",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000069",
+      "shadowBlendScore": 16,
+      "silenceRating": 39,
+      "invisibilityDurationMs": 1563,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000070",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000070",
+      "shadowBlendScore": 62,
+      "silenceRating": 68,
+      "invisibilityDurationMs": 3050,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000071",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000071",
+      "shadowBlendScore": 19,
+      "silenceRating": 71,
+      "invisibilityDurationMs": 2595,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000072",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000072",
+      "shadowBlendScore": 14,
+      "silenceRating": 22,
+      "invisibilityDurationMs": 1148,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000073",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000073",
+      "shadowBlendScore": 72,
+      "silenceRating": 82,
+      "invisibilityDurationMs": 2762,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000074",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000074",
+      "shadowBlendScore": 37,
+      "silenceRating": 59,
+      "invisibilityDurationMs": 4601,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000075",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000075",
+      "shadowBlendScore": 77,
+      "silenceRating": 82,
+      "invisibilityDurationMs": 2547,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000076",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000076",
+      "shadowBlendScore": 48,
+      "silenceRating": 74,
+      "invisibilityDurationMs": 2214,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000077",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000077",
+      "shadowBlendScore": 19,
+      "silenceRating": 71,
+      "invisibilityDurationMs": 2520,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000078",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000078",
+      "shadowBlendScore": 66,
+      "silenceRating": 80,
+      "invisibilityDurationMs": 2168,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000079",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000079",
+      "shadowBlendScore": 70,
+      "silenceRating": 58,
+      "invisibilityDurationMs": 3733,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000080",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000080",
+      "shadowBlendScore": 54,
+      "silenceRating": 82,
+      "invisibilityDurationMs": 3885,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000081",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000081",
+      "shadowBlendScore": 35,
+      "silenceRating": 35,
+      "invisibilityDurationMs": 3042,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000082",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000082",
+      "shadowBlendScore": 1,
+      "silenceRating": 35,
+      "invisibilityDurationMs": 4831,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000083",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000083",
+      "shadowBlendScore": 51,
+      "silenceRating": 5,
+      "invisibilityDurationMs": 4702,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000084",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000084",
+      "shadowBlendScore": 28,
+      "silenceRating": 97,
+      "invisibilityDurationMs": 1491,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000085",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000085",
+      "shadowBlendScore": 83,
+      "silenceRating": 62,
+      "invisibilityDurationMs": 4817,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000086",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000086",
+      "shadowBlendScore": 9,
+      "silenceRating": 3,
+      "invisibilityDurationMs": 3309,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000087",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000087",
+      "shadowBlendScore": 56,
+      "silenceRating": 48,
+      "invisibilityDurationMs": 3628,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000088",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000088",
+      "shadowBlendScore": 58,
+      "silenceRating": 86,
+      "invisibilityDurationMs": 1158,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000089",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000089",
+      "shadowBlendScore": 46,
+      "silenceRating": 46,
+      "invisibilityDurationMs": 4213,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000090",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000090",
+      "shadowBlendScore": 31,
+      "silenceRating": 47,
+      "invisibilityDurationMs": 2592,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000091",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000091",
+      "shadowBlendScore": 66,
+      "silenceRating": 51,
+      "invisibilityDurationMs": 2886,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000092",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000092",
+      "shadowBlendScore": 98,
+      "silenceRating": 22,
+      "invisibilityDurationMs": 3961,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000093",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000093",
+      "shadowBlendScore": 37,
+      "silenceRating": 13,
+      "invisibilityDurationMs": 2020,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000094",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000094",
+      "shadowBlendScore": 13,
+      "silenceRating": 68,
+      "invisibilityDurationMs": 3967,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000095",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000095",
+      "shadowBlendScore": 7,
+      "silenceRating": 99,
+      "invisibilityDurationMs": 1706,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000096",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000096",
+      "shadowBlendScore": 99,
+      "silenceRating": 35,
+      "invisibilityDurationMs": 3664,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000097",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000097",
+      "shadowBlendScore": 77,
+      "silenceRating": 12,
+      "invisibilityDurationMs": 1384,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000098",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000098",
+      "shadowBlendScore": 51,
+      "silenceRating": 17,
+      "invisibilityDurationMs": 1928,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000099",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000099",
+      "shadowBlendScore": 37,
+      "silenceRating": 85,
+      "invisibilityDurationMs": 992,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000100",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000100",
+      "shadowBlendScore": 25,
+      "silenceRating": 61,
+      "invisibilityDurationMs": 3755,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000101",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000101",
+      "shadowBlendScore": 64,
+      "silenceRating": 23,
+      "invisibilityDurationMs": 1597,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000102",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000102",
+      "shadowBlendScore": 13,
+      "silenceRating": 33,
+      "invisibilityDurationMs": 3543,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000103",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000103",
+      "shadowBlendScore": 62,
+      "silenceRating": 92,
+      "invisibilityDurationMs": 4445,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000104",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000104",
+      "shadowBlendScore": 60,
+      "silenceRating": 55,
+      "invisibilityDurationMs": 1600,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000105",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000105",
+      "shadowBlendScore": 44,
+      "silenceRating": 52,
+      "invisibilityDurationMs": 4710,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000106",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000106",
+      "shadowBlendScore": 36,
+      "silenceRating": 57,
+      "invisibilityDurationMs": 2250,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000107",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000107",
+      "shadowBlendScore": 78,
+      "silenceRating": 85,
+      "invisibilityDurationMs": 2887,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000108",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000108",
+      "shadowBlendScore": 25,
+      "silenceRating": 68,
+      "invisibilityDurationMs": 3376,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000109",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000109",
+      "shadowBlendScore": 14,
+      "silenceRating": 60,
+      "invisibilityDurationMs": 1859,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000110",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000110",
+      "shadowBlendScore": 61,
+      "silenceRating": 43,
+      "invisibilityDurationMs": 2489,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000111",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000111",
+      "shadowBlendScore": 65,
+      "silenceRating": 3,
+      "invisibilityDurationMs": 3139,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000112",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000112",
+      "shadowBlendScore": 51,
+      "silenceRating": 40,
+      "invisibilityDurationMs": 4698,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000113",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000113",
+      "shadowBlendScore": 35,
+      "silenceRating": 20,
+      "invisibilityDurationMs": 3660,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000114",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000114",
+      "shadowBlendScore": 54,
+      "silenceRating": 58,
+      "invisibilityDurationMs": 2338,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000115",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000115",
+      "shadowBlendScore": 35,
+      "silenceRating": 79,
+      "invisibilityDurationMs": 1778,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000116",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000116",
+      "shadowBlendScore": 72,
+      "silenceRating": 37,
+      "invisibilityDurationMs": 956,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000117",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000117",
+      "shadowBlendScore": 50,
+      "silenceRating": 13,
+      "invisibilityDurationMs": 2868,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000118",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000118",
+      "shadowBlendScore": 22,
+      "silenceRating": 90,
+      "invisibilityDurationMs": 3905,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000119",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000119",
+      "shadowBlendScore": 41,
+      "silenceRating": 6,
+      "invisibilityDurationMs": 2479,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000120",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000120",
+      "shadowBlendScore": 46,
+      "silenceRating": 22,
+      "invisibilityDurationMs": 1325,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000121",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000121",
+      "shadowBlendScore": 43,
+      "silenceRating": 35,
+      "invisibilityDurationMs": 984,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000122",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000122",
+      "shadowBlendScore": 71,
+      "silenceRating": 74,
+      "invisibilityDurationMs": 2019,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000123",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000123",
+      "shadowBlendScore": 62,
+      "silenceRating": 15,
+      "invisibilityDurationMs": 1961,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000124",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000124",
+      "shadowBlendScore": 2,
+      "silenceRating": 58,
+      "invisibilityDurationMs": 4003,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000125",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000125",
+      "shadowBlendScore": 47,
+      "silenceRating": 48,
+      "invisibilityDurationMs": 1816,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000126",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000126",
+      "shadowBlendScore": 47,
+      "silenceRating": 29,
+      "invisibilityDurationMs": 3671,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000127",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000127",
+      "shadowBlendScore": 5,
+      "silenceRating": 90,
+      "invisibilityDurationMs": 3473,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000128",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000128",
+      "shadowBlendScore": 96,
+      "silenceRating": 80,
+      "invisibilityDurationMs": 4554,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000129",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000129",
+      "shadowBlendScore": 26,
+      "silenceRating": 74,
+      "invisibilityDurationMs": 4175,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000130",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000130",
+      "shadowBlendScore": 90,
+      "silenceRating": 94,
+      "invisibilityDurationMs": 2974,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000131",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000131",
+      "shadowBlendScore": 67,
+      "silenceRating": 18,
+      "invisibilityDurationMs": 2976,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000132",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000132",
+      "shadowBlendScore": 33,
+      "silenceRating": 5,
+      "invisibilityDurationMs": 1136,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000133",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000133",
+      "shadowBlendScore": 67,
+      "silenceRating": 60,
+      "invisibilityDurationMs": 4439,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000134",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000134",
+      "shadowBlendScore": 44,
+      "silenceRating": 57,
+      "invisibilityDurationMs": 4433,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000135",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000135",
+      "shadowBlendScore": 35,
+      "silenceRating": 79,
+      "invisibilityDurationMs": 3219,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000136",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000136",
+      "shadowBlendScore": 89,
+      "silenceRating": 12,
+      "invisibilityDurationMs": 3689,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000137",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000137",
+      "shadowBlendScore": 59,
+      "silenceRating": 83,
+      "invisibilityDurationMs": 1207,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000138",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000138",
+      "shadowBlendScore": 88,
+      "silenceRating": 73,
+      "invisibilityDurationMs": 4562,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000139",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000139",
+      "shadowBlendScore": 69,
+      "silenceRating": 20,
+      "invisibilityDurationMs": 2066,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000140",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000140",
+      "shadowBlendScore": 53,
+      "silenceRating": 16,
+      "invisibilityDurationMs": 1748,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000141",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000141",
+      "shadowBlendScore": 29,
+      "silenceRating": 49,
+      "invisibilityDurationMs": 3238,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000142",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000142",
+      "shadowBlendScore": 2,
+      "silenceRating": 38,
+      "invisibilityDurationMs": 3963,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000143",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000143",
+      "shadowBlendScore": 12,
+      "silenceRating": 66,
+      "invisibilityDurationMs": 4961,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000144",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000144",
+      "shadowBlendScore": 18,
+      "silenceRating": 49,
+      "invisibilityDurationMs": 2291,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000145",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000145",
+      "shadowBlendScore": 75,
+      "silenceRating": 48,
+      "invisibilityDurationMs": 4487,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000146",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000146",
+      "shadowBlendScore": 100,
+      "silenceRating": 73,
+      "invisibilityDurationMs": 2133,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000147",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000147",
+      "shadowBlendScore": 68,
+      "silenceRating": 78,
+      "invisibilityDurationMs": 2466,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000148",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000148",
+      "shadowBlendScore": 98,
+      "silenceRating": 26,
+      "invisibilityDurationMs": 840,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000149",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000149",
+      "shadowBlendScore": 41,
+      "silenceRating": 38,
+      "invisibilityDurationMs": 2652,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000150",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000150",
+      "shadowBlendScore": 78,
+      "silenceRating": 51,
+      "invisibilityDurationMs": 3405,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000151",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000151",
+      "shadowBlendScore": 6,
+      "silenceRating": 37,
+      "invisibilityDurationMs": 3220,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000152",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000152",
+      "shadowBlendScore": 88,
+      "silenceRating": 71,
+      "invisibilityDurationMs": 4639,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000153",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000153",
+      "shadowBlendScore": 41,
+      "silenceRating": 1,
+      "invisibilityDurationMs": 2567,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000154",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000154",
+      "shadowBlendScore": 78,
+      "silenceRating": 87,
+      "invisibilityDurationMs": 4122,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000155",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000155",
+      "shadowBlendScore": 80,
+      "silenceRating": 81,
+      "invisibilityDurationMs": 4813,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000156",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000156",
+      "shadowBlendScore": 38,
+      "silenceRating": 24,
+      "invisibilityDurationMs": 2335,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000157",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000157",
+      "shadowBlendScore": 65,
+      "silenceRating": 65,
+      "invisibilityDurationMs": 3929,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000158",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000158",
+      "shadowBlendScore": 98,
+      "silenceRating": 91,
+      "invisibilityDurationMs": 2555,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000159",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000159",
+      "shadowBlendScore": 86,
+      "silenceRating": 62,
+      "invisibilityDurationMs": 2990,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000160",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000160",
+      "shadowBlendScore": 47,
+      "silenceRating": 94,
+      "invisibilityDurationMs": 2550,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000161",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000161",
+      "shadowBlendScore": 51,
+      "silenceRating": 34,
+      "invisibilityDurationMs": 4579,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000162",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000162",
+      "shadowBlendScore": 46,
+      "silenceRating": 49,
+      "invisibilityDurationMs": 1170,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000163",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000163",
+      "shadowBlendScore": 79,
+      "silenceRating": 49,
+      "invisibilityDurationMs": 4694,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000164",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000164",
+      "shadowBlendScore": 15,
+      "silenceRating": 20,
+      "invisibilityDurationMs": 3209,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000165",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000165",
+      "shadowBlendScore": 81,
+      "silenceRating": 44,
+      "invisibilityDurationMs": 874,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000166",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000166",
+      "shadowBlendScore": 20,
+      "silenceRating": 11,
+      "invisibilityDurationMs": 1478,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000167",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000167",
+      "shadowBlendScore": 89,
+      "silenceRating": 28,
+      "invisibilityDurationMs": 890,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000168",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000168",
+      "shadowBlendScore": 56,
+      "silenceRating": 82,
+      "invisibilityDurationMs": 1578,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000169",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000169",
+      "shadowBlendScore": 34,
+      "silenceRating": 52,
+      "invisibilityDurationMs": 2120,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000170",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000170",
+      "shadowBlendScore": 95,
+      "silenceRating": 95,
+      "invisibilityDurationMs": 4978,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000171",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000171",
+      "shadowBlendScore": 62,
+      "silenceRating": 34,
+      "invisibilityDurationMs": 4342,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000172",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000172",
+      "shadowBlendScore": 43,
+      "silenceRating": 28,
+      "invisibilityDurationMs": 3812,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000173",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000173",
+      "shadowBlendScore": 32,
+      "silenceRating": 40,
+      "invisibilityDurationMs": 3278,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000174",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000174",
+      "shadowBlendScore": 48,
+      "silenceRating": 54,
+      "invisibilityDurationMs": 1415,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000175",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000175",
+      "shadowBlendScore": 96,
+      "silenceRating": 40,
+      "invisibilityDurationMs": 1886,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000176",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000176",
+      "shadowBlendScore": 56,
+      "silenceRating": 71,
+      "invisibilityDurationMs": 1073,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000177",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000177",
+      "shadowBlendScore": 73,
+      "silenceRating": 2,
+      "invisibilityDurationMs": 4768,
+      "acrobaticsLevel": "Advanced"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000178",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000178",
+      "shadowBlendScore": 98,
+      "silenceRating": 48,
+      "invisibilityDurationMs": 4215,
+      "acrobaticsLevel": "Intermediate"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000179",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000179",
+      "shadowBlendScore": 89,
+      "silenceRating": 62,
+      "invisibilityDurationMs": 3577,
+      "acrobaticsLevel": "Beginner"
+    },
+    {
+      "id": "b2c3d4e5-f6a7-4b8c-9d0e-000000000180",
+      "shadowId": "550e8400-e29b-41d4-a716-000000000180",
+      "shadowBlendScore": 36,
+      "silenceRating": 92,
+      "invisibilityDurationMs": 3932,
+      "acrobaticsLevel": "Beginner"
+    }
+  ]
+}

@@ -1,27 +1,24 @@
+using Ardalis.GuardClauses;
 using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.Models.ResultType;
 using FlyingShadow.Api.Models.Users;
+using FlyingShadow.Api.Utils;
 
 namespace FlyingShadow.Api.Repositories.Internal;
 
-internal class FakeUserRepository : IUserRepository
+internal class FakeUserRepository : WithMockData<IList<User>>, IUserRepository
 {
-    private readonly Configuration _configuration;
-    private IList<User> _users = [];
+    private readonly IList<User> _users;
     
-    public FakeUserRepository(Configuration configuration)
+    public FakeUserRepository()
     {
-        _configuration = configuration;
-        AttachMockDbUsers();
+        _users = LoadMockData();
     }
 
-    private void AttachMockDbUsers()
+    public sealed override IList<User> LoadMockData()
     {
-        if (_configuration.FakeUsers is null)
-            Console.WriteLine("Mock data has not been configured");
-        
-        _users = _configuration.FakeUsers?.Users!;
-
+        return Guard.Against.Null(ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers").Users, 
+            "Users Mock data has not been configured");
     }
 
     public Result<User, Error> GetUser(string email)

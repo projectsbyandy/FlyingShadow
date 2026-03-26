@@ -14,8 +14,8 @@ namespace FlyingShadow.Api.Integration.Tests.Services;
 
 public class AuthenticationServiceTests
 {
-    private static readonly Configuration Config = ConfigReader.GetConfiguration<Configuration>();
-    private readonly IAuthenticationService _sut = new AuthenticationService(new FakeUserRepository(Config));
+    private static readonly FakeUsers FakeUsers = ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers");
+    private readonly IAuthenticationService _sut = new AuthenticationService(new FakeUserRepository());
     private const string ValidEmail = "john.doe@sample.org";
     
     # region Validate Credentials
@@ -23,7 +23,7 @@ public class AuthenticationServiceTests
     public void Verify_Successful_User_Validation()
     {
         // Arrange
-        var loginDetails = Config.FakeUsers?.LoginDetailsList?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
+        var loginDetails = FakeUsers.LoginDetailsList?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
         Guard.Against.Null(loginDetails);
         
         // Act
@@ -95,7 +95,7 @@ public class AuthenticationServiceTests
     public void Verify_An_Existing_User_Cannot_Be_Registered()
     {
         // Arrange
-        var existingLoginDetails = Config.FakeUsers?.LoginDetailsList?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
+        var existingLoginDetails = FakeUsers.LoginDetailsList?.FirstOrDefault(user => user.Email.Equals(ValidEmail));
         Guard.Against.Null(existingLoginDetails);
         
         // Act

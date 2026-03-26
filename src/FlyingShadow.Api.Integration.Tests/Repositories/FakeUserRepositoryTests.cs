@@ -12,12 +12,12 @@ namespace FlyingShadow.Api.Integration.Tests.Repositories;
 
 public class FakeUserRepositoryTests
 {
-    private static readonly Configuration Config = ConfigReader.GetConfiguration<Configuration>();
+    private static readonly FakeUsers FakeUsers = ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers");
     private readonly IUserRepository _sut;
     
     public FakeUserRepositoryTests()
     {
-        _sut = new FakeUserRepository(Config);    
+        _sut = new FakeUserRepository();    
     }
     
     [MockDataFact]
@@ -47,7 +47,7 @@ public class FakeUserRepositoryTests
     public void Verify_A_User_Can_Be_Retrieved()
     {
         // Arrange
-        var loginDetails = Config.FakeUsers?.LoginDetailsList?.FirstOrDefault();
+        var loginDetails = FakeUsers.LoginDetailsList?.FirstOrDefault();
         Guard.Against.Null(loginDetails);
         
         // Act

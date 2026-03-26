@@ -1,27 +1,24 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using FlyingShadow.Api.MockDataGenerator.Utilities;
 using FlyingShadow.Api.Models.ResultType;
+using FlyingShadow.Api.Models.Users;
 
 namespace FlyingShadow.Api.MockDataGenerator.Handler;
 
-internal static class GenerateData
+internal static class GenerateUserData
 {
     private static readonly JsonSerializerOptions JsonOpts = new() { WriteIndented = true };
     
-    private static readonly (string UserId, string Email)[] StaticUsers =
-    [
-        ("820bad3a-58cd-4f6f-970c-11e7aca30b89", "demo_user@sample.org"),
-        ("58d6bc7b-06a7-421e-8f38-4f0e9d09420d", "john.doe@sample.org"),
-    ];
-
-    public static Task<Result<PipelineContext, int>> CredentialsAsync(PipelineContext context)
+    public static async Task<Result<PipelineContext, int>> CredentialsAsync(PipelineContext context)
     {
         Console.WriteLine("MockDataGenerator: generating credentials...");
  
         var jwtSecret = Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
- 
-        var credentials = StaticUsers.Select(u =>
+        
+        var users = await FileReader.ReadAsync<IList<User>>("StaticData/users.json");
+        var credentials = users.Select(u =>
         {
             var password = RandomPassword();
             var hashedPassword= BCrypt.Net.BCrypt.HashPassword(password, workFactor: 14);
@@ -31,19 +28,19 @@ internal static class GenerateData
             return new UserCredentials(u.UserId, u.Email, password, hashedPassword);
         }).ToList();
  
-        return Task.FromResult(Result<PipelineContext, int>.Success(context with
+        return Result<PipelineContext, int>.Success(context with
         {
             JwtSecret   = jwtSecret,
             Credentials = credentials,
-        }));
+        });
     }
 
-    public static async Task<Result<int, int>> WriteFilesAsync(PipelineContext context)
+    public static async Task<Result<PipelineContext, int>> WriteFilesAsync(PipelineContext context)
     {
         try
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(context.FakeLoginDetailsListPath)!);
-            Directory.CreateDirectory(Path.GetDirectoryName(context.FakeUsersPath)!);
+            Directory.CreateDirectory(Path.GetDirectoryName(context.FakeDataDestinationPaths.LoginDetailsListPath)!);
+            Directory.CreateDirectory(Path.GetDirectoryName(context.FakeDataDestinationPaths.UsersPath)!);
  
             var fakeLoginDetailsListRoot = new
             {
@@ -71,22 +68,23 @@ internal static class GenerateData
             };
             
             await File.WriteAllTextAsync(
-                context.FakeLoginDetailsListPath,
+                context.FakeDataDestinationPaths.LoginDetailsListPath,
                 JsonSerializer.Serialize(fakeLoginDetailsListRoot, JsonOpts));
  
+            Console.WriteLine($"MockDataGenerator: written {context.FakeDataDestinationPaths.LoginDetailsListPath}");
+            
             await File.WriteAllTextAsync(
-                context.FakeUsersPath,
+                context.FakeDataDestinationPaths.UsersPath,
                 JsonSerializer.Serialize(fakeUsersRoot, JsonOpts));
+            
+            Console.WriteLine($"MockDataGenerator: written {context.FakeDataDestinationPaths.UsersPath}");
  
-            Console.WriteLine($"MockDataGenerator: written {context.FakeLoginDetailsListPath}");
-            Console.WriteLine($"MockDataGenerator: written {context.FakeUsersPath}");
- 
-            return Result<int, int>.Success(0);
+            return Result<PipelineContext, int>.Success(context);
         }
         catch (Exception ex)
         {
             await Console.Error.WriteLineAsync($"MockDataGenerator: failed to write files — {ex.Message}");
-            return Result<int, int>.Failure(1);
+            return Result<PipelineContext, int>.Failure(1);
         }
     }
     

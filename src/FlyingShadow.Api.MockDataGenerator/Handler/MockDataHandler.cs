@@ -10,49 +10,64 @@ internal static class MockDataHandler
     {
         var result = await ValidateArgs(args)
             .BindAsync(paths => CheckFilesExistAsync(paths))
-            .BindAsync(context => GenerateData.CredentialsAsync(context))
-            .BindAsync(context => GenerateData.WriteFilesAsync(context));
+            .BindAsync(context => GenerateUserData.CredentialsAsync(context))
+            .BindAsync(context => GenerateUserData.WriteFilesAsync(context))
+            .Bind(context => CopyShadowData(context));
         
         return result.IsSuccess ? 0 : result.Value;
     }
 
-    private static Result<(string FakeLoginDetailsPath, string FakeUsersPath), int> ValidateArgs(string[] args)
+    private static Result<FakeDataDestinationPaths, int> ValidateArgs(string[] args)
     {
-        if (args.Length != 2)
+        if (args.Length != 4)
         {
-            Console.Error.WriteLine("MockDataGenerator: Error - Expected Usage: `MockDataGenerator <fakeUserRequestPath> <fakeUserPath>`");
-            return Result<(string, string), int>.Failure(1);
+            Console.Error.WriteLine("MockDataGenerator: Error - Expected Usage: `MockDataGenerator <fakeUserRequestPath> <fakeUserPath> <fakeShadowPath> <fakeStealthMetricPath>`");
+            return Result<FakeDataDestinationPaths, int>.Failure(1);
         }
  
-        return Result<(string, string), int>.Success((args[0], args[1]));
+        var mappedPaths = new FakeDataDestinationPaths(args[0],  args[1], args[2], args[3]);
+        
+        return Result<FakeDataDestinationPaths, int>.Success(mappedPaths);
     }
 
     private static Task<Result<PipelineContext, int>> CheckFilesExistAsync(
-        (string FakeUserRequestsPath, string FakeUsersPath) paths)
+        FakeDataDestinationPaths destinationPaths)
     {
-        var (fakeloginDetailsPath, fakeUsersPath) = paths;
+        var fakeLoginDetailsExists = File.Exists(destinationPaths.LoginDetailsListPath);
+        var fakeUsersExists  = File.Exists(destinationPaths.UsersPath);
+        var fakeShadowsExist = File.Exists(destinationPaths.ShadowsPath);
+        var fakeStealthMetricsExists  = File.Exists(destinationPaths.StealthMetricsPath);
  
-        var fakeLoginDetailsExists = File.Exists(fakeloginDetailsPath);
-        var fakeUsersExists  = File.Exists(fakeUsersPath);
- 
-        if (fakeLoginDetailsExists && fakeUsersExists)
+        if (fakeLoginDetailsExists && fakeUsersExists && fakeShadowsExist && fakeStealthMetricsExists)
         {
             Console.WriteLine("MockDataGenerator: files already exist, skipping.");
             return Task.FromResult(Result<PipelineContext, int>.Failure(0));
         }
  
-        if (fakeLoginDetailsExists != fakeUsersExists)
-        {
-            Console.WriteLine("MockDataGenerator: WARNING – only one file exists, regenerating both for consistency.");
-        }
- 
         var context = new PipelineContext(
-            FakeLoginDetailsListPath: fakeloginDetailsPath,
-            FakeUsersPath: fakeUsersPath,
+            FakeDataDestinationPaths: destinationPaths,
             JwtSecret: string.Empty,
             Credentials: []
         );
         
         return Task.FromResult(Result<PipelineContext, int>.Success(context));
+    }
+
+    private static Result<int, int> CopyShadowData(PipelineContext context)
+    {
+        try
+        {
+            File.Copy(Path.Combine(AppContext.BaseDirectory, "./StaticData/shadows.json"), context.FakeDataDestinationPaths.ShadowsPath, true);
+            File.Copy(Path.Combine(AppContext.BaseDirectory, "./StaticData/stealthMetrics.json"), context.FakeDataDestinationPaths.StealthMetricsPath, true);
+            Console.WriteLine($"MockDataGenerator: Copied Mock Shadow Data files");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"MockDataGenerator: Problem copying Shadow Data {ex.Message}");
+        
+            return Result<int, int>.Failure(1);
+        }
+        
+        return Result<int, int>.Success(0);
     }
 }

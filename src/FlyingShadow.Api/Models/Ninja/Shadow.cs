@@ -1,6 +1,6 @@
 namespace FlyingShadow.Api.Models.Ninja;
 
-internal record Shadow
+public record Shadow
 {
     public Guid Id { get; set; }
     public required string CodeName { get; set; }

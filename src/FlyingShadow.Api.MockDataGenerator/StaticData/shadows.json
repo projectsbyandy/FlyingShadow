@@ -1,0 +1,1054 @@
+{
+  "fakeShadows": [
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000031",
+      "codeName": "Shadow Wolf II",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000032",
+      "codeName": "Shadow Fox",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000033",
+      "codeName": "Shadow Tiger",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000034",
+      "codeName": "Shadow Dragon",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000035",
+      "codeName": "Shadow Hawk III",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000036",
+      "codeName": "Shadow Viper",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000037",
+      "codeName": "Shadow Panther",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000038",
+      "codeName": "Shadow Bear II",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000039",
+      "codeName": "Shadow Owl",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000040",
+      "codeName": "Shadow Cobra",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000041",
+      "codeName": "Shadow Raven",
+      "clan": "Sannin",
+      "origin": "Land of Lightning",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000042",
+      "codeName": "Shadow Spider",
+      "clan": "Kumo Clan",
+      "origin": "Land of Water",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000043",
+      "codeName": "Shadow Lynx",
+      "clan": "Ronin",
+      "origin": "Land of Earth",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000044",
+      "codeName": "Shadow Crane",
+      "clan": "Kirigakure",
+      "origin": "Land of Sand",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000045",
+      "codeName": "Shadow Mantis",
+      "clan": "Iwagakure",
+      "origin": "Land of Wind",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000046",
+      "codeName": "Shadow Scorpion",
+      "clan": "Sunagakure",
+      "origin": "Mist Country",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000047",
+      "codeName": "Shadow Lotus",
+      "clan": "Hidden Leaf",
+      "origin": "Various",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000048",
+      "codeName": "Shadow Blade II",
+      "clan": "Hidden Mist",
+      "origin": "Land of Rain",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000049",
+      "codeName": "Shadow Fang",
+      "clan": "Hidden Stone",
+      "origin": "Land of Sound",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000050",
+      "codeName": "Shadow Claw",
+      "clan": "Hidden Sand",
+      "origin": "Land of Fire",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000051",
+      "codeName": "Shadow Mirage",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000052",
+      "codeName": "Shadow Specter",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000053",
+      "codeName": "Shadow Wraith",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000054",
+      "codeName": "Shadow Shade",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000055",
+      "codeName": "Shadow Tempest",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000056",
+      "codeName": "Shadow Wisp",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000057",
+      "codeName": "Shadow Shroud",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000058",
+      "codeName": "Shadow Dagger",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000059",
+      "codeName": "Shadow Talon",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000060",
+      "codeName": "Shadow Serpent",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000061",
+      "codeName": "Shadow Phoenix",
+      "clan": "Sannin",
+      "origin": "Land of Lightning",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000062",
+      "codeName": "Shadow Hydra",
+      "clan": "Kumo Clan",
+      "origin": "Land of Water",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000063",
+      "codeName": "Shadow Basilisk",
+      "clan": "Ronin",
+      "origin": "Land of Earth",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000064",
+      "codeName": "Shadow Wyvern",
+      "clan": "Kirigakure",
+      "origin": "Land of Sand",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000065",
+      "codeName": "Shadow Banshee",
+      "clan": "Iwagakure",
+      "origin": "Land of Wind",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000066",
+      "codeName": "Shadow Revenant",
+      "clan": "Sunagakure",
+      "origin": "Mist Country",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000067",
+      "codeName": "Shadow Phantom",
+      "clan": "Hidden Leaf",
+      "origin": "Various",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000068",
+      "codeName": "Shadow Samurai",
+      "clan": "Hidden Mist",
+      "origin": "Land of Rain",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000069",
+      "codeName": "Shadow Ronin",
+      "clan": "Hidden Stone",
+      "origin": "Land of Sound",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000070",
+      "codeName": "Shadow Monk",
+      "clan": "Hidden Sand",
+      "origin": "Land of Fire",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000071",
+      "codeName": "Dark Wolf",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000072",
+      "codeName": "Dark Fox",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000073",
+      "codeName": "Dark Tiger",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000074",
+      "codeName": "Dark Dragon",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000075",
+      "codeName": "Dark Hawk",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000076",
+      "codeName": "Dark Viper",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000077",
+      "codeName": "Dark Panther II",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000078",
+      "codeName": "Dark Bear",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000079",
+      "codeName": "Dark Owl",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000080",
+      "codeName": "Dark Cobra",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000081",
+      "codeName": "Dark Raven",
+      "clan": "Sannin",
+      "origin": "Land of Lightning",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000082",
+      "codeName": "Dark Spider II",
+      "clan": "Kumo Clan",
+      "origin": "Land of Water",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000083",
+      "codeName": "Dark Lynx",
+      "clan": "Ronin",
+      "origin": "Land of Earth",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000084",
+      "codeName": "Dark Crane",
+      "clan": "Kirigakure",
+      "origin": "Land of Sand",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000085",
+      "codeName": "Dark Mantis",
+      "clan": "Iwagakure",
+      "origin": "Land of Wind",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000086",
+      "codeName": "Dark Scorpion",
+      "clan": "Sunagakure",
+      "origin": "Mist Country",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000087",
+      "codeName": "Dark Lotus",
+      "clan": "Hidden Leaf",
+      "origin": "Various",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000088",
+      "codeName": "Dark Blade",
+      "clan": "Hidden Mist",
+      "origin": "Land of Rain",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000089",
+      "codeName": "Dark Fang",
+      "clan": "Hidden Stone",
+      "origin": "Land of Sound",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000090",
+      "codeName": "Dark Claw",
+      "clan": "Hidden Sand",
+      "origin": "Land of Fire",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000091",
+      "codeName": "Dark Mirage II",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000092",
+      "codeName": "Dark Specter",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000093",
+      "codeName": "Dark Wraith",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000094",
+      "codeName": "Dark Shade",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000095",
+      "codeName": "Dark Tempest",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000096",
+      "codeName": "Dark Wisp",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000097",
+      "codeName": "Dark Shroud",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000098",
+      "codeName": "Dark Dagger",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000099",
+      "codeName": "Dark Talon",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000100",
+      "codeName": "Dark Serpent",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000101",
+      "codeName": "Dark Phoenix",
+      "clan": "Sannin",
+      "origin": "Land of Lightning",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000102",
+      "codeName": "Dark Hydra",
+      "clan": "Kumo Clan",
+      "origin": "Land of Water",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000103",
+      "codeName": "Dark Basilisk",
+      "clan": "Ronin",
+      "origin": "Land of Earth",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000104",
+      "codeName": "Dark Wyvern",
+      "clan": "Kirigakure",
+      "origin": "Land of Sand",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000105",
+      "codeName": "Dark Banshee",
+      "clan": "Iwagakure",
+      "origin": "Land of Wind",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000106",
+      "codeName": "Dark Revenant",
+      "clan": "Sunagakure",
+      "origin": "Mist Country",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000107",
+      "codeName": "Dark Phantom",
+      "clan": "Hidden Leaf",
+      "origin": "Various",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000108",
+      "codeName": "Dark Samurai",
+      "clan": "Hidden Mist",
+      "origin": "Land of Rain",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000109",
+      "codeName": "Dark Ronin",
+      "clan": "Hidden Stone",
+      "origin": "Land of Sound",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000110",
+      "codeName": "Dark Monk",
+      "clan": "Hidden Sand",
+      "origin": "Land of Fire",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000111",
+      "codeName": "Night Wolf",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000112",
+      "codeName": "Night Fox II",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000113",
+      "codeName": "Night Tiger",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000114",
+      "codeName": "Night Dragon",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000115",
+      "codeName": "Night Hawk",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000116",
+      "codeName": "Night Viper",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000117",
+      "codeName": "Night Panther II",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000118",
+      "codeName": "Night Bear",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000119",
+      "codeName": "Night Owl II",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000120",
+      "codeName": "Night Cobra",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000121",
+      "codeName": "Night Raven II",
+      "clan": "Sannin",
+      "origin": "Land of Lightning",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000122",
+      "codeName": "Night Spider",
+      "clan": "Kumo Clan",
+      "origin": "Land of Water",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000123",
+      "codeName": "Night Lynx",
+      "clan": "Ronin",
+      "origin": "Land of Earth",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000124",
+      "codeName": "Night Crane",
+      "clan": "Kirigakure",
+      "origin": "Land of Sand",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000125",
+      "codeName": "Night Mantis",
+      "clan": "Iwagakure",
+      "origin": "Land of Wind",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000126",
+      "codeName": "Night Scorpion",
+      "clan": "Sunagakure",
+      "origin": "Mist Country",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000127",
+      "codeName": "Night Lotus",
+      "clan": "Hidden Leaf",
+      "origin": "Various",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000128",
+      "codeName": "Night Blade",
+      "clan": "Hidden Mist",
+      "origin": "Land of Rain",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000129",
+      "codeName": "Night Fang",
+      "clan": "Hidden Stone",
+      "origin": "Land of Sound",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000130",
+      "codeName": "Night Claw",
+      "clan": "Hidden Sand",
+      "origin": "Land of Fire",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000131",
+      "codeName": "Night Mirage",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000132",
+      "codeName": "Night Specter",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000133",
+      "codeName": "Night Wraith",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000134",
+      "codeName": "Night Shade",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000135",
+      "codeName": "Night Tempest",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000136",
+      "codeName": "Night Wisp",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000137",
+      "codeName": "Night Shroud",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000138",
+      "codeName": "Night Dagger",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000139",
+      "codeName": "Night Talon",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000140",
+      "codeName": "Night Serpent",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000141",
+      "codeName": "Night Phoenix",
+      "clan": "Sannin",
+      "origin": "Land of Lightning",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000142",
+      "codeName": "Night Hydra",
+      "clan": "Kumo Clan",
+      "origin": "Land of Water",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000143",
+      "codeName": "Night Basilisk",
+      "clan": "Ronin",
+      "origin": "Land of Earth",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000144",
+      "codeName": "Night Wyvern",
+      "clan": "Kirigakure",
+      "origin": "Land of Sand",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000145",
+      "codeName": "Night Banshee",
+      "clan": "Iwagakure",
+      "origin": "Land of Wind",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000146",
+      "codeName": "Night Revenant",
+      "clan": "Sunagakure",
+      "origin": "Mist Country",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000147",
+      "codeName": "Night Phantom",
+      "clan": "Hidden Leaf",
+      "origin": "Various",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000148",
+      "codeName": "Night Samurai",
+      "clan": "Hidden Mist",
+      "origin": "Land of Rain",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000149",
+      "codeName": "Night Ronin",
+      "clan": "Hidden Stone",
+      "origin": "Land of Sound",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000150",
+      "codeName": "Night Monk",
+      "clan": "Hidden Sand",
+      "origin": "Land of Fire",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000151",
+      "codeName": "Silent Wolf II",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000152",
+      "codeName": "Silent Fox",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000153",
+      "codeName": "Silent Tiger II",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000154",
+      "codeName": "Silent Dragon",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000155",
+      "codeName": "Silent Hawk",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000156",
+      "codeName": "Silent Viper",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000157",
+      "codeName": "Silent Panther",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000158",
+      "codeName": "Silent Bear",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000159",
+      "codeName": "Silent Owl",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000160",
+      "codeName": "Silent Cobra",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000161",
+      "codeName": "Silent Raven",
+      "clan": "Sannin",
+      "origin": "Land of Lightning",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000162",
+      "codeName": "Silent Spider",
+      "clan": "Kumo Clan",
+      "origin": "Land of Water",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000163",
+      "codeName": "Silent Lynx",
+      "clan": "Ronin",
+      "origin": "Land of Earth",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000164",
+      "codeName": "Silent Crane",
+      "clan": "Kirigakure",
+      "origin": "Land of Sand",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000165",
+      "codeName": "Silent Mantis",
+      "clan": "Iwagakure",
+      "origin": "Land of Wind",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000166",
+      "codeName": "Silent Scorpion",
+      "clan": "Sunagakure",
+      "origin": "Mist Country",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000167",
+      "codeName": "Silent Lotus",
+      "clan": "Hidden Leaf",
+      "origin": "Various",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000168",
+      "codeName": "Silent Blade",
+      "clan": "Hidden Mist",
+      "origin": "Land of Rain",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000169",
+      "codeName": "Silent Fang",
+      "clan": "Hidden Stone",
+      "origin": "Land of Sound",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000170",
+      "codeName": "Silent Claw",
+      "clan": "Hidden Sand",
+      "origin": "Land of Fire",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000171",
+      "codeName": "Silent Mirage",
+      "clan": "Hidden Rain",
+      "origin": "Land of Lightning",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000172",
+      "codeName": "Silent Specter",
+      "clan": "Hidden Waterfall",
+      "origin": "Land of Water",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000173",
+      "codeName": "Silent Wraith",
+      "clan": "Hidden Cloud",
+      "origin": "Land of Earth",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000174",
+      "codeName": "Silent Shade",
+      "clan": "Hidden Sound",
+      "origin": "Land of Sand",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000175",
+      "codeName": "Silent Tempest",
+      "clan": "Akatsuki",
+      "origin": "Land of Wind",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000176",
+      "codeName": "Silent Wisp",
+      "clan": "Seven Swordsmen",
+      "origin": "Mist Country",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000177",
+      "codeName": "Silent Shroud",
+      "clan": "Anbu",
+      "origin": "Various",
+      "rank": "Danza"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000178",
+      "codeName": "Silent Dagger",
+      "clan": "Hyuga Clan",
+      "origin": "Land of Rain",
+      "rank": "Toshiyama"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000179",
+      "codeName": "Silent Talon",
+      "clan": "Uzumaki Clan",
+      "origin": "Land of Sound",
+      "rank": "Oniwaban"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-000000000180",
+      "codeName": "Silent Serpent",
+      "clan": "Uchiha Clan",
+      "origin": "Land of Fire",
+      "rank": "Danza"
+    }
+  ]
+}

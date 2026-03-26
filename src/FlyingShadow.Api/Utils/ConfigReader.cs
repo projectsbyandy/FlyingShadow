@@ -16,14 +16,17 @@ public static class ConfigReader
         var configuration = GetConfiguration();
         var configModel = new T();
         configuration.GetSection(sectionName).Bind(configModel);
+        
         return configModel;
     }
     
     private static IConfiguration GetConfiguration()
     {
         var env = Environment.GetEnvironmentVariable("ENVIRONMENTINTEST") ?? "development";
+        var basePath = AppContext.BaseDirectory;
 
         return _configuration ??= new ConfigurationBuilder()
+            .SetBasePath(basePath)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
             .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: false)
             .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: false)
@@ -36,6 +39,8 @@ public static class ConfigReader
     {
         return builder
             .AddJsonFile("_GeneratedData/fakeLoginDetailsList.json", optional: true)
-            .AddJsonFile("_GeneratedData/fakeUsers.json", optional: true);
+            .AddJsonFile("_GeneratedData/fakeUsers.json", optional: true)
+            .AddJsonFile("_GeneratedData/fakeShadows.json", optional: true)
+            .AddJsonFile("_GeneratedData/fakeStealthMetrics.json", optional: true);
     }
 }

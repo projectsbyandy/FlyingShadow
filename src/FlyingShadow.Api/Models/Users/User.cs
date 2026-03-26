@@ -8,6 +8,6 @@ public record User
     
     public required string Email { get; init; }
 
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public required string HashedPassword { get; init; }
+    [JsonIgnore]
+    public string? HashedPassword { get; init; }
 }
