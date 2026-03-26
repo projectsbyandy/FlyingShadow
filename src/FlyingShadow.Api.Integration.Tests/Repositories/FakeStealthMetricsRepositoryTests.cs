@@ -1,3 +1,4 @@
+using FlyingShadow.Api.Integration.Tests.TestExtensions;
 using FlyingShadow.Api.Models.Ninja;
 using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Repositories.Internal;
@@ -15,7 +16,7 @@ public class FakeStealthMetricsRepositoryTests
         _sut = new FakeStealthMetricsRepository();    
     }
 
-    [Fact]
+    [MockDataFact]
     public void Verify_Mock_Data_Loaded()
     {
         Assert.True(StealthMetrics.Count > 0);

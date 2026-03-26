@@ -5,5 +5,5 @@ namespace FlyingShadow.Api.Repositories;
 
 public interface IShadowRepository
 {
-    public Result<IList<Shadow>, Error> GetShadows();
+    public Result<IList<Shadow>, Error> GetAll();
 }

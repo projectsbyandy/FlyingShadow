@@ -1,6 +1,6 @@
 using FlyingShadow.Api.Models.Ninja;
 
-namespace FlyingShadow.Api.DTO.Ninja;
+namespace FlyingShadow.Api.DTO.Shadow;
 
 public record ShadowDto
 {
@@ -14,7 +14,7 @@ public record ShadowDto
     {
         public int ShadowBlendScore { get; init; }
         public int SilenceRating { get; init; }
-        public TimeSpan InvisibilityDuration { get; init; }
+        public int InvisibilityDurationMs { get; init; }
         public AcrobaticsLevel AcrobaticsLevel { get; init; }
     }
 }

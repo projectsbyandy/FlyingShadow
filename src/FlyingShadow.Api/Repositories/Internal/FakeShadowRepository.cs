@@ -7,11 +7,11 @@ namespace FlyingShadow.Api.Repositories.Internal;
 
 internal class FakeShadowRepository : WithMockData<IList<Shadow>>, IShadowRepository
 {
-    private static IList<Shadow>? _stealthMetrics;
+    private static IList<Shadow>? _shadows;
 
     public FakeShadowRepository()
     {
-        _stealthMetrics = LoadMockData();
+        _shadows = LoadMockData();
     }
 
     public sealed override IList<Shadow> LoadMockData()
@@ -20,8 +20,10 @@ internal class FakeShadowRepository : WithMockData<IList<Shadow>>, IShadowReposi
             "Shadow Mock data has not been configured");
     }
 
-    public Result<IList<Shadow>, Error> GetShadows()
+    public Result<IList<Shadow>, Error> GetAll()
     {
-        throw new NotImplementedException();
+        return _shadows is null
+            ? Result<IList<Shadow>, Error>.Failure(new Error("UNABLE_TO_LOAD_SHADOWS", "Unable to fetch stealth metrics."))
+            : Result<IList<Shadow>, Error>.Success(_shadows);
     }
 }
