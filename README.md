@@ -1,5 +1,9 @@
 # Flying Shadow
 
+- Examples of Results and Railway pattern in the FlyingShadow API and MockDataGenerator.
+- Console App execution on API build
+- DTO and Domain object seperation in API layers (controller, service and repo).
+- OpenAPI doc generator and Scalar for rendering / testing documents.
 
 # Mock Data Generation
 The solution supports the generation of mock data to enable the testing of the Flying Shadow API without having to setup a database.
@@ -9,7 +13,7 @@ The mock data generation is handled by the `FlyingShadow.Api.MockDataGenerator` 
   - Registered Users from backend
   - Users for auth requests
     - Kept seperate from Registered Users for security
-  - Shadow characters and skills
+  - A copy of static Shadow characters and stealth metrics.
 
   Generation is controlled by the *GenerateMockData* property in the `Directory.Build.props` file.
 
