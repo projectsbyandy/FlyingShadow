@@ -1,4 +1,5 @@
 using FlyingShadow.Api.DTO.Authenticate;
+using FlyingShadow.Api.Models.ResultType;
 using FlyingShadow.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +10,23 @@ namespace FlyingShadow.Api.Controllers;
 public class AuthenticationController : ControllerBase
 {
     private readonly IAuthenticationService _authenticationService;
+    private readonly ITokenService _tokenService;
     
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(IAuthenticationService authenticationService, ITokenService tokenService)
     {
         _authenticationService = authenticationService;
+        _tokenService = tokenService;
     }
 
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginDetails user)
     {
-        var result = _authenticationService.ValidateCredentials(user);
+        var tokenResult = _authenticationService.ValidateCredentials(user)
+            .Bind(userDto => _tokenService.GenerateToken(userDto.UserId, userDto.Email));
         
-        return result.IsSuccess
-            ? Ok(result.Value)
-            : NotFound(result.Error);
+        return tokenResult.IsSuccess
+            ? Ok(new { token = tokenResult.Value })
+            : Unauthorized("Unauthorized Email or Password");
     }
 
     [HttpPost("register")]
@@ -30,7 +34,7 @@ public class AuthenticationController : ControllerBase
     {
         var result = _authenticationService.Register(request);
         return result.IsSuccess
-            ? Ok(result.Value)
+            ? Ok(new { token = result.Value })
             : BadRequest(result.Error);
     }
 }

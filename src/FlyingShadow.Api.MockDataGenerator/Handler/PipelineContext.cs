@@ -2,11 +2,12 @@ namespace FlyingShadow.Api.MockDataGenerator.Handler;
 
 internal record PipelineContext(
     FakeDataDestinationPaths FakeDataDestinationPaths,
-    string JwtSecret,
+    string JwtKey,
     IReadOnlyList<UserCredentials> Credentials
 );
 
 internal record FakeDataDestinationPaths(
+    string JwtKeyPath,
     string LoginDetailsListPath,
     string UsersPath,
     string ShadowsPath,

@@ -2,5 +2,7 @@ namespace FlyingShadow.Api.DTO.Configuration;
 
 internal record Jwt
 {
-    public required string Secret { get; set; }
+    public string? Key { get; set; }
+    public string? Issuer { get; set; }
+    public string? Audience { get; set; }
 }

@@ -41,6 +41,7 @@ public static class ConfigReader
             .AddJsonFile("_GeneratedData/fakeLoginDetailsList.json", optional: true)
             .AddJsonFile("_GeneratedData/fakeUsers.json", optional: true)
             .AddJsonFile("_GeneratedData/fakeShadows.json", optional: true)
-            .AddJsonFile("_GeneratedData/fakeStealthMetrics.json", optional: true);
+            .AddJsonFile("_GeneratedData/fakeStealthMetrics.json", optional: true)
+            .AddJsonFile("_GeneratedData/fakeJwt.json", optional: true);
     }
 }

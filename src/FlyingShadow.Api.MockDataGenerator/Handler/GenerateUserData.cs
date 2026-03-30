@@ -15,7 +15,7 @@ internal static class GenerateUserData
     {
         Console.WriteLine("MockDataGenerator: generating credentials...");
  
-        var jwtSecret = Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+        var jwtKey = Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         
         var users = await FileReader.ReadAsync<IList<User>>("StaticData/users.json");
         var credentials = users.Select(u =>
@@ -30,7 +30,7 @@ internal static class GenerateUserData
  
         return Result<PipelineContext, int>.Success(context with
         {
-            JwtSecret   = jwtSecret,
+            JwtKey   = jwtKey,
             Credentials = credentials,
         });
     }
@@ -39,12 +39,17 @@ internal static class GenerateUserData
     {
         try
         {
+            Directory.CreateDirectory(Path.GetDirectoryName(context.FakeDataDestinationPaths.JwtKeyPath)!);
             Directory.CreateDirectory(Path.GetDirectoryName(context.FakeDataDestinationPaths.LoginDetailsListPath)!);
             Directory.CreateDirectory(Path.GetDirectoryName(context.FakeDataDestinationPaths.UsersPath)!);
- 
+
+            var fakeJwtKeyRoot = new
+            {
+                jwt = new { key = context.JwtKey }
+            };
+            
             var fakeLoginDetailsListRoot = new
             {
-                jwt = new { secret = context.JwtSecret },
                 fakeUsers = new
                 {
                     loginDetailsList = context.Credentials.Select(c => new
@@ -66,6 +71,12 @@ internal static class GenerateUserData
                     })
                 }
             };
+           
+            await File.WriteAllTextAsync(
+                context.FakeDataDestinationPaths.JwtKeyPath,
+                JsonSerializer.Serialize(fakeJwtKeyRoot, JsonOpts));
+ 
+            Console.WriteLine($"MockDataGenerator: written {context.FakeDataDestinationPaths.JwtKeyPath}");
             
             await File.WriteAllTextAsync(
                 context.FakeDataDestinationPaths.LoginDetailsListPath,

@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="Ardalis.GuardClauses" Version="5.0.0" />
         <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.5" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3"/>
         <PackageReference Include="Scalar.AspNetCore" Version="2.13.8" />
     </ItemGroup>
@@ -27,6 +28,7 @@
         <fakeUsersPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeUsers.json</fakeUsersPath>
         <FakeShadowsPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeShadows.json</FakeShadowsPath>
         <fakeStealthMetricsPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeStealthMetrics.json</fakeStealthMetricsPath>
+        <fakeJwtPath>$(MSBuildProjectDirectory)\_GeneratedData\fakeJwt.json</fakeJwtPath>
 
         <!-- Path to the MockDataGenerator project -->
         <MockGeneratorProject>$(MSBuildProjectDirectory)\..\FlyingShadow.Api.MockDataGenerator\FlyingShadow.Api.MockDataGenerator.csproj</MockGeneratorProject>
@@ -53,7 +55,7 @@
                 BuildInParallel="false" />
 
         <!-- Run the generator — it skips internally if both files already exist -->
-        <Exec Command='"$(MockGeneratorBin)" "$(FakeLoginDetailsListPath)" "$(fakeUsersPath)" "$(fakeShadowsPath)" "$(fakeStealthMetricsPath)"'/>
+        <Exec Command='"$(MockGeneratorBin)" "$(fakeJwtPath)" "$(FakeLoginDetailsListPath)" "$(fakeUsersPath)" "$(fakeShadowsPath)" "$(fakeStealthMetricsPath)"'/>
     </Target>
 
     <!-- ── 2. Copy generated JSON files to output directory on every build ───── -->
@@ -77,5 +79,6 @@
       <_ContentIncludedByDefault Remove="_GeneratedData\fakeUsers.json" />
       <_ContentIncludedByDefault Remove="_GeneratedData\fakeShadows.json" />
       <_ContentIncludedByDefault Remove="_GeneratedData\fakeStealthMetrics.json" />
+      <_ContentIncludedByDefault Remove="_GeneratedData\fakeJwt.json" />
     </ItemGroup>
 </Project>
