@@ -23,7 +23,7 @@ internal class FakeShadowRepository : WithMockData<IList<Shadow>>, IShadowReposi
     public Result<IList<Shadow>, Error> GetAll()
     {
         return _shadows is null
-            ? Result<IList<Shadow>, Error>.Failure(new Error("UNABLE_TO_LOAD_SHADOWS", "Unable to fetch stealth metrics."))
+            ? Result<IList<Shadow>, Error>.Failure(new Error("UNABLE_TO_LOAD_SHADOWS", "Unable to fetch Shadows."))
             : Result<IList<Shadow>, Error>.Success(_shadows);
     }
 }

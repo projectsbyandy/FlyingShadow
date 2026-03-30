@@ -1,5 +1,4 @@
-using FlyingShadow.Api.Services.Internal;
-using Microsoft.AspNetCore.Authorization;
+using FlyingShadow.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlyingShadow.Api.Controllers;
@@ -8,17 +7,20 @@ namespace FlyingShadow.Api.Controllers;
 [Route("api/[controller]")]
 public class FlyingShadowController : ControllerBase
 {
-    private readonly ShadowService _shadowService;
+    private readonly IShadowService _shadowService;
 
-    public FlyingShadowController(ShadowService shadowService)
+    public FlyingShadowController(IShadowService shadowService)
     {
         _shadowService = shadowService;
     }
 
     [HttpGet("Shadows")]
-    [Authorize]
+
     public IActionResult GetShadows()
     {
-        return Ok();
+        var result = _shadowService.GetAllShadowDetails();
+        return result.IsSuccess
+            ? Ok(result.Value)
+            :BadRequest(result.Error);
     }
 }

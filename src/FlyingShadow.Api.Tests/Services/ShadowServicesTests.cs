@@ -75,7 +75,7 @@ public class ShadowServicesTests
         Assert.NotNull(shadowDetailsResult.Value);
         Assert.Contains(shadowDetailsResult.Value, shadow => shadow.Equals(expectedShadowDto));
     }
-
+    
     [Fact]
     public void Verify_GetShadowDetails_Only_Returns_Shadows_With_Successful_StealthMetrics_Mapping()
     {
@@ -97,5 +97,73 @@ public class ShadowServicesTests
         Assert.DoesNotContain(shadowDetailsResult.Value, shadowDto => shadowDto.ShadowSkills.InvisibilityDurationMs.Equals(1022));
         Assert.All(expectedShadowIds, id =>
             Assert.Contains(shadowDetailsResult.Value, s => s.Id == id));
+    }
+    
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public void Verify_GetShadowDetails_Returns_Error_When_No_Repository_Data_Empty(bool shadowListEmpty, bool stealthMetricsListEmpty)
+    {
+        // Arrange
+        if (shadowListEmpty)
+            _shadowDataFixture.Shadows.Clear();
+        
+        if(stealthMetricsListEmpty) 
+            _shadowDataFixture.StealthMetrics.Clear();
+        
+        // Act
+        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        
+        // Assert
+        Assert.False(shadowDetailsResult.IsSuccess);
+        Assert.Null(shadowDetailsResult.Value);
+        Assert.NotNull(shadowDetailsResult.Error);
+        Assert.Equal("NO_SHADOW_DETAILS_MAPPED", shadowDetailsResult.Error.Code);
+        Assert.Equal("No Shadow Details mapped", shadowDetailsResult.Error.Message);
+    }
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    public void Verify_GetShadowDetails_Returns_Error_When_Repository_Result_Returns_Error(bool isShadowResultSuccessful, bool isStealthMetricResultSuccessful)
+    {
+        // Arrange
+        if (isShadowResultSuccessful is false)
+            _shadowRepositoryMock.Setup(r => r.GetAll ()).Returns(Result<IList<Shadow>, Error>.Failure(new Error("UNABLE_TO_LOAD_SHADOWS", "Unable to fetch Shadows.")));
+
+        if (isStealthMetricResultSuccessful is false)
+            _stealthMetricsRepositoryMock.Setup(r => r.GetAll()).Returns(
+                Result<IList<StealthMetrics>, Error>.Failure(new Error("UNABLE_TO_LOAD_STEALTH_METRICS",
+                    "Unable to fetch stealth metrics.")));
+        
+        // Act
+        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        
+        // Assert
+        Assert.False(shadowDetailsResult.IsSuccess);
+        Assert.Null(shadowDetailsResult.Value);
+        Assert.NotNull(shadowDetailsResult.Error);
+        Assert.Equal("NO_SHADOW_OR_METRIC_DATA", shadowDetailsResult.Error.Code);
+        Assert.Equal("Unable to retrieve Shadow or Metric Data", shadowDetailsResult.Error.Message);
+    }
+    
+    [Theory]
+    [InlineData("Error 123: Unable to retrieve data")]
+    [InlineData("Connection error")]
+    public void Verify_GetShadowDetails_Handles_Unexpected_Error(string exceptionMessage)
+    {
+        // Arrange
+        _shadowRepositoryMock.Setup(r => r.GetAll ()).Throws(new Exception(exceptionMessage));
+        
+        // Act / Assert
+        var shadowDetailResult = _sut.GetAllShadowDetails();
+        
+        // Assert
+        Assert.False(shadowDetailResult.IsSuccess);
+        Assert.NotNull(shadowDetailResult.Error);
+        Assert.Equal("UNEXPECTED_ERROR", shadowDetailResult.Error.Code);
+        Assert.Equal(exceptionMessage, shadowDetailResult.Error.Message);
     }
 }

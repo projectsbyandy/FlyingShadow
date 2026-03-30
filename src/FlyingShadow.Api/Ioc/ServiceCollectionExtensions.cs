@@ -15,7 +15,8 @@ internal static class ServiceCollectionExtensions
             .AddScoped<IUserRepository, FakeUserRepository>()
             .AddScoped<IShadowRepository, FakeShadowRepository>()
             .AddScoped<IStealthMetricsRepository, FakeStealthMetricsRepository>()
-            .AddScoped<IAuthenticationService, AuthenticationService>();
+            .AddScoped<IAuthenticationService, AuthenticationService>()
+            .AddScoped<IShadowService, ShadowService>();
         
         return services;
     }

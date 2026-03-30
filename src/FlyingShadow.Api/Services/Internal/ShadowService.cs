@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using FlyingShadow.Api.DTO.Shadow;
 using FlyingShadow.Api.Models.Ninja;
 using FlyingShadow.Api.Models.ResultType;
@@ -18,22 +19,31 @@ public class ShadowService : IShadowService
 
     public Result<IList<ShadowDto>, Error> GetAllShadowDetails()
     {
-        var shadows = _shadowRepository.GetAll().Value;
-        var metrics = _stealthMetricsRepository.GetAll().Value;
+        try
+        {
+            var shadowResult = _shadowRepository.GetAll();
+            var stealthMetricsResult = _stealthMetricsRepository.GetAll();
 
-        if (shadows is null || metrics is null)
-            return Result<IList<ShadowDto>, Error>.Failure(new Error("NO_SHADOW_OR_METRIC_DATA", "No Shadow or Metric Data Retrieved"));
+            if (!shadowResult.IsSuccess || !stealthMetricsResult.IsSuccess)
+                return Result<IList<ShadowDto>, Error>.Failure(new Error("NO_SHADOW_OR_METRIC_DATA",
+                    "Unable to retrieve Shadow or Metric Data"));
 
-        var metricsById = metrics.ToDictionary(m => m.ShadowId);
+            var metricsById = Guard.Against.Null(stealthMetricsResult.Value).ToDictionary(m => m.ShadowId);
 
-        var shadowDtos = shadows
-            .Where(s => metricsById.ContainsKey(s.Id))
-            .Select(s => MapToDto(s, metricsById[s.Id]))
-            .ToList();
+            var shadowDtos = Guard.Against.Null(shadowResult.Value)
+                .Where(s => metricsById.ContainsKey(s.Id))
+                .Select(s => MapToDto(s, metricsById[s.Id]))
+                .ToList();
 
-        return shadowDtos.Count > 0
-            ? Result<IList<ShadowDto>, Error>.Success(shadowDtos)
-            : Result<IList<ShadowDto>, Error>.Failure(new Error("NO_SHADOW_DETAILS_MAPPED", "No Shadow Details mapped"));
+            return shadowDtos.Count > 0
+                ? Result<IList<ShadowDto>, Error>.Success(shadowDtos)
+                : Result<IList<ShadowDto>, Error>.Failure(new Error("NO_SHADOW_DETAILS_MAPPED",
+                    "No Shadow Details mapped"));
+        }
+        catch (Exception ex)
+        {
+            return Result<IList<ShadowDto>, Error>.Failure(new Error("UNEXPECTED_ERROR", ex.Message));
+        }
     }
     
     private static ShadowDto MapToDto(Shadow s, StealthMetrics m) => new()
