@@ -8,7 +8,6 @@ using FlyingShadow.Api.Services;
 using FlyingShadow.Api.Services.Internal;
 using FlyingShadow.Api.Utils;
 using Guard = Ardalis.GuardClauses.Guard;
-using Assert = Xunit.Assert;
 
 namespace FlyingShadow.Api.Integration.Tests.Services;
 

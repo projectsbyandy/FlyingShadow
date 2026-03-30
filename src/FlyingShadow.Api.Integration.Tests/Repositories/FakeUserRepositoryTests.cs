@@ -6,7 +6,6 @@ using Ardalis.GuardClauses;
 using FlyingShadow.Api.Integration.Tests.TestExtensions;
 using FlyingShadow.Api.Models.ResultType;
 using FlyingShadow.Api.Models.Users;
-using Assert = Xunit.Assert;
 
 namespace FlyingShadow.Api.Integration.Tests.Repositories;
 

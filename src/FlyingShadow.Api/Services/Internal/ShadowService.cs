@@ -38,6 +38,7 @@ public class ShadowService : IShadowService
     
     private static ShadowDto MapToDto(Shadow s, StealthMetrics m) => new()
     {
+        Id       =  s.Id,
         Clan     = s.Clan,
         CodeName = s.CodeName,
         Origin   = s.Origin,

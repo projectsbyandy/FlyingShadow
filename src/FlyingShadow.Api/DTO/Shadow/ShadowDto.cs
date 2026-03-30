@@ -4,6 +4,7 @@ namespace FlyingShadow.Api.DTO.Shadow;
 
 public record ShadowDto
 {
+    public required Guid Id { get; init; }
     public required string CodeName { get; init; }
     public required string Clan { get; init; }
     public required string Origin { get; init; }
