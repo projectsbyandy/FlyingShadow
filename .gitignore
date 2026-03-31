@@ -295,3 +295,5 @@ bin
 appsettings.local.json
 
 _GeneratedData/
+coverage/
+dotCover.xml
