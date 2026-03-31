@@ -10,8 +10,8 @@
         <PackageReference Include="Ardalis.GuardClauses" Version="5.0.0" />
         <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3"/>
-        <PackageReference Include="Scalar.AspNetCore" Version="2.13.8" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.13.18" />
     </ItemGroup>
 
     <ItemGroup>
@@ -80,5 +80,8 @@
       <_ContentIncludedByDefault Remove="_GeneratedData\fakeShadows.json" />
       <_ContentIncludedByDefault Remove="_GeneratedData\fakeStealthMetrics.json" />
       <_ContentIncludedByDefault Remove="_GeneratedData\fakeJwt.json" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\FlyingShadow.Core\FlyingShadow.Core.csproj" />
     </ItemGroup>
 </Project>

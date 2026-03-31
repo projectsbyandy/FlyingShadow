@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using FlyingShadow.Api.DTO.Configuration;
-using FlyingShadow.Api.Models.ResultType;
+using FlyingShadow.Core.Models.ResultType;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FlyingShadow.Api.Services.Internal;

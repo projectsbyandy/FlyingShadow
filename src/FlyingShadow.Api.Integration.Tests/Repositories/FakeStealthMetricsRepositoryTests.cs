@@ -1,8 +1,8 @@
 using FlyingShadow.Api.Integration.Tests.TestExtensions;
-using FlyingShadow.Api.Models.Ninja;
 using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Repositories.Internal;
 using FlyingShadow.Api.Utils;
+using FlyingShadow.Core.Models.Ninja;
 
 namespace FlyingShadow.Api.Integration.Tests.Repositories;
 

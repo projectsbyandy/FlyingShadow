@@ -1,6 +1,6 @@
-using FlyingShadow.Api.DTO.Authenticate;
+using FlyingShadow.Core.Models.Users;
 
-namespace FlyingShadow.Api.Models.Users;
+namespace FlyingShadow.Api.DTO.Authenticate;
 
 public static class UserMappingExtensions
 {

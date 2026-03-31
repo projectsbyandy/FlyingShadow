@@ -1,6 +1,6 @@
 // ReSharper disable ConvertClosureToMethodGroup
 
-using FlyingShadow.Api.Models.ResultType;
+using FlyingShadow.Core.Models.ResultType;
 
 namespace FlyingShadow.Api.MockDataGenerator.Handler;
 

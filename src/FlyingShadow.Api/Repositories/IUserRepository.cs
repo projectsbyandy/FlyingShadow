@@ -1,5 +1,5 @@
-using FlyingShadow.Api.Models.ResultType;
-using FlyingShadow.Api.Models.Users;
+using FlyingShadow.Core.Models.ResultType;
+using FlyingShadow.Core.Models.Users;
 
 namespace FlyingShadow.Api.Repositories;
 

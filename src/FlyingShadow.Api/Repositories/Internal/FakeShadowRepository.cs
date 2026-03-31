@@ -1,7 +1,7 @@
 using Ardalis.GuardClauses;
-using FlyingShadow.Api.Models.Ninja;
-using FlyingShadow.Api.Models.ResultType;
 using FlyingShadow.Api.Utils;
+using FlyingShadow.Core.Models.Ninja;
+using FlyingShadow.Core.Models.ResultType;
 
 namespace FlyingShadow.Api.Repositories.Internal;
 

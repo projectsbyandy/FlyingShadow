@@ -1,4 +1,4 @@
-using FlyingShadow.Api.Models.Ninja;
+using FlyingShadow.Core.Models.Ninja;
 
 namespace FlyingShadow.Api.DTO.Shadow;
 

@@ -1,5 +1,5 @@
-using FlyingShadow.Api.Models.Ninja;
-using FlyingShadow.Api.Models.ResultType;
+using FlyingShadow.Core.Models.Ninja;
+using FlyingShadow.Core.Models.ResultType;
 
 namespace FlyingShadow.Api.Repositories;
 

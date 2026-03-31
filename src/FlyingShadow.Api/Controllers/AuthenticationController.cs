@@ -1,6 +1,6 @@
 using FlyingShadow.Api.DTO.Authenticate;
-using FlyingShadow.Api.Models.ResultType;
 using FlyingShadow.Api.Services;
+using FlyingShadow.Core.Models.ResultType;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlyingShadow.Api.Controllers;

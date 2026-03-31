@@ -1,10 +1,10 @@
 using FlyingShadow.Api.DTO.Shadow;
-using FlyingShadow.Api.Models.Ninja;
-using FlyingShadow.Api.Models.ResultType;
 using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
 using FlyingShadow.Api.Services.Internal;
 using FlyingShadow.Api.Tests.Services.Fixtures;
+using FlyingShadow.Core.Models.Ninja;
+using FlyingShadow.Core.Models.ResultType;
 using Moq;
 using Xunit;
 

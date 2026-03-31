@@ -1,4 +1,4 @@
-namespace FlyingShadow.Api.Models.ResultType;
+namespace FlyingShadow.Core.Models.ResultType;
 
 public readonly struct Outcome
 {

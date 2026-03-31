@@ -1,5 +1,5 @@
 using FlyingShadow.Api.DTO.Shadow;
-using FlyingShadow.Api.Models.ResultType;
+using FlyingShadow.Core.Models.ResultType;
 
 namespace FlyingShadow.Api.Services;
 

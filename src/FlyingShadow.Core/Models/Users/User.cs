@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace FlyingShadow.Api.Models.Users;
+namespace FlyingShadow.Core.Models.Users;
 
 public record User
 {

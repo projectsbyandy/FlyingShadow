@@ -1,5 +1,5 @@
 using FlyingShadow.Api.DTO.Authenticate;
-using FlyingShadow.Api.Models.Users;
+using FlyingShadow.Core.Models.Users;
 
 namespace FlyingShadow.Api.DTO.Configuration;
 

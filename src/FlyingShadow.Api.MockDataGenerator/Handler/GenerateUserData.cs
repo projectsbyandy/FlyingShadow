@@ -2,8 +2,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using FlyingShadow.Api.MockDataGenerator.Utilities;
-using FlyingShadow.Api.Models.ResultType;
-using FlyingShadow.Api.Models.Users;
+using FlyingShadow.Core.Models.ResultType;
+using FlyingShadow.Core.Models.Users;
 
 namespace FlyingShadow.Api.MockDataGenerator.Handler;
 

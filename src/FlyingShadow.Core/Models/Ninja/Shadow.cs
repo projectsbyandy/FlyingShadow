@@ -1,4 +1,4 @@
-namespace FlyingShadow.Api.Models.Ninja;
+namespace FlyingShadow.Core.Models.Ninja;
 
 public record Shadow
 {

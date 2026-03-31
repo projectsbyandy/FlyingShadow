@@ -1,7 +1,7 @@
 using FlyingShadow.Api.DTO.Authenticate;
-using FlyingShadow.Api.Models.ResultType;
-using FlyingShadow.Api.Models.Users;
 using FlyingShadow.Api.Repositories;
+using FlyingShadow.Core.Models.ResultType;
+using FlyingShadow.Core.Models.Users;
 
 namespace FlyingShadow.Api.Services.Internal;
 
@@ -33,9 +33,16 @@ public class AuthenticationService : IAuthenticationService
 
     private Result<UserDto, Error> VerifyPassword(LoginDetails request, User user)
     {
-        return BCrypt.Net.BCrypt.Verify(request.Password, user.HashedPassword) 
-            ? Result<UserDto, Error>.Success(user.ToDto())
-            : Result<UserDto, Error>.Failure(new Error("INVALID_CREDENTIALS", "The email or password provided is incorrect")); 
+        try
+        {
+            return BCrypt.Net.BCrypt.Verify(request.Password, user.HashedPassword) 
+                ? Result<UserDto, Error>.Success(user.ToDto())
+                : Result<UserDto, Error>.Failure(new Error("INVALID_CREDENTIALS", "The email or password provided is incorrect"));
+        }
+        catch (Exception ex)
+        {
+            return Result<UserDto, Error>.Failure(new  Error("UNABLE_TO_VALIDATE", ex.Message));
+        }
     }
 
     private string HashPassword(string password)
