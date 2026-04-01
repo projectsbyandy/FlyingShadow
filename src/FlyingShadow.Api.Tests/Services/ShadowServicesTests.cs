@@ -165,4 +165,50 @@ public class ShadowServicesTests
         Assert.Equal("UNEXPECTED_ERROR", shadowDetailResult.Error.Code);
         Assert.Equal(exceptionMessage, shadowDetailResult.Error.Message);
     }
+
+    [Fact]
+    public void Verify_Map_Shadow_To_Dto()
+    {
+        // arrange
+        var shadowId = Guid.NewGuid();
+        var sourceShadow = new Shadow()
+        {
+            Id = shadowId,
+            Clan = "Flying Daggers",
+            CodeName = "Blunt Stick",
+            Origin = "Whisper Hollow",
+            Rank = Rank.Oniwaban
+        };
+
+        var sourceStealthMetrics = new StealthMetrics()
+        {
+            Id = Guid.NewGuid(),
+            ShadowId = shadowId,
+            AcrobaticsLevel = AcrobaticsLevel.Advanced,
+            InvisibilityDurationMs = 431,
+            ShadowBlendScore = 12,
+            SilenceRating = 52
+        };
+        
+        _shadowRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<Shadow>, Error>.Success(new List<Shadow> { sourceShadow }));
+        _stealthMetricsRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<StealthMetrics>, Error>.Success(new List<StealthMetrics> { sourceStealthMetrics }));
+        
+        // Act
+        var shadowDetailsResults = _sut.GetAllShadowDetails();
+        
+        // Assert
+        Assert.NotNull(shadowDetailsResults.Value);
+        Assert.Single(shadowDetailsResults.Value);
+
+        var generatedShadowDto = shadowDetailsResults.Value.First();
+        Assert.Equal(shadowId, generatedShadowDto.Id);
+        Assert.Equal(sourceShadow.Clan, generatedShadowDto.Clan);
+        Assert.Equal(sourceShadow.CodeName, generatedShadowDto.CodeName);
+        Assert.Equal(sourceShadow.Origin, generatedShadowDto.Origin);
+        Assert.Equal(sourceShadow.Rank, generatedShadowDto.Rank);
+        Assert.Equal(sourceStealthMetrics.AcrobaticsLevel, generatedShadowDto.ShadowSkills.AcrobaticsLevel);
+        Assert.Equal(sourceStealthMetrics.InvisibilityDurationMs, generatedShadowDto.ShadowSkills.InvisibilityDurationMs);
+        Assert.Equal(sourceStealthMetrics.ShadowBlendScore, generatedShadowDto.ShadowSkills.ShadowBlendScore);
+        Assert.Equal(sourceStealthMetrics.SilenceRating, generatedShadowDto.ShadowSkills.SilenceRating);
+    }
 }

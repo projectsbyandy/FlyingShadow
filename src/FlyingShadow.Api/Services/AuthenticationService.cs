@@ -6,7 +6,7 @@ using FlyingShadow.Core.Services;
 
 namespace FlyingShadow.Api.Services;
 
-public class AuthenticationService : IAuthenticationService
+internal class AuthenticationService : IAuthenticationService
 {
     private readonly IUserRepository _userRepository;
 

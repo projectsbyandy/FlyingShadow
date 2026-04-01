@@ -7,7 +7,7 @@ using FlyingShadow.Core.Services;
 
 namespace FlyingShadow.Api.Services;
 
-public class ShadowService : IShadowService
+internal class ShadowService : IShadowService
 {
     private readonly IShadowRepository _shadowRepository;
     private readonly IStealthMetricsRepository _stealthMetricsRepository;
@@ -47,7 +47,7 @@ public class ShadowService : IShadowService
         }
     }
     
-    private static ShadowDto MapToDto(Shadow s, StealthMetrics m) => new()
+    private ShadowDto MapToDto(Shadow s, StealthMetrics m) => new()
     {
         Id       =  s.Id,
         Clan     = s.Clan,
