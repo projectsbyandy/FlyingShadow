@@ -1,4 +1,4 @@
-namespace FlyingShadow.Api.Repositories.Internal;
+namespace FlyingShadow.Api.Repositories;
 
 internal abstract class WithMockData<T>
 {

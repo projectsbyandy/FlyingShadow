@@ -1,9 +1,10 @@
-using FlyingShadow.Api.DTO.Authenticate;
-using FlyingShadow.Api.Repositories;
+using FlyingShadow.Core.DTO.Authenticate;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
+using FlyingShadow.Core.Repositories;
+using FlyingShadow.Core.Services;
 
-namespace FlyingShadow.Api.Services.Internal;
+namespace FlyingShadow.Api.Services;
 
 public class AuthenticationService : IAuthenticationService
 {

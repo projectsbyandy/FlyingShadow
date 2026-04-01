@@ -1,7 +1,7 @@
 using FlyingShadow.Api.Integration.Tests.TestExtensions;
-using FlyingShadow.Api.Repositories.Internal;
+using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
-using FlyingShadow.Api.Services.Internal;
+using FlyingShadow.Core.Services;
 
 namespace FlyingShadow.Api.Integration.Tests.Services;
 

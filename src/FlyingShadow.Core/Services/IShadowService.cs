@@ -1,7 +1,7 @@
-using FlyingShadow.Api.DTO.Shadow;
+using FlyingShadow.Core.DTO.Shadow;
 using FlyingShadow.Core.Models.ResultType;
 
-namespace FlyingShadow.Api.Services;
+namespace FlyingShadow.Core.Services;
 
 public interface IShadowService
 {

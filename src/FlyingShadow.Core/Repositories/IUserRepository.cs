@@ -1,7 +1,7 @@
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
 
-namespace FlyingShadow.Api.Repositories;
+namespace FlyingShadow.Core.Repositories;
 
 public interface IUserRepository
 {

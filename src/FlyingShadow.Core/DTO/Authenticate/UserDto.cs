@@ -1,4 +1,4 @@
-namespace FlyingShadow.Api.DTO.Authenticate;
+namespace FlyingShadow.Core.DTO.Authenticate;
 
 public record UserDto
 {

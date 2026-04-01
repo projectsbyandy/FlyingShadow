@@ -1,9 +1,9 @@
-using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.Repositories;
-using FlyingShadow.Api.Repositories.Internal;
 using FlyingShadow.Api.Services;
-using FlyingShadow.Api.Services.Internal;
 using FlyingShadow.Api.Utils;
+using FlyingShadow.Core.DTO.Configuration;
+using FlyingShadow.Core.Repositories;
+using FlyingShadow.Core.Services;
 
 namespace FlyingShadow.Api.Ioc;
 

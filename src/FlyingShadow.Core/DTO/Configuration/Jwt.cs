@@ -1,6 +1,6 @@
-namespace FlyingShadow.Api.DTO.Configuration;
+namespace FlyingShadow.Core.DTO.Configuration;
 
-internal record Jwt
+public record Jwt
 {
     public string? Key { get; set; }
     public string? Issuer { get; set; }

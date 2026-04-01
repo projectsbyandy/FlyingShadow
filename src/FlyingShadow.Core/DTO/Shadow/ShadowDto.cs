@@ -1,6 +1,6 @@
 using FlyingShadow.Core.Models.Ninja;
 
-namespace FlyingShadow.Api.DTO.Shadow;
+namespace FlyingShadow.Core.DTO.Shadow;
 
 public record ShadowDto
 {

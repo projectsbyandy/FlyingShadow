@@ -1,10 +1,11 @@
 using Ardalis.GuardClauses;
-using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.Utils;
+using FlyingShadow.Core.DTO.Configuration;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
+using FlyingShadow.Core.Repositories;
 
-namespace FlyingShadow.Api.Repositories.Internal;
+namespace FlyingShadow.Api.Repositories;
 
 internal class FakeUserRepository : WithMockData<IList<User>>, IUserRepository
 {

@@ -1,11 +1,11 @@
-using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.Repositories;
-using FlyingShadow.Api.Repositories.Internal;
 using FlyingShadow.Api.Utils;
 using Ardalis.GuardClauses;
 using FlyingShadow.Api.Integration.Tests.TestExtensions;
+using FlyingShadow.Core.DTO.Configuration;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
+using FlyingShadow.Core.Repositories;
 
 namespace FlyingShadow.Api.Integration.Tests.Repositories;
 

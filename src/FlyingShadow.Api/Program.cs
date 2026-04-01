@@ -1,7 +1,7 @@
 using System.Text;
-using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.Ioc;
 using FlyingShadow.Api.Utils;
+using FlyingShadow.Core.DTO.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;

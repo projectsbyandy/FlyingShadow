@@ -1,6 +1,6 @@
 using FlyingShadow.Core.Models.ResultType;
 
-namespace FlyingShadow.Api.Services;
+namespace FlyingShadow.Core.Services;
 
 public interface ITokenService
 {

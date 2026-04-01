@@ -1,10 +1,11 @@
 using Ardalis.GuardClauses;
-using FlyingShadow.Api.DTO.Shadow;
-using FlyingShadow.Api.Repositories;
+using FlyingShadow.Core.DTO.Shadow;
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
+using FlyingShadow.Core.Repositories;
+using FlyingShadow.Core.Services;
 
-namespace FlyingShadow.Api.Services.Internal;
+namespace FlyingShadow.Api.Services;
 
 public class ShadowService : IShadowService
 {

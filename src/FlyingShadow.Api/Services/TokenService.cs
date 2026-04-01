@@ -1,11 +1,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using FlyingShadow.Api.DTO.Configuration;
+using FlyingShadow.Core.DTO.Configuration;
 using FlyingShadow.Core.Models.ResultType;
+using FlyingShadow.Core.Services;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FlyingShadow.Api.Services.Internal;
+namespace FlyingShadow.Api.Services;
 
 internal class TokenService : ITokenService
 {

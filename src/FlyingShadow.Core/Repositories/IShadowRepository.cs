@@ -1,7 +1,7 @@
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 
-namespace FlyingShadow.Api.Repositories;
+namespace FlyingShadow.Core.Repositories;
 
 public interface IShadowRepository
 {

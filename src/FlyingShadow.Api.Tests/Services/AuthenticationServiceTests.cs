@@ -1,11 +1,10 @@
-using FlyingShadow.Api.DTO.Authenticate;
-using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
-using FlyingShadow.Api.Services.Internal;
+using FlyingShadow.Core.DTO.Authenticate;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
+using FlyingShadow.Core.Repositories;
+using FlyingShadow.Core.Services;
 using Moq;
-using Xunit;
 
 namespace FlyingShadow.Api.Tests.Services;
 

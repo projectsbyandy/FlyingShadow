@@ -1,12 +1,12 @@
 using Ardalis.GuardClauses;
-using FlyingShadow.Api.DTO.Authenticate;
-using FlyingShadow.Api.DTO.Configuration;
 using FlyingShadow.Api.Integration.Tests.TestExtensions;
-using FlyingShadow.Api.Repositories.Internal;
+using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
-using FlyingShadow.Api.Services.Internal;
 using FlyingShadow.Api.Utils;
+using FlyingShadow.Core.DTO.Authenticate;
+using FlyingShadow.Core.DTO.Configuration;
 using FlyingShadow.Core.Models.ResultType;
+using FlyingShadow.Core.Services;
 using Guard = Ardalis.GuardClauses.Guard;
 
 namespace FlyingShadow.Api.Integration.Tests.Services;
