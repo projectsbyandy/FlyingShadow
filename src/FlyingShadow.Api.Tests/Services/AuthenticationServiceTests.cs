@@ -81,6 +81,24 @@ public class AuthenticationServiceTests
         Assert.Equal(result.Error, new Error("UNABLE_TO_VALIDATE", "Invalid salt version"));
     }
     
+    [Fact]
+    public void Verify_Unsuccessful_Password_Validation_Using_Null_Hashed_Password()
+    {
+        // Arrange
+        _userRepositoryFake.Setup(r => r.GetUser(ValidUserEmail)).Returns(Result<User, Error>.Success(new User {UserId = Guid.Parse("191410b1-9d45-498a-8c2a-b3faf3583fcc"), Email = ValidUserEmail, HashedPassword = null}));
+        
+        // Act
+        var result = _sut.ValidateCredentials(new LoginDetails()
+        {
+            Email = ValidUserEmail,
+            Password = ValidUserPassword
+        });
+        
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(result.Error, new Error("UNABLE_TO_VALIDATE", "Value cannot be null. (Parameter 's')"));
+    }
+    
     [Theory]
     [InlineData("tester@test.com")]
     [InlineData("peter.doe@sample.org")]

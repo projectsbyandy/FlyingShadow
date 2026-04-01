@@ -9,14 +9,14 @@ using Moq;
 
 namespace FlyingShadow.Api.Tests.Services;
 
-public class ShadowServicesTests
+public class ShadowServiceTests
 {
     private IShadowService _sut;
     private ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
 
-    public ShadowServicesTests()
+    public ShadowServiceTests()
     {
         
         _shadowDataFixture = new ShadowDataFixture();
