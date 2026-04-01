@@ -40,6 +40,7 @@ internal class FakeUserRepository : WithMockData<IList<User>>, IUserRepository
     public Result<Outcome, Error> EnsureUserDoesNotExist(string email)
     {
         var exists = _users.Any(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        
         return exists
             ? Result<Outcome, Error>.Failure(new Error("ALREADY_REGISTERED", $"User with {email} already registered"))
             : Result<Outcome, Error>.Success(Outcome.Value);

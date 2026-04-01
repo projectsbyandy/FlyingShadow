@@ -1,9 +1,9 @@
-namespace FlyingShadow.Api.Integration.Tests.TestExtensions;
+namespace FlyingShadow.Api.Tests.TestExtensions;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public sealed class MockDataTheoryAttribute : TheoryAttribute
+public sealed class MockDataFactAttribute : FactAttribute
 {
-    public MockDataTheoryAttribute()
+    public MockDataFactAttribute()
     {
         if (!File.Exists(MockDataPaths.FakeUsersPath) || !File.Exists(MockDataPaths.LoginDetailsListPath))
             Skip = "Mock data files not present. Run: dotnet build -p:GenerateMockData=true";

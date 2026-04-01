@@ -8,7 +8,7 @@ namespace FlyingShadow.Api.Repositories;
 
 internal class FakeStealthMetricsRepository : WithMockData<IList<StealthMetrics>>, IStealthMetricsRepository
 {
-    private static IList<StealthMetrics>? _stealthMetrics;
+    private readonly IList<StealthMetrics> _stealthMetrics;
 
     public FakeStealthMetricsRepository()
     {
@@ -23,8 +23,6 @@ internal class FakeStealthMetricsRepository : WithMockData<IList<StealthMetrics>
 
     public Result<IList<StealthMetrics>, Error> GetAll()
     {
-        return _stealthMetrics is null
-            ? Result<IList<StealthMetrics>, Error>.Failure(new Error("UNABLE_TO_LOAD_STEALTH_METRICS", "Unable to fetch stealth metrics."))
-            : Result<IList<StealthMetrics>, Error>.Success(_stealthMetrics);
+        return Result<IList<StealthMetrics>, Error>.Success(_stealthMetrics);
     }
 }
