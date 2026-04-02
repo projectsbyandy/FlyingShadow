@@ -2,6 +2,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using FlyingShadow.Core.DTO.Configuration;
+using FlyingShadow.Core.DTO.Token;
+using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Services;
 using Microsoft.IdentityModel.Tokens;
@@ -17,7 +19,7 @@ internal class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public Result<string, Error> GenerateToken(Guid userId, string email)
+    public Result<TokenDetails, Error> GenerateToken(Guid userId, string email)
     {
         try
         {
@@ -39,11 +41,11 @@ internal class TokenService : ITokenService
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
 
-            return Result<string, Error>.Success(new JwtSecurityTokenHandler().WriteToken(token));
+            return Result<TokenDetails, Error>.Success(new TokenDetails(new JwtSecurityTokenHandler().WriteToken(token), token.ValidTo));
         }
         catch (Exception ex)
         {
-            return Result<string, Error>.Failure(new Error("TOKEN_GENERATION_ERROR", ex.Message));
+            return Result<TokenDetails, Error>.Failure(new Error(ErrorCode.UnexpectedError, ex.Message));
         }
     }
 }

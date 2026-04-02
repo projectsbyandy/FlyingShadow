@@ -1,3 +1,3 @@
 namespace FlyingShadow.Core.Models.ResultType;
 
-public record Error(string Code, string Message);
+public record Error(ErrorCode Code, string Message);

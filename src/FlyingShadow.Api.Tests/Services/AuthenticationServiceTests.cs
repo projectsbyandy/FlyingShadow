@@ -1,5 +1,6 @@
 using FlyingShadow.Api.Services;
 using FlyingShadow.Core.DTO.Authenticate;
+using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
 using FlyingShadow.Core.Repositories;
@@ -58,7 +59,7 @@ public class AuthenticationServiceTests
         
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal(result.Error, new Error("INVALID_CREDENTIALS", "The email or password provided is incorrect"));
+        Assert.Equal(result.Error, new Error(ErrorCode.InvalidCredentials, "The email or password provided is incorrect"));
     }
     
     [Theory]
@@ -78,7 +79,7 @@ public class AuthenticationServiceTests
         
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal(result.Error, new Error("UNABLE_TO_VALIDATE", "Invalid salt version"));
+        Assert.Equal(result.Error, new Error(ErrorCode.UnexpectedError, "Invalid salt version"));
     }
     
     [Fact]
@@ -96,7 +97,7 @@ public class AuthenticationServiceTests
         
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal(result.Error, new Error("UNABLE_TO_VALIDATE", "Value cannot be null. (Parameter 's')"));
+        Assert.Equal(result.Error, new Error(ErrorCode.UnexpectedError, "Value cannot be null. (Parameter 's')"));
     }
     
     [Theory]
@@ -105,7 +106,7 @@ public class AuthenticationServiceTests
     public void Verify_Unsuccessful_Validation_With_Invalid_Email(string email)
     {
         // Arrange
-        _userRepositoryFake.Setup(r => r.GetUser(It.IsAny<string>())).Returns(Result<User, Error>.Failure(new Error("NOT_FOUND", $"User with {email} was not found")));
+        _userRepositoryFake.Setup(r => r.GetUser(It.IsAny<string>())).Returns(Result<User, Error>.Failure(new Error(ErrorCode.NotFound, $"User with {email} was not found")));
 
         // Act
         var result = _sut.ValidateCredentials(new LoginDetails()
@@ -116,7 +117,7 @@ public class AuthenticationServiceTests
         
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal(result.Error, new Error("NOT_FOUND", $"User with {email} was not found"));
+        Assert.Equal(result.Error, new Error(ErrorCode.NotFound, $"User with {email} was not found"));
     }
     #endregion
     
@@ -161,14 +162,14 @@ public class AuthenticationServiceTests
         };
         
         _userRepositoryFake.Setup(r => r.EnsureUserDoesNotExist(existingLoginDetails.Email))
-            .Returns(Result<Outcome, Error>.Failure(new Error("ALREADY_REGISTERED", $"User with {existingLoginDetails.Email} already registered")));
+            .Returns(Result<Outcome, Error>.Failure(new Error(ErrorCode.AlreadyExists, $"User with {existingLoginDetails.Email} already registered")));
         
         // Act
         var result = _sut.Register(existingLoginDetails);
         
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal(result.Error, new Error("ALREADY_REGISTERED", $"User with {existingLoginDetails.Email} already registered"));
+        Assert.Equal(result.Error, new Error(ErrorCode.AlreadyExists, $"User with {existingLoginDetails.Email} already registered"));
     }
     # endregion
 }

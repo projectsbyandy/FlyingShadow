@@ -1,9 +1,14 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace FlyingShadow.Core.Models.ResultType;
 
 public class Result<T, TError>
 {
     public T? Value { get; }
     public TError? Error { get; }
+    
+    [MemberNotNullWhen(true, nameof(Value))]
+    [MemberNotNullWhen(false, nameof(Error))]
     public bool IsSuccess { get; } 
  
     private Result(T value)

@@ -1,6 +1,7 @@
 using FlyingShadow.Api.Services;
 using FlyingShadow.Api.Tests.Services.Fixtures;
 using FlyingShadow.Core.DTO.Shadow;
+using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Repositories;
@@ -118,7 +119,7 @@ public class ShadowServiceTests
         Assert.False(shadowDetailsResult.IsSuccess);
         Assert.Null(shadowDetailsResult.Value);
         Assert.NotNull(shadowDetailsResult.Error);
-        Assert.Equal("NO_SHADOW_DETAILS_MAPPED", shadowDetailsResult.Error.Code);
+        Assert.Equal(ErrorCode.UnableToProcessData, shadowDetailsResult.Error.Code);
         Assert.Equal("No Shadow Details mapped", shadowDetailsResult.Error.Message);
     }
 
@@ -130,11 +131,11 @@ public class ShadowServiceTests
     {
         // Arrange
         if (isShadowResultSuccessful is false)
-            _shadowRepositoryMock.Setup(r => r.GetAll ()).Returns(Result<IList<Shadow>, Error>.Failure(new Error("UNABLE_TO_LOAD_SHADOWS", "Unable to fetch Shadows.")));
+            _shadowRepositoryMock.Setup(r => r.GetAll ()).Returns(Result<IList<Shadow>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, "Unable to fetch Shadows.")));
 
         if (isStealthMetricResultSuccessful is false)
             _stealthMetricsRepositoryMock.Setup(r => r.GetAll()).Returns(
-                Result<IList<StealthMetrics>, Error>.Failure(new Error("UNABLE_TO_LOAD_STEALTH_METRICS",
+                Result<IList<StealthMetrics>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData,
                     "Unable to fetch stealth metrics.")));
         
         // Act
@@ -144,7 +145,7 @@ public class ShadowServiceTests
         Assert.False(shadowDetailsResult.IsSuccess);
         Assert.Null(shadowDetailsResult.Value);
         Assert.NotNull(shadowDetailsResult.Error);
-        Assert.Equal("NO_SHADOW_OR_METRIC_DATA", shadowDetailsResult.Error.Code);
+        Assert.Equal(ErrorCode.UnableToRetrieveData, shadowDetailsResult.Error.Code);
         Assert.Equal("Unable to retrieve Shadow or Metric Data", shadowDetailsResult.Error.Message);
     }
     
@@ -162,7 +163,7 @@ public class ShadowServiceTests
         // Assert
         Assert.False(shadowDetailResult.IsSuccess);
         Assert.NotNull(shadowDetailResult.Error);
-        Assert.Equal("UNEXPECTED_ERROR", shadowDetailResult.Error.Code);
+        Assert.Equal(ErrorCode.UnexpectedError, shadowDetailResult.Error.Code);
         Assert.Equal(exceptionMessage, shadowDetailResult.Error.Message);
     }
 

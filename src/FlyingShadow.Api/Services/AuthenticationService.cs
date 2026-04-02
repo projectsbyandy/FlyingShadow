@@ -1,4 +1,5 @@
 using FlyingShadow.Core.DTO.Authenticate;
+using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
 using FlyingShadow.Core.Repositories;
@@ -38,11 +39,11 @@ internal class AuthenticationService : IAuthenticationService
         {
             return BCrypt.Net.BCrypt.Verify(request.Password, user.HashedPassword) 
                 ? Result<UserDto, Error>.Success(user.ToDto())
-                : Result<UserDto, Error>.Failure(new Error("INVALID_CREDENTIALS", "The email or password provided is incorrect"));
+                : Result<UserDto, Error>.Failure(new Error(ErrorCode.InvalidCredentials, "The email or password provided is incorrect"));
         }
         catch (Exception ex)
         {
-            return Result<UserDto, Error>.Failure(new  Error("UNABLE_TO_VALIDATE", ex.Message));
+            return Result<UserDto, Error>.Failure(new Error(ErrorCode.UnexpectedError, ex.Message));
         }
     }
 

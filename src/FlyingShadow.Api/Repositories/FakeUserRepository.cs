@@ -1,6 +1,7 @@
 using Ardalis.GuardClauses;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
+using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
 using FlyingShadow.Core.Repositories;
@@ -27,7 +28,7 @@ internal class FakeUserRepository : WithMockData<IList<User>>, IUserRepository
         var user = _users.SingleOrDefault(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         return user is not null 
             ? Result<User, Error>.Success(user)
-            : Result<User, Error>.Failure(new Error("NOT_FOUND", $"User with {email} was not found"));
+            : Result<User, Error>.Failure(new Error(ErrorCode.NotFound, $"User with {email} was not found"));
     }
 
     public Result<User, Error> AddUser(User user)
@@ -42,7 +43,7 @@ internal class FakeUserRepository : WithMockData<IList<User>>, IUserRepository
         var exists = _users.Any(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         
         return exists
-            ? Result<Outcome, Error>.Failure(new Error("ALREADY_REGISTERED", $"User with {email} already registered"))
+            ? Result<Outcome, Error>.Failure(new Error(ErrorCode.AlreadyExists, $"User with {email} already registered"))
             : Result<Outcome, Error>.Success(Outcome.Value);
     }
 }

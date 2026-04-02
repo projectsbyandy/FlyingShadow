@@ -3,6 +3,7 @@ using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Tests.TestExtensions;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
+using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
 using FlyingShadow.Core.Repositories;
@@ -67,7 +68,7 @@ public class FakeUserRepositoryTests
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(result.Error, new Error("NOT_FOUND", $"User with {email} was not found"));
+        Assert.Equal(result.Error, new Error(ErrorCode.NotFound, $"User with {email} was not found"));
     }
     
     [Theory]
@@ -80,7 +81,7 @@ public class FakeUserRepositoryTests
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(result.Error, new Error("NOT_FOUND", $"User with {email} was not found"));
+        Assert.Equal(result.Error, new Error(ErrorCode.NotFound, $"User with {email} was not found"));
     }
 
     [MockDataFact]
@@ -108,6 +109,6 @@ public class FakeUserRepositoryTests
         
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal(new Error("ALREADY_REGISTERED", $"User with {userExistsEmail} already registered"), result.Error);
+        Assert.Equal(new Error(ErrorCode.AlreadyExists, $"User with {userExistsEmail} already registered"), result.Error);
     }
 }
