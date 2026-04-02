@@ -12,13 +12,18 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddFlyingShadowApiSupport(this IServiceCollection services)
     {
         services.AddScoped<Configuration>(_ => ConfigReader.GetConfiguration<Configuration>())
-            .AddScoped<IUserRepository, FakeUserRepository>()
-            .AddScoped<IShadowRepository, FakeShadowRepository>()
-            .AddScoped<IStealthMetricsRepository, FakeStealthMetricsRepository>()
+            .RegisterFakeRepositories()
             .AddScoped<IAuthenticationService, AuthenticationService>()
             .AddScoped<IShadowService, ShadowService>()
             .AddScoped<ITokenService, TokenService>();
         
         return services;
+    }
+
+    private static IServiceCollection RegisterFakeRepositories(this IServiceCollection services)
+    {
+        return services.AddSingleton<IUserRepository, FakeUserRepository>()
+            .AddSingleton<IShadowRepository, FakeShadowRepository>()
+            .AddSingleton<IStealthMetricsRepository, FakeStealthMetricsRepository>();
     }
 }
