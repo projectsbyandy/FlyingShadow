@@ -1,6 +1,7 @@
+using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models.Ninja;
 
-namespace FlyingShadow.Api.Tests.Services.Fixtures;
+namespace FlyingShadow.Api.Tests.Fixtures;
 
 public class ShadowDataFixture : IDisposable
 {
@@ -62,6 +63,18 @@ public class ShadowDataFixture : IDisposable
             AcrobaticsLevel = AcrobaticsLevel.Advanced
         }
     };
+
+    protected IList<ShadowDto> GetShadowDTOs()
+    {
+        var shadowMapper = new ShadowMapper();
+        var metricsById = StealthMetrics.ToDictionary(m => m.ShadowId);
+
+        return Shadows
+            .Where(s => metricsById.ContainsKey(s.Id))
+            .Select(s => shadowMapper.ToDto(s, metricsById[s.Id]))
+            .ToList();   
+    }
+
 
     public void Dispose()
     {

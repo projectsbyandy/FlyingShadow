@@ -1,6 +1,6 @@
 using FlyingShadow.Api.Services;
-using FlyingShadow.Api.Tests.Services.Fixtures;
-using FlyingShadow.Core.DTO.Shadow;
+using FlyingShadow.Api.Tests.Fixtures;
+using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
@@ -16,6 +16,7 @@ public class ShadowServiceTests
     private ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
+    private readonly IShadowMapper _shadowMapperMock = new ShadowMapper();
 
     public ShadowServiceTests()
     {
@@ -24,7 +25,7 @@ public class ShadowServiceTests
         _shadowRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<Shadow>, Error>.Success(_shadowDataFixture.Shadows));
         _stealthMetricsRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<StealthMetrics>, Error>.Success(_shadowDataFixture.StealthMetrics));
         
-        _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object);
+        _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object,  _shadowMapperMock);
     }
     
     [Fact]

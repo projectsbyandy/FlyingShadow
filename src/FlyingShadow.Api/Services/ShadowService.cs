@@ -1,7 +1,6 @@
 using Ardalis.GuardClauses;
-using FlyingShadow.Core.DTO.Shadow;
+using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models;
-using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Repositories;
 using FlyingShadow.Core.Services;
@@ -12,11 +11,13 @@ internal class ShadowService : IShadowService
 {
     private readonly IShadowRepository _shadowRepository;
     private readonly IStealthMetricsRepository _stealthMetricsRepository;
+    private readonly IShadowMapper _shadowMapper;
 
-    public ShadowService(IShadowRepository shadowRepository, IStealthMetricsRepository stealthMetricsRepository)
+    public ShadowService(IShadowRepository shadowRepository, IStealthMetricsRepository stealthMetricsRepository, IShadowMapper shadowMapper)
     {
         _shadowRepository = shadowRepository;
         _stealthMetricsRepository = stealthMetricsRepository;
+        _shadowMapper = shadowMapper;
     }
 
     public Result<IList<ShadowDto>, Error> GetAllShadowDetails()
@@ -34,7 +35,7 @@ internal class ShadowService : IShadowService
 
             var shadowDtos = Guard.Against.Null(shadowResult.Value)
                 .Where(s => metricsById.ContainsKey(s.Id))
-                .Select(s => MapToDto(s, metricsById[s.Id]))
+                .Select(s => _shadowMapper.ToDto(s, metricsById[s.Id]))
                 .ToList();
 
             return shadowDtos.Count > 0
@@ -47,20 +48,4 @@ internal class ShadowService : IShadowService
             return Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnexpectedError, ex.Message));
         }
     }
-    
-    private ShadowDto MapToDto(Shadow s, StealthMetrics m) => new()
-    {
-        Id       =  s.Id,
-        Clan     = s.Clan,
-        CodeName = s.CodeName,
-        Origin   = s.Origin,
-        Rank     = s.Rank,
-        ShadowSkills = new()
-        {
-            AcrobaticsLevel        = m.AcrobaticsLevel,
-            InvisibilityDurationMs = m.InvisibilityDurationMs,
-            ShadowBlendScore       = m.ShadowBlendScore,
-            SilenceRating          = m.SilenceRating,
-        }
-    };
 }

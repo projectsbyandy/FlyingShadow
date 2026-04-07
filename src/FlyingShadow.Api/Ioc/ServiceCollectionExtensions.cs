@@ -2,6 +2,7 @@ using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
+using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Repositories;
 using FlyingShadow.Core.Services;
 
@@ -15,7 +16,8 @@ internal static class ServiceCollectionExtensions
             .RegisterFakeRepositories()
             .AddScoped<IAuthenticationService, AuthenticationService>()
             .AddScoped<IShadowService, ShadowService>()
-            .AddScoped<ITokenService, TokenService>();
+            .AddScoped<ITokenService, TokenService>()
+            .AddSingleton<IShadowMapper, ShadowMapper>();
         
         return services;
     }

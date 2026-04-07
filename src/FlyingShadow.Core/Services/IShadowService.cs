@@ -1,4 +1,4 @@
-using FlyingShadow.Core.DTO.Shadow;
+using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 
 namespace FlyingShadow.Core.Services;
