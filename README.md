@@ -1,11 +1,13 @@
 # Flying Shadow
 
 - Examples of Results and Railway pattern in the FlyingShadow API and MockDataGenerator.
+- Unit, Integration and System testing
 - Console App execution on API build
 - DTO and Domain object seperation in API layers (controller, service and repo).
 - OpenAPI doc generator and Scalar for rendering / testing documents.
 
-# Mock Data Generation
+# Mock Data
+## Json Generation
 The solution supports the generation of mock data to enable the testing of the Flying Shadow API without having to setup a database.
 
 The mock data generation is handled by the `FlyingShadow.Api.MockDataGenerator` project.
@@ -28,4 +30,14 @@ The mock data generation is handled by the `FlyingShadow.Api.MockDataGenerator` 
     - Scenario B - *GenerateMockData* is not in the `Directory.Build.props` file
     - Scenario C - `Directory.Build.props` file is missing
     - Scenario D - *GenerateMockData* is set to `true` AND the mock files exist.
+
+## Json Consumption
+To use the generated data, create an `appsettings.local.json` in the same location as appsettings.json (if not already present) and configure the mock data flag and source. For example
+
+```
+  "mockData": {
+    "isEnabled": true,
+    "source": "json"
+  }
+```
       

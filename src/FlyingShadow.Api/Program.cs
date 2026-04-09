@@ -2,6 +2,7 @@ using System.Text;
 using FlyingShadow.Api.Ioc;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
+using FlyingShadow.Core.DTO.Configuration.MockData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
@@ -12,6 +13,13 @@ builder.Services
     .AddFlyingShadowApiSupport()
     .AddOpenApi()
     .AddControllers();
+
+
+var mockData = ConfigReader.GetConfigurationSection<MockData>("MockData");
+if (mockData is { IsEnabled: true, Source: Source.Json })
+{
+    builder.Services.RegisterFakeJsonRepositories();
+}
 
 var jwtSettings = ConfigReader.GetConfigurationSection<Jwt>("Jwt");
 
