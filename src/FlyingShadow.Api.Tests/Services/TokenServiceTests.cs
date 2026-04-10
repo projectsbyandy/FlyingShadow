@@ -22,6 +22,7 @@ public class TokenServiceTests
                 Key = "hr0mrFHNtG7pkXzchmeqkci2vWYD7Y2yAcBf02EDXmB",
                 Issuer = "FlyingShadow App",
                 Audience = "FlyingShadow.Api",
+                ExpiryInHours = 1
             }
         };
 

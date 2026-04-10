@@ -14,7 +14,6 @@ builder.Services
     .AddOpenApi()
     .AddControllers();
 
-
 var mockData = ConfigReader.GetConfigurationSection<MockData>("MockData");
 if (mockData is { IsEnabled: true, Source: Source.Json })
 {

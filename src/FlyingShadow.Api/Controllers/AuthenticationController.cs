@@ -21,6 +21,7 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<LoginResponse> Login([FromBody] LoginDetails user)
@@ -48,7 +49,6 @@ public class AuthenticationController : ControllerBase
 
     private ActionResult MapError(Error error) => error.Code switch
     {
-        ErrorCode.NotFound or
         ErrorCode.AlreadyExists => BadRequest(new ErrorResponse("Registration could not be completed.")),
         _ => StatusCode(500, new ErrorResponse("An unexpected error occurred."))
     };

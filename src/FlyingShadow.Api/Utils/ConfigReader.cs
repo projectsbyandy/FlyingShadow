@@ -3,6 +3,7 @@ namespace FlyingShadow.Api.Utils;
 public static class ConfigReader
 {
     private static IConfiguration? _configuration;
+    
     public static T GetConfiguration<T>() where T : new()
     {
         var configuration = GetConfiguration();
@@ -10,7 +11,7 @@ public static class ConfigReader
         configuration.Bind(configModel);
         return configModel;
     }
-
+    
     public static T GetConfigurationSection<T>(string sectionName) where T : new()
     {
         var configuration = GetConfiguration();
@@ -20,6 +21,13 @@ public static class ConfigReader
         return configModel;
     }
     
+    public static void SetConfiguration(IConfiguration? configuration)
+    {
+        _configuration = configuration;
+    }
+    
+    public static IConfiguration GetCurrentConfiguration() => GetConfiguration();
+
     private static IConfiguration GetConfiguration()
     {
         var env = Environment.GetEnvironmentVariable("ENVIRONMENTINTEST") ?? "development";

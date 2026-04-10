@@ -2,7 +2,7 @@ using FlyingShadow.Api.Ioc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace FlyingShadow.Api.Integration.Tests.Support;
+namespace FlyingShadow.Api.Integration.Tests.Support.TestLifeCycle;
 
 public class FlyingShadowWebAppTestFactory : WebApplicationFactory<Program>
 {

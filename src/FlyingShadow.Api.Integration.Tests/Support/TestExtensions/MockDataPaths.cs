@@ -1,4 +1,4 @@
-namespace FlyingShadow.Api.Tests.TestExtensions;
+namespace FlyingShadow.Api.Integration.Tests.Support.TestExtensions;
 
 internal static class MockDataPaths
 {

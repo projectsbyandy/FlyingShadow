@@ -26,6 +26,7 @@ internal class FakeUserRepository : WithMockData<IList<User>>, IUserRepository
     public Result<User, Error> GetUser(string email)
     {
         var user = _users.SingleOrDefault(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        
         return user is not null 
             ? Result<User, Error>.Success(user)
             : Result<User, Error>.Failure(new Error(ErrorCode.NotFound, $"User with {email} was not found"));
