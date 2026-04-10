@@ -3,9 +3,11 @@ using System.Net.Http.Json;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
 using Ardalis.GuardClauses;
+using FlyingShadow.Api.Integration.Tests.Support.TestExtensions;
 using FlyingShadow.Api.Integration.Tests.Support.TestLifeCycle;
 using FlyingShadow.Core.DTO.Authenticate;
 using FlyingShadow.Core.DTO.Ninja;
+using FlyingShadow.Core.Models.Ninja;
 
 namespace FlyingShadow.Api.Integration.Tests;
 
@@ -19,12 +21,13 @@ public class FlyingShadowTests
         _client = factory.CreateClient();
     }
     
-    [Fact]
+    [JsonMockDataFact]
     public async Task Verify_Get_Shadows_Returns_Correct_Data_With_Valid_Authentication_Token()
     {
         // Arrange
         var token = await GetAuthTokenAsync(_client);
-        
+        var jsonMockShadows = Guard.Against.Null(ConfigReader.GetConfigurationSection<List<Shadow>>("FakeShadows"));
+
         // Act
         _client.DefaultRequestHeaders.Add("authorization", $"bearer {token}");
         var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows");
@@ -34,10 +37,10 @@ public class FlyingShadowTests
 
         var shadowDetails = await shadowResponse.Content.ReadFromJsonAsync<IList<ShadowDto>>();
         
-        Assert.Equal(150, shadowDetails?.Count);
+        Assert.Equal(jsonMockShadows.Count, shadowDetails?.Count);
     }
     
-    [Fact]
+    [JsonMockDataFact]
     public async Task Verify_Get_Shadows_With_Invalid_Authentication_Token_Returns_Unauthorized()
     {
         // Arrange
@@ -52,7 +55,7 @@ public class FlyingShadowTests
         Assert.Equal(HttpStatusCode.Unauthorized, shadowResponse.StatusCode);
     }
     
-    [Fact]
+    [JsonMockDataFact]
     public async Task Verify_Get_Shadows_With_A_Missing_Authentication_Token_Returns_Unauthorized()
     {
         // Arrange / Act

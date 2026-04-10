@@ -4,6 +4,7 @@ using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
 using Ardalis.GuardClauses;
 using FlyingShadow.Api.Integration.Tests.Support;
+using FlyingShadow.Api.Integration.Tests.Support.TestExtensions;
 using FlyingShadow.Api.Integration.Tests.Support.TestLifeCycle;
 using FlyingShadow.Core.DTO.Authenticate;
 
@@ -24,7 +25,7 @@ public class FlyingShadowIntegrationTests : IDisposable
         _client = factory.CreateClient();
     }
     
-    [Fact]
+    [JsonMockDataFact]
     public async Task Verify_Get_Shadows_With_An_Expired_Authentication_Token_Returns_Unauthorized()
     {
         // Arrange
