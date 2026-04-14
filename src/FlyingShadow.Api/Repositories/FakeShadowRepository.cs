@@ -33,7 +33,7 @@ internal class FakeShadowRepository : WithMockData<IList<Shadow>>, IShadowReposi
             .Find(s => s.CodeName.Equals(codeName, StringComparison.CurrentCultureIgnoreCase));
 
         return shadow is null
-            ? Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow code {codeName} does not exist"))
+            ? Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow code name: {codeName} does not exist"))
             : Result<Shadow, Error>.Success(shadow);
     }
 }

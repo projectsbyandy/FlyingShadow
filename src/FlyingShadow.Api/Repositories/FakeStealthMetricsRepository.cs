@@ -33,7 +33,7 @@ internal class FakeStealthMetricsRepository : WithMockData<IList<StealthMetrics>
             .Find(s => s.ShadowId.Equals(id));
 
         return metrics is null
-            ? Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow metrics with ShadowId {id} does not exist"))
+            ? Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound, $"Stealth metrics with ShadowId: {id} does not exist"))
             : Result<StealthMetrics, Error>.Success(metrics);
     }
 }
