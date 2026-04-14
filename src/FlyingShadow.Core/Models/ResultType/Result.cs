@@ -9,7 +9,11 @@ public class Result<T, TError>
     
     [MemberNotNullWhen(true, nameof(Value))]
     [MemberNotNullWhen(false, nameof(Error))]
-    public bool IsSuccess { get; } 
+    public bool IsSuccess { get; }
+    
+    [MemberNotNullWhen(false, nameof(Value))]
+    [MemberNotNullWhen(true, nameof(Error))]
+    public bool IsFailure => !IsSuccess;
  
     private Result(T value)
     {

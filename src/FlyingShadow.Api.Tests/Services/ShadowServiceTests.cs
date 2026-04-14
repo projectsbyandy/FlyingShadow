@@ -6,6 +6,7 @@ using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Repositories;
 using FlyingShadow.Core.Services;
+using FlyingShadow.Core.Services.Mappers;
 using Moq;
 
 namespace FlyingShadow.Api.Tests.Services;
@@ -16,16 +17,14 @@ public class ShadowServiceTests
     private ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
-    private readonly IShadowMapper _shadowMapperMock = new ShadowMapper();
+    private readonly IShadowDtoMapper _shadowDtoMapper = new ShadowDtoMapper(new ShadowMapper());
 
     public ShadowServiceTests()
     {
-        
         _shadowDataFixture = new ShadowDataFixture();
         _shadowRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<Shadow>, Error>.Success(_shadowDataFixture.Shadows));
         _stealthMetricsRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<StealthMetrics>, Error>.Success(_shadowDataFixture.StealthMetrics));
-        
-        _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object,  _shadowMapperMock);
+        _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object,  _shadowDtoMapper);
     }
     
     [Fact]
@@ -117,7 +116,7 @@ public class ShadowServiceTests
         var shadowDetailsResult = _sut.GetAllShadowDetails();
         
         // Assert
-        Assert.False(shadowDetailsResult.IsSuccess);
+        Assert.True(shadowDetailsResult.IsFailure);
         Assert.Null(shadowDetailsResult.Value);
         Assert.NotNull(shadowDetailsResult.Error);
         Assert.Equal(ErrorCode.UnableToProcessData, shadowDetailsResult.Error.Code);
@@ -143,7 +142,7 @@ public class ShadowServiceTests
         var shadowDetailsResult = _sut.GetAllShadowDetails();
         
         // Assert
-        Assert.False(shadowDetailsResult.IsSuccess);
+        Assert.True(shadowDetailsResult.IsFailure);
         Assert.Null(shadowDetailsResult.Value);
         Assert.NotNull(shadowDetailsResult.Error);
         Assert.Equal(ErrorCode.UnableToRetrieveData, shadowDetailsResult.Error.Code);
@@ -162,7 +161,7 @@ public class ShadowServiceTests
         var shadowDetailResult = _sut.GetAllShadowDetails();
         
         // Assert
-        Assert.False(shadowDetailResult.IsSuccess);
+        Assert.True(shadowDetailResult.IsFailure);
         Assert.NotNull(shadowDetailResult.Error);
         Assert.Equal(ErrorCode.UnexpectedError, shadowDetailResult.Error.Code);
         Assert.Equal(exceptionMessage, shadowDetailResult.Error.Message);

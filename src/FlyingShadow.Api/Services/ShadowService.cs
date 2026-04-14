@@ -1,9 +1,9 @@
-using Ardalis.GuardClauses;
 using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Repositories;
 using FlyingShadow.Core.Services;
+using FlyingShadow.Core.Services.Mappers;
 
 namespace FlyingShadow.Api.Services;
 
@@ -11,13 +11,13 @@ internal class ShadowService : IShadowService
 {
     private readonly IShadowRepository _shadowRepository;
     private readonly IStealthMetricsRepository _stealthMetricsRepository;
-    private readonly IShadowMapper _shadowMapper;
+    private readonly IShadowDtoMapper _shadowDtoMapper;
 
-    public ShadowService(IShadowRepository shadowRepository, IStealthMetricsRepository stealthMetricsRepository, IShadowMapper shadowMapper)
+    public ShadowService(IShadowRepository shadowRepository, IStealthMetricsRepository stealthMetricsRepository, IShadowDtoMapper shadowDtoMapper)
     {
         _shadowRepository = shadowRepository;
         _stealthMetricsRepository = stealthMetricsRepository;
-        _shadowMapper = shadowMapper;
+        _shadowDtoMapper = shadowDtoMapper;
     }
 
     public Result<IList<ShadowDto>, Error> GetAllShadowDetails()
@@ -26,17 +26,11 @@ internal class ShadowService : IShadowService
         {
             var shadowResult = _shadowRepository.GetAll();
             var stealthMetricsResult = _stealthMetricsRepository.GetAll();
-
-            if (!shadowResult.IsSuccess || !stealthMetricsResult.IsSuccess)
-                return Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData,
-                    "Unable to retrieve Shadow or Metric Data"));
-
-            var metricsById = Guard.Against.Null(stealthMetricsResult.Value).ToDictionary(m => m.ShadowId);
-
-            var shadowDtos = Guard.Against.Null(shadowResult.Value)
-                .Where(s => metricsById.ContainsKey(s.Id))
-                .Select(s => _shadowMapper.ToDto(s, metricsById[s.Id]))
-                .ToList();
+             
+            if (shadowResult.IsFailure || stealthMetricsResult.IsFailure)
+                return Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, "Unable to retrieve Shadow or Metric Data"));
+            
+            var shadowDtos = _shadowDtoMapper.List(shadowResult.Value, stealthMetricsResult.Value);
 
             return shadowDtos.Count > 0
                 ? Result<IList<ShadowDto>, Error>.Success(shadowDtos)

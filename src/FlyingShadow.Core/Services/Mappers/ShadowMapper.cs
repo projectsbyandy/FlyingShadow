@@ -1,6 +1,7 @@
+using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models.Ninja;
 
-namespace FlyingShadow.Core.DTO.Ninja;
+namespace FlyingShadow.Core.Services.Mappers;
 
 public class ShadowMapper : IShadowMapper
 {

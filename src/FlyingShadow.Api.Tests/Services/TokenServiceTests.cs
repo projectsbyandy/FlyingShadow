@@ -74,7 +74,7 @@ public class TokenServiceTests
         var tokenResult = tokenService.GenerateToken(_id, _email);
         
         // Assert
-        Assert.False(tokenResult.IsSuccess);
+        Assert.True(tokenResult.IsFailure);
         Assert.NotNull(tokenResult.Error);
         Assert.Equal(ErrorCode.UnexpectedError, tokenResult.Error.Code);
         Assert.NotEmpty(tokenResult.Error.Message);

@@ -2,7 +2,7 @@ namespace FlyingShadow.Core.Models.Ninja;
 
 public enum Rank
 {
-    Danza, 
-    Toshiyama, 
-    Oniwaban
+    Danza = 1, 
+    Toshiyama = 2, 
+    Oniwaban = 3
 }

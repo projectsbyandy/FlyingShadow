@@ -2,7 +2,7 @@ namespace FlyingShadow.Core.Models.Ninja;
 
 public enum AcrobaticsLevel
 {
-    Beginner,
-    Intermediate,
-    Advanced
+    Beginner = 1,
+    Intermediate = 2,
+    Advanced = 3
 }

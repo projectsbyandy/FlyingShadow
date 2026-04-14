@@ -106,7 +106,7 @@ public class FakeUserRepositoryTests
         var result = _sut.EnsureUserDoesNotExist(userExistsEmail);
         
         // Assert
-        Assert.False(result.IsSuccess);
+        Assert.True(result.IsFailure);
         Assert.Equal(new Error(ErrorCode.AlreadyExists, $"User with {userExistsEmail} already registered"), result.Error);
     }
 }

@@ -1,5 +1,6 @@
 using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models.Ninja;
+using FlyingShadow.Core.Services.Mappers;
 
 namespace FlyingShadow.Api.Tests.Fixtures;
 

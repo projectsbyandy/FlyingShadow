@@ -2,9 +2,10 @@ using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
-using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Repositories;
 using FlyingShadow.Core.Services;
+using FlyingShadow.Core.Services.Battle;
+using FlyingShadow.Core.Services.Mappers;
 
 namespace FlyingShadow.Api.Ioc;
 
@@ -15,8 +16,11 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<Configuration>(_ => ConfigReader.GetConfiguration<Configuration>())
             .AddScoped<IAuthenticationService, AuthenticationService>()
             .AddScoped<IShadowService, ShadowService>()
+            .AddScoped<IBattleService, BattleService>()
             .AddScoped<ITokenService, TokenService>()
-            .AddSingleton<IShadowMapper, ShadowMapper>();
+            .AddSingleton<IShadowMapper, ShadowMapper>()
+            .AddSingleton<IShadowDtoMapper, ShadowDtoMapper>()
+            .AddSingleton<IBattleProcessor, BattleProcessor>();
         
         return services;
     }

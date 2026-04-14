@@ -6,4 +6,5 @@ namespace FlyingShadow.Core.Repositories;
 public interface IStealthMetricsRepository
 {
     public Result<IList<StealthMetrics>, Error> GetAll();
+    public Result<StealthMetrics, Error> GetByShadowId(Guid id);
 }
