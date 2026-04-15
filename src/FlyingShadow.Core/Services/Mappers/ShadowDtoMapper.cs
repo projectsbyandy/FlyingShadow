@@ -5,23 +5,29 @@ namespace FlyingShadow.Core.Services.Mappers;
 
 public class ShadowDtoMapper : IShadowDtoMapper
 {
-    private readonly IShadowMapper  _shadowMapper;
-
-    public ShadowDtoMapper(IShadowMapper shadowMapper)
+    public List<ShadowDto> ToList(IList<Shadow> shadows, IList<StealthMetrics> stealthMetrics)
     {
-        _shadowMapper = shadowMapper;
-    }
-
-    public List<ShadowDto> List(IList<Shadow> shadows, IList<StealthMetrics> stealthMetricsResult)
-    {
-        var metricsById = stealthMetricsResult.ToDictionary(m => m.ShadowId);
+        var metricsById = stealthMetrics.ToDictionary(m => m.ShadowId);
 
         return shadows
             .Where(s => metricsById.ContainsKey(s.Id))
-            .Select(s => _shadowMapper.ToDto(s, metricsById[s.Id]))
+            .Select(s => ToSingle(s, metricsById[s.Id]))
             .ToList();
     }
     
-    public ShadowDto Single(Shadow shadow, StealthMetrics stealthMetrics)
-        => _shadowMapper.ToDto(shadow, stealthMetrics);
+    public ShadowDto ToSingle(Shadow shadow, StealthMetrics metrics) => new()
+    {
+        Id = shadow.Id,
+        Clan = shadow.Clan,
+        CodeName = shadow.CodeName,
+        Origin = shadow.Origin,
+        Rank = shadow.Rank,
+        ShadowSkills = new ShadowDto.StealthMetricsDto()
+        {
+            AcrobaticsLevel = metrics.AcrobaticsLevel,
+            InvisibilityDurationMs = metrics.InvisibilityDurationMs,
+            SilenceRating = metrics.SilenceRating,
+            ShadowBlendScore = metrics.ShadowBlendScore
+        }
+    };
 }

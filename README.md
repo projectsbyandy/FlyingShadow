@@ -1,4 +1,5 @@
 # Flying Shadow
+Stats based battle simulator between Shadows.
 
 - Examples of Results and Railway pattern in the FlyingShadow API and MockDataGenerator.
 - Unit, Integration and System testing

@@ -18,7 +18,6 @@ internal static class ServiceCollectionExtensions
             .AddScoped<IShadowService, ShadowService>()
             .AddScoped<IBattleService, BattleService>()
             .AddScoped<ITokenService, TokenService>()
-            .AddSingleton<IShadowMapper, ShadowMapper>()
             .AddSingleton<IShadowDtoMapper, ShadowDtoMapper>()
             .AddSingleton<IBattleProcessor, BattleProcessor>();
         

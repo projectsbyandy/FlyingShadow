@@ -1,6 +1,6 @@
 namespace FlyingShadow.Core.Models.Battle;
 
-public class Stats
+public record Stats
 {
     public required string CodeName { get; set; }
     public required double CombatPower { get; init; }

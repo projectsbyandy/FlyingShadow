@@ -30,7 +30,7 @@ internal class ShadowService : IShadowService
             if (shadowResult.IsFailure || stealthMetricsResult.IsFailure)
                 return Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, "Unable to retrieve Shadow or Metric Data"));
             
-            var shadowDtos = _shadowDtoMapper.List(shadowResult.Value, stealthMetricsResult.Value);
+            var shadowDtos = _shadowDtoMapper.ToList(shadowResult.Value, stealthMetricsResult.Value);
 
             return shadowDtos.Count > 0
                 ? Result<IList<ShadowDto>, Error>.Success(shadowDtos)

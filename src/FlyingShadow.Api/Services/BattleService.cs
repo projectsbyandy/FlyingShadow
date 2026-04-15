@@ -43,6 +43,6 @@ internal class BattleService : IBattleService
             .Bind(shadow => _stealthMetricsRepository
                 .GetByShadowId(shadow.Id)
                 .Bind(metrics => Result<ShadowDto, Error>.Success(
-                    _shadowDtoMapper.Single(shadow, metrics))));
+                    _shadowDtoMapper.ToSingle(shadow, metrics))));
     }
 }

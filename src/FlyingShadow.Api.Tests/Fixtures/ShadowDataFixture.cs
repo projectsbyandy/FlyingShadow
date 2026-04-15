@@ -34,7 +34,7 @@ public class ShadowDataFixture : IDisposable
         }
     };
     
-    public readonly IList<StealthMetrics>  StealthMetrics = new List<StealthMetrics>()
+    public readonly IList<StealthMetrics> StealthMetrics = new List<StealthMetrics>()
     {
         new()
         {
@@ -67,16 +67,15 @@ public class ShadowDataFixture : IDisposable
 
     protected IList<ShadowDto> GetShadowDTOs()
     {
-        var shadowMapper = new ShadowMapper();
+        var shadowMapper = new ShadowDtoMapper();
         var metricsById = StealthMetrics.ToDictionary(m => m.ShadowId);
 
         return Shadows
             .Where(s => metricsById.ContainsKey(s.Id))
-            .Select(s => shadowMapper.ToDto(s, metricsById[s.Id]))
+            .Select(s => shadowMapper.ToSingle(s, metricsById[s.Id]))
             .ToList();   
     }
-
-
+    
     public void Dispose()
     {
         Shadows.Clear();

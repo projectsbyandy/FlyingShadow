@@ -17,7 +17,7 @@ public class ShadowServiceTests
     private ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
-    private readonly IShadowDtoMapper _shadowDtoMapper = new ShadowDtoMapper(new ShadowMapper());
+    private readonly IShadowDtoMapper _shadowDtoMapper = new ShadowDtoMapper();
 
     public ShadowServiceTests()
     {

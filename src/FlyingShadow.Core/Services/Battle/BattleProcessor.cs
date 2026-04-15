@@ -22,6 +22,10 @@ public class BattleProcessor : IBattleProcessor
     
     private Result<Outcome, Error> ValidateShadows(ShadowDto shadowOne, ShadowDto shadowTwo)
     {
+        if (shadowOne.Id.Equals(shadowTwo.Id))
+            return Result<Outcome, Error>.Failure(new Error(ErrorCode.UnableToProcessData,
+                "Shadows with the same Id cannot battle"));
+        
         return shadowOne.Clan.Equals(shadowTwo.Clan) 
             ? Result<Outcome, Error>.Failure(new Error(ErrorCode.UnableToProcessData, "Shadows of the same clan cannot battle"))
             : Result<Outcome, Error>.Success(Outcome.Value);

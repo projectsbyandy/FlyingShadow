@@ -13,7 +13,7 @@ public record BattleReport
     {
         return new BattleResponse()
         {
-            Outcome = Outcome.Contains("draw") ? Outcome : $"{Outcome} wins!",
+            Outcome = Outcome.Equals("draw", StringComparison.CurrentCultureIgnoreCase) ? "Draw!" : $"{Outcome} Wins!",
             ShadowOneStats = ShadowOneStats,
             ShadowTwoStats = ShadowTwoStats,
             StatBreakdown = StatBreakdown
