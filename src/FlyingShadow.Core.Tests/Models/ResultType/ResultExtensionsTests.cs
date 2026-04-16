@@ -194,6 +194,8 @@ public class ResultExtensionsTests
     
     #endregion
     
+    #pragma warning disable
+    // Warnings due to async and sync versions of method for testing.
     Result<string, string> Call(bool isError, int callNumber)
     {
         return isError
@@ -203,8 +205,10 @@ public class ResultExtensionsTests
 
     Task<Result<string, string>> CallAsync(bool isError, int callNumber)
     {
-        return isError
-            ? Task.FromResult(Result<string, string>.Failure($"You triggered a failure on a async call number: {callNumber}"))
-            : Task.FromResult(Result<string, string>.Success($"You triggered a success on a async call number: {callNumber}"));
+        var result = isError
+            ? Result<string, string>.Failure($"You triggered a failure on a async call number: {callNumber}")
+            : Result<string, string>.Success($"You triggered a success on a async call number: {callNumber}");
+        
+        return Task.FromResult(result);
     }
 }

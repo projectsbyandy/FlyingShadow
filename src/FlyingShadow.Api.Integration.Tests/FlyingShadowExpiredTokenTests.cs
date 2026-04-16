@@ -15,6 +15,8 @@ public class FlyingShadowIntegrationTests : IDisposable
 {
     private readonly HttpClient _client;
     private readonly LoginDetails _loginDetails;
+    private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
+
     
     public FlyingShadowIntegrationTests(FlyingShadowWebAppTestFactory factory)
     {
@@ -33,7 +35,7 @@ public class FlyingShadowIntegrationTests : IDisposable
         
         // Act
         _client.DefaultRequestHeaders.Add("authorization", $"bearer {token}");
-        var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows");
+        var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, shadowResponse.StatusCode);
@@ -47,8 +49,8 @@ public class FlyingShadowIntegrationTests : IDisposable
     
     private async Task<string> GetAuthTokenAsync(HttpClient client)
     {
-        var authResponse = await client.PostAsJsonAsync($"/api/authentication/login", _loginDetails);
-        var loginResponse = await authResponse.Content.ReadFromJsonAsync<LoginResponse>();
+        var authResponse = await client.PostAsJsonAsync($"/api/authentication/login", _loginDetails, _cancellationToken);
+        var loginResponse = await authResponse.Content.ReadFromJsonAsync<LoginResponse>(_cancellationToken);
         
         return Guard.Against.NullOrEmpty(loginResponse?.TokenDetails.Token);
     }

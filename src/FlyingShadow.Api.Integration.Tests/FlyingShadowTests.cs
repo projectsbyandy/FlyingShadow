@@ -15,6 +15,8 @@ namespace FlyingShadow.Api.Integration.Tests;
 public class FlyingShadowTests
 {
     private readonly HttpClient _client;
+    private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
+
     
     public FlyingShadowTests(FlyingShadowWebAppTestFactory factory)
     {
@@ -35,7 +37,7 @@ public class FlyingShadowTests
         // Assert
         Assert.Equal(HttpStatusCode.OK, shadowResponse.StatusCode);
 
-        var shadowDetails = await shadowResponse.Content.ReadFromJsonAsync<IList<ShadowDto>>();
+        var shadowDetails = await shadowResponse.Content.ReadFromJsonAsync<IList<ShadowDto>>(_cancellationToken);
         
         Assert.Equal(jsonMockShadows.Count, shadowDetails?.Count);
     }
@@ -49,7 +51,7 @@ public class FlyingShadowTests
         
         // Act
         _client.DefaultRequestHeaders.Add("authorization", $"bearer {invalidToken}");
-        var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows");
+        var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, shadowResponse.StatusCode);
@@ -59,7 +61,7 @@ public class FlyingShadowTests
     public async Task Verify_Get_Shadows_With_A_Missing_Authentication_Token_Returns_Unauthorized()
     {
         // Arrange / Act
-        var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows");
+        var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, shadowResponse.StatusCode);
@@ -68,8 +70,8 @@ public class FlyingShadowTests
     private async Task<string> GetAuthTokenAsync(HttpClient client)
     {
         var user = Guard.Against.Null(ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers").LoginDetailsList).First();
-        var authResponse = await client.PostAsJsonAsync($"/api/authentication/login", user);
-        var loginResponse = await authResponse.Content.ReadFromJsonAsync<LoginResponse>();
+        var authResponse = await client.PostAsJsonAsync($"/api/authentication/login", user, _cancellationToken);
+        var loginResponse = await authResponse.Content.ReadFromJsonAsync<LoginResponse>(_cancellationToken);
         
         return Guard.Against.NullOrEmpty(loginResponse?.TokenDetails.Token);
     }

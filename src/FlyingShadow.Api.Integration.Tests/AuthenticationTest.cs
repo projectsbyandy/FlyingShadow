@@ -15,7 +15,8 @@ public class AuthenticationTest
 {
     private readonly HttpClient _client;
     private readonly FakeUsers _fakeUsers = ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers");
-
+    private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
+        
     public AuthenticationTest(FlyingShadowWebAppTestFactory factory)
     {
         _client = factory.CreateClient();
@@ -30,7 +31,7 @@ public class AuthenticationTest
         var firstValidUser = Guard.Against.Null(_fakeUsers.LoginDetailsList?.First());
         
         // Act
-        var response = await _client.PostAsJsonAsync("api/authentication/login", firstValidUser);
+        var response = await _client.PostAsJsonAsync("api/authentication/login", firstValidUser, _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -64,11 +65,11 @@ public class AuthenticationTest
         {
             Email = email,
             Password = password
-        });
+        }, _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-        Assert.Equal(new ErrorResponse("Invalid Email or Password"), await response.Content.ReadFromJsonAsync<ErrorResponse>());
+        Assert.Equal(new ErrorResponse("Invalid Email or Password"), await response.Content.ReadFromJsonAsync<ErrorResponse>(_cancellationToken));
     }
     
     [Fact]
@@ -78,11 +79,11 @@ public class AuthenticationTest
         var response = await _client.PostAsJsonAsync("api/authentication/login", new
         {
             Password = "password"
-        });
+        }, _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        var responseMessage = await response.Content.ReadAsStringAsync();
+        var responseMessage = await response.Content.ReadAsStringAsync(_cancellationToken);
         Assert.Contains("missing required properties including: 'email'", responseMessage);
     }
     
