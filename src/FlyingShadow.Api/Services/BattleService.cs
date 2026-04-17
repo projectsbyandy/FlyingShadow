@@ -24,7 +24,6 @@ internal class BattleService : IBattleService
 
     public Result<BattleResponse, Error> Battle(string shadowOneName, string shadowTwoName)
     {
-        
         var shadowOneResult = GetShadowDto(shadowOneName);
         var shadowTwoResult = GetShadowDto(shadowTwoName);
 
@@ -42,7 +41,6 @@ internal class BattleService : IBattleService
         return _shadowRepository.GetByCodeName(codeName)
             .Bind(shadow => _stealthMetricsRepository
                 .GetByShadowId(shadow.Id)
-                .Bind(metrics => Result<ShadowDto, Error>.Success(
-                    _shadowDtoMapper.ToSingle(shadow, metrics))));
+                .Map(metrics => _shadowDtoMapper.ToSingle(shadow, metrics)));
     }
 }

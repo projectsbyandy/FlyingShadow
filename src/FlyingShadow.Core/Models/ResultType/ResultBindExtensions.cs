@@ -1,6 +1,6 @@
 namespace FlyingShadow.Core.Models.ResultType;
 
-public static class ResultExtensions
+public static class ResultBindExtensions
 {
     /// <summary>
     /// Chains a sync step onto an already-resolved result.
