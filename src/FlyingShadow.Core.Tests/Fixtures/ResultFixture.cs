@@ -22,6 +22,7 @@ public class ResultFixture
         return Task.FromResult(result);
     }
     
+    #pragma warning disable 
     protected string Converter(string converter, int callNumber)
     {
         return $"Conversion on call {callNumber} complete: '{converter}'";
@@ -29,6 +30,6 @@ public class ResultFixture
     
     protected Task<string> ConverterAsync(string converter, int callNumber)
     {
-        return Task.FromResult($"Conversion on call {callNumber} complete: '{converter}'");
+        return Task.FromResult($"Async Conversion on call {callNumber} complete: '{converter}'");
     }
 }

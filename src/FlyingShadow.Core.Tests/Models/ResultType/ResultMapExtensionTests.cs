@@ -51,11 +51,138 @@ public class ResultMapExtensionTests : ResultFixture
     
     #endregion
     #region Map - Pending Result, Sync Mapper
-    #endregion
     
+    [Fact]
+    public async Task Map_PendingSuccess_MapsValue()
+    {
+        // Arrange / Act
+        var result = await CallAsync(false, 1)
+            .Map(message => Converter(message, 2));
+        
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotNull(result.Value);
+        Assert.Equal("Conversion on call 2 complete: 'You triggered a success on a async call number: 1'", result.Value);
+    }
+    
+    [Fact]
+    public async Task Map_PendingSuccess_MapsValue_Then_Bind_Continues()
+    {   
+        // Arrange / Act
+        var result = await CallAsync(false, 1)
+            .Map(message => Converter(message, 2))
+            .Bind(_ => Call(false, 3));
+        
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotNull(result.Value);
+        Assert.Equal("You triggered a success on a sync call number: 3", result.Value);
+    }
+
+    [Fact]
+    public async Task Map_PendingSuccess_MapsValue_Then_Bind_Fails()
+    {
+        // Arrange / Act
+        var result = await CallAsync(false, 1)
+            .Map(message => Converter(message, 2))
+            .Bind(_ => Call(true, 3));
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal("You triggered a failure on a sync call number: 3", result.Error);
+        Assert.Null(result.Value);
+    }
+    
+    #endregion
     #region MapAsync - Resolved Result, Async Mapper
-    #endregion
     
+    [Fact]
+    public async Task Map_Success_AsyncMapsValue()
+    {
+        // Arrange / Act
+        var result = await Call(false, 1)
+            .MapAsync(message => ConverterAsync(message, 2));
+        
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotNull(result.Value);
+        Assert.Equal("Async Conversion on call 2 complete: 'You triggered a success on a sync call number: 1'", result.Value);
+    }
+    
+    [Fact]
+    public async Task Map_Success_AsyncMapsValue_Then_Bind_Continues()
+    {   
+        // Arrange / Act
+        var result = await Call(false, 1)
+            .MapAsync(message => ConverterAsync(message, 2))
+            .Bind(_ => Call(false, 3));
+        
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotNull(result.Value);
+        Assert.Equal("You triggered a success on a sync call number: 3", result.Value);
+    }
+
+    [Fact]
+    public async Task Map_Success_AsyncMapsValue_Then_Bind_Fails()
+    {
+        // Arrange / Act
+        var result = await Call(false, 1)
+            .MapAsync(message => ConverterAsync(message, 2))
+            .Bind(_ => Call(true, 3));
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal("You triggered a failure on a sync call number: 3", result.Error);
+        Assert.Null(result.Value);
+    }
+    
+    #endregion
     #region MapAsync - Pending Result, Async Mapper
+    
+    [Fact]
+    public async Task Map_PendingSuccess_AsyncMapsValue()
+    {
+        // Arrange / Act
+        var result = await CallAsync(false, 1)
+            .MapAsync(message => ConverterAsync(message, 2));
+        
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotNull(result.Value);
+        Assert.Equal("Async Conversion on call 2 complete: 'You triggered a success on a async call number: 1'", result.Value);
+    }
+    
+    [Fact]
+    public async Task Map_PendingSuccess_AsyncMapsValue_Then_Bind_Continues()
+    {   
+        // Arrange / Act
+        var result = await CallAsync(false, 1)
+            .MapAsync(message => ConverterAsync(message, 2))
+            .Bind(_ => Call(false, 3));
+        
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotNull(result.Value);
+        Assert.Equal("You triggered a success on a sync call number: 3", result.Value);
+    }
+    
+    [Fact]
+    public async Task Map_PendingSuccess_AsyncMapsValue_Then_Bind_Fails()
+    {
+        // Arrange / Act
+        var result = await CallAsync(false, 1)
+            .MapAsync(message => ConverterAsync(message, 2))
+            .Bind(_ => Call(true, 3));
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal("You triggered a failure on a sync call number: 3", result.Error);
+        Assert.Null(result.Value);
+    }
+    
     #endregion
 }
