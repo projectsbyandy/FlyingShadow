@@ -25,10 +25,11 @@ internal class BattleService : IBattleService
     public Result<BattleResponse, Error> Battle(string shadowOneName, string shadowTwoName)
     {
         var shadowOneResult = GetShadowDto(shadowOneName);
-        var shadowTwoResult = GetShadowDto(shadowTwoName);
-
+        
         if (shadowOneResult.IsFailure)
             return Result<BattleResponse, Error>.Failure(shadowOneResult.Error);
+        
+        var shadowTwoResult = GetShadowDto(shadowTwoName);
         
         if (shadowTwoResult.IsFailure)
             return Result<BattleResponse, Error>.Failure(shadowTwoResult.Error);

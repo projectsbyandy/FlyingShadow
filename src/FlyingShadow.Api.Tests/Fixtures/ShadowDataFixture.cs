@@ -1,4 +1,6 @@
+using FlyingShadow.Core.DTO.Battle;
 using FlyingShadow.Core.DTO.Ninja;
+using FlyingShadow.Core.Models.Battle;
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Services.Mappers;
 
@@ -75,7 +77,34 @@ public class ShadowDataFixture : IDisposable
             .Select(s => shadowMapper.ToSingle(s, metricsById[s.Id]))
             .ToList();   
     }
-    
+
+    protected readonly BattleResponse BattleResponse = new()
+    {
+        Outcome = "test",
+        ShadowOneStats = new Stats()
+        {
+            CodeName = "test",
+            OverallRating = 1,
+            CombatPower = 1,
+            EvasionIndex = 1,
+            StealthScore = 1
+        },
+        ShadowTwoStats = new Stats()
+        {
+            CodeName = "test",
+            OverallRating = 1,
+            CombatPower = 1,
+            EvasionIndex = 1,
+            StealthScore = 1
+        },
+        StatBreakdown = new StatResults()
+        {
+            CombatPowerWinner = "test",
+            EvasionIndexWinner = "test",
+            StealthScoreWinner = "test",
+        }
+    };
+
     public void Dispose()
     {
         Shadows.Clear();

@@ -15,6 +15,7 @@ internal static class ServiceCollectionExtensions
     {
         services.AddScoped<Configuration>(_ => ConfigReader.GetConfiguration<Configuration>())
             .AddScoped<IAuthenticationService, AuthenticationService>()
+            .AddScoped<IPasswordHasher, PasswordHasher>()
             .AddScoped<IShadowService, ShadowService>()
             .AddScoped<IBattleService, BattleService>()
             .AddScoped<ITokenService, TokenService>()

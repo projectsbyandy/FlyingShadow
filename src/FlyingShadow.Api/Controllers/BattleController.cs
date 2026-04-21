@@ -21,7 +21,6 @@ public class BattleController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<BattleResponse> Battle([FromBody] BattleRequest request)
     {
        var result = _battleService.Battle(request.ShadowOneCodeName, request.ShadowTwoCodeName);

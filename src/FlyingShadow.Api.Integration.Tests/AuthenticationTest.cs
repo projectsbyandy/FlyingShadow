@@ -105,7 +105,7 @@ public class AuthenticationTest
         };
         
         // Arrange
-        var response = await _client.PostAsJsonAsync("api/authentication/register", userToRegister);
+        var response = await _client.PostAsJsonAsync("api/authentication/register", userToRegister,  _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
@@ -120,7 +120,7 @@ public class AuthenticationTest
         var existingUser = Guard.Against.Null(_fakeUsers.LoginDetailsList?.First());
         
         // Act
-        var response = await _client.PostAsJsonAsync("api/authentication/register", existingUser);
+        var response = await _client.PostAsJsonAsync("api/authentication/register", existingUser,  _cancellationToken);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);

@@ -3,7 +3,6 @@ using FlyingShadow.Api.Tests.Fixtures;
 using FlyingShadow.Core.DTO.Battle;
 using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models;
-using FlyingShadow.Core.Models.Battle;
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Repositories;
@@ -43,32 +42,7 @@ public class BattleServiceTests : ShadowDataFixture
         // Arrange
         _battleProcessorMock
             .Setup(processor => processor.Process(It.IsAny<ShadowDto>(), It.IsAny<ShadowDto>()))
-            .Returns(Result<BattleResponse, Error>.Success(new BattleResponse()
-            {
-                Outcome = "test",
-                ShadowOneStats = new Stats()
-                {
-                    CodeName =  "test",
-                    OverallRating = 0,
-                    CombatPower = 0,
-                    EvasionIndex = 0,
-                    StealthScore = 0
-                },
-                ShadowTwoStats = new Stats()
-                {
-                    CodeName = "test",
-                    OverallRating = 0,
-                    CombatPower = 0,
-                    EvasionIndex = 0,
-                    StealthScore = 0
-                },
-                StatBreakdown = new StatResults()
-                {
-                    CombatPowerWinner = "test",
-                    EvasionIndexWinner = "test",
-                    StealthScoreWinner =  "test",
-                }
-            }));
+            .Returns(Result<BattleResponse, Error>.Success(BattleResponse));
         
         // Act
         var result = _sut.Battle("Test", "Test");
@@ -76,24 +50,48 @@ public class BattleServiceTests : ShadowDataFixture
         // Assert
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
+        Assert.Equal(BattleResponse, result.Value);
     }
     
     [Fact]
-    public void Battle_With_Invalid_Shadow_CodeName_Returns_Failure()
+    public void Battle_With_Invalid_Shadow_One_CodeName_Returns_Failure()
     {
         // Arrange
         _shadowRepositoryMock
             .Setup(repo => repo.GetByCodeName(It.IsAny<string>()))
-            .Returns(Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, "Nothing here")));
+            .Returns<string>(codeName => Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"{codeName} not found")));
 
+        const string shadowOneCodeName = "NonexistentCodeName";
         // Act
-        var result = _sut.Battle("Test", "Test");
+        var result = _sut.Battle(shadowOneCodeName, "shadowTwoExists");
         
         // Assert
         Assert.True(result.IsFailure);
         Assert.NotNull(result.Error);
         Assert.Equal(ErrorCode.NotFound, result.Error.Code);
-        Assert.Equal("Nothing here", result.Error.Message);
+        Assert.Equal($"{shadowOneCodeName} not found", result.Error.Message);
+        Assert.Null(result.Value);
+    }
+    
+    [Fact]
+    public void Battle_With_Invalid_Shadow_Two_CodeName_Returns_Failure()
+    {
+        // Arrange
+        const string shadowTwoCodeName = "NonexistentCodeName";
+
+        _shadowRepositoryMock
+            .SetupSequence(repo => repo.GetByCodeName(It.IsAny<string>()))
+            .Returns(Result<Shadow, Error>.Success(Shadows.First()))
+            .Returns(Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"{shadowTwoCodeName} not found")));
+        
+        // Act
+        var result = _sut.Battle("shadowOneExists", shadowTwoCodeName);
+        
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal(ErrorCode.NotFound, result.Error.Code);
+        Assert.Equal($"{shadowTwoCodeName} not found", result.Error.Message);
         Assert.Null(result.Value);
     }
     
@@ -106,7 +104,7 @@ public class BattleServiceTests : ShadowDataFixture
             .Returns(Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound, "No Metrics here")));
         
         // Act
-        var result = _sut.Battle("Test", "Test");
+        var result = _sut.Battle("CodeNameExists", "Test");
         
         // Assert
         Assert.True(result.IsFailure);
