@@ -11,19 +11,17 @@ using Moq;
 
 namespace FlyingShadow.Api.Tests.Services;
 
-public class ShadowServiceTests
+public class ShadowServiceTests : ShadowDataFixture
 {
     private IShadowService _sut;
-    private ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
     private readonly IShadowDtoMapper _shadowDtoMapper = new ShadowDtoMapper();
 
     public ShadowServiceTests()
     {
-        _shadowDataFixture = new ShadowDataFixture();
-        _shadowRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<Shadow>, Error>.Success(_shadowDataFixture.Shadows));
-        _stealthMetricsRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<StealthMetrics>, Error>.Success(_shadowDataFixture.StealthMetrics));
+        _shadowRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<Shadow>, Error>.Success(Shadows));
+        _stealthMetricsRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<StealthMetrics>, Error>.Success(StealthMetrics));
         _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object,  _shadowDtoMapper);
     }
     
@@ -80,11 +78,11 @@ public class ShadowServiceTests
     public void Verify_GetShadowDetails_Only_Returns_Shadows_With_Successful_StealthMetrics_Mapping()
     {
         // Arrange
-        var metricToRemoveIndex = _shadowDataFixture.StealthMetrics.ToList().FindIndex(m => m.InvisibilityDurationMs == 1022);
-        _shadowDataFixture.StealthMetrics.RemoveAt(metricToRemoveIndex);
+        var metricToRemoveIndex = StealthMetrics.ToList().FindIndex(m => m.InvisibilityDurationMs == 1022);
+        StealthMetrics.RemoveAt(metricToRemoveIndex);
         
-        var expectedShadowIds = _shadowDataFixture.Shadows
-            .Where(s => _shadowDataFixture.StealthMetrics.Any(m => m.ShadowId == s.Id))
+        var expectedShadowIds = Shadows
+            .Where(s => StealthMetrics.Any(m => m.ShadowId == s.Id))
             .Select(s => s.Id)
             .ToList();
         
@@ -107,10 +105,10 @@ public class ShadowServiceTests
     {
         // Arrange
         if (shadowListEmpty)
-            _shadowDataFixture.Shadows.Clear();
+            Shadows.Clear();
         
         if(stealthMetricsListEmpty) 
-            _shadowDataFixture.StealthMetrics.Clear();
+            StealthMetrics.Clear();
         
         // Act
         var shadowDetailsResult = _sut.GetAllShadowDetails();

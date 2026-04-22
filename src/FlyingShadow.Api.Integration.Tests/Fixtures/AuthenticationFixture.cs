@@ -7,7 +7,7 @@ using FlyingShadow.Core.DTO.Configuration;
 
 namespace FlyingShadow.Api.Integration.Tests.Fixtures;
 
-public class AuthenticationFixture
+public abstract class AuthenticationFixture
 {
     protected async Task<string> GetAuthTokenAsync(HttpClient client, CancellationToken ct)
     {

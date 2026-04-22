@@ -3,7 +3,7 @@ using FlyingShadow.Core.Models.Ninja;
 
 namespace FlyingShadow.Core.Tests.Fixtures;
 
-public class ShadowDtoFixture
+public abstract class ShadowDtoFixture
 {
     protected readonly ShadowDto ShadowOne = new()
     {

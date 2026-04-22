@@ -6,7 +6,7 @@ using FlyingShadow.Core.Services.Mappers;
 
 namespace FlyingShadow.Api.Tests.Fixtures;
 
-public class ShadowDataFixture : IDisposable
+public abstract class ShadowDataFixture : IDisposable
 {
     public readonly IList<Shadow> Shadows = new List<Shadow>()
     {
