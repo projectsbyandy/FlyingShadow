@@ -9,7 +9,7 @@ public record ShadowDto
     public required string Clan { get; init; }
     public required string Origin { get; init; }
     public required Rank Rank { get; init; }
-    public required StealthMetricsDto ShadowSkills { get; init; } = new();
+    public required StealthMetricsDto ShadowSkills { get; init; }
     
     public record StealthMetricsDto
     {

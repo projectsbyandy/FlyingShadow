@@ -8,19 +8,19 @@ public class BattleReportTests
     private readonly Stats _shadowOneStats = new()
     {
         CodeName = "Shadow Warrior",
-        CombatPower = 11.11,
-        EvasionIndex = 22.22,
-        StealthScore = 33.33,
-        OverallRating = 44.44
+        CombatPower = 11.11m,
+        EvasionIndex = 22.22m,
+        StealthScore = 33.33m,
+        OverallRating = 44.44m
     };
 
     private readonly Stats _shadowTwoStats = new()
     {
         CodeName = "Shadow Prince",
-        CombatPower = 55.55,
-        EvasionIndex = 66.66,
-        StealthScore = 77.77,
-        OverallRating = 88.88
+        CombatPower = 55.55m,
+        EvasionIndex = 66.66m,
+        StealthScore = 77.77m,
+        OverallRating = 88.88m
     };
 
     private readonly StatResults _statBreakdown = new()

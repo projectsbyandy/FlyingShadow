@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
 using Ardalis.GuardClauses;
+using FlyingShadow.Api.Integration.Tests.Fixtures;
 using FlyingShadow.Api.Integration.Tests.Support;
 using FlyingShadow.Api.Integration.Tests.Support.TestExtensions;
 using FlyingShadow.Api.Integration.Tests.Support.TestLifeCycle;
@@ -11,12 +12,11 @@ using FlyingShadow.Core.DTO.Authenticate;
 namespace FlyingShadow.Api.Integration.Tests;
 
 [Collection(IntegrationTestCollection.Name)]
-public class FlyingShadowIntegrationTests : IDisposable
+public class FlyingShadowIntegrationTests : AuthenticationFixture, IDisposable
 {
     private readonly HttpClient _client;
     private readonly LoginDetails _loginDetails;
     private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
-
     
     public FlyingShadowIntegrationTests(FlyingShadowWebAppTestFactory factory)
     {
@@ -34,7 +34,7 @@ public class FlyingShadowIntegrationTests : IDisposable
         var token = await GetAuthTokenAsync(_client);
         
         // Act
-        _client.DefaultRequestHeaders.Add("authorization", $"bearer {token}");
+        AddAuthHeader(_client, token);
         var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
         
         // Assert

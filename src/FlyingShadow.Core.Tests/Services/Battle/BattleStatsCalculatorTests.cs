@@ -27,9 +27,9 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
     
     public static IEnumerable<object[]> RankTestData =>
     [
-        [Rank.Danza, new Stats {CodeName = "", OverallRating = 1420.26, CombatPower = 3432, EvasionIndex  = 27.393, StealthScore = 151.5}],
-        [Rank.Oniwaban, new Stats {CodeName = "", OverallRating = 4165.86, CombatPower = 10296, EvasionIndex  = 27.393, StealthScore = 151.5}],
-        [Rank.Toshiyama, new Stats {CodeName = "", OverallRating = 2793.06, CombatPower = 6864, EvasionIndex  = 27.393, StealthScore = 151.5}],
+        [Rank.Danza, new Stats {CodeName = "", OverallRating = 1420.26m, CombatPower = 3432m, EvasionIndex  = 27.393m, StealthScore = 151.5m}],
+        [Rank.Oniwaban, new Stats {CodeName = "", OverallRating = 4165.86m, CombatPower = 10296m, EvasionIndex  = 27.393m, StealthScore = 151.5m}],
+        [Rank.Toshiyama, new Stats {CodeName = "", OverallRating = 2793.06m, CombatPower = 6864m, EvasionIndex  = 27.393m, StealthScore = 151.5m}],
     ];
 
     [Theory]
@@ -54,9 +54,9 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
     
     public static IEnumerable<object[]> AcrobaticTestData =>
     [
-        [AcrobaticsLevel.Beginner, new Stats {CodeName = "", OverallRating = 1388.62, CombatPower = 3432, EvasionIndex  = 9.131, StealthScore = 50.5}],
-        [AcrobaticsLevel.Intermediate, new Stats {CodeName = "", OverallRating = 2777.24, CombatPower = 6864, EvasionIndex  = 18.262, StealthScore = 101}],
-        [AcrobaticsLevel.Advanced, new Stats {CodeName = "", OverallRating = 4165.86, CombatPower = 10296, EvasionIndex  = 27.393, StealthScore = 151.5}],
+        [AcrobaticsLevel.Beginner, new Stats {CodeName = "", OverallRating = 1388.62m, CombatPower = 3432m, EvasionIndex  = 9.131m, StealthScore = 50.5m}],
+        [AcrobaticsLevel.Intermediate, new Stats {CodeName = "", OverallRating = 2777.24m, CombatPower = 6864m, EvasionIndex  = 18.262m, StealthScore = 101m}],
+        [AcrobaticsLevel.Advanced, new Stats {CodeName = "", OverallRating = 4165.86m, CombatPower = 10296m, EvasionIndex  = 27.393m, StealthScore = 151.5m}],
     ];
 
     [Theory]
@@ -83,9 +83,9 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
     
     public static IEnumerable<object[]> ShadowStatsTestData =>
     [
-        [32, 54, 84, new Stats {CodeName = "", OverallRating = 16381.38, CombatPower = 40824, EvasionIndex  = 0.096, StealthScore = 207}],
-        [9381, 130, 81, new Stats {CodeName = "", OverallRating = 37996.97, CombatPower = 94770, EvasionIndex  = 28.143, StealthScore = 316.5}],
-        [85, 1, 94, new Stats {CodeName = "", OverallRating = 374.11, CombatPower = 846, EvasionIndex  = 0.255, StealthScore = 142.5}],
+        [32, 54, 84, new Stats {CodeName = "", OverallRating = 16381.38m, CombatPower = 40824m, EvasionIndex  = 0.096m, StealthScore = 207m}],
+        [9381, 130, 81, new Stats {CodeName = "", OverallRating = 37996.97m, CombatPower = 94770m, EvasionIndex  = 28.143m, StealthScore = 316.5m}],
+        [85, 1, 94, new Stats {CodeName = "", OverallRating = 374.11m, CombatPower = 846m, EvasionIndex  = 0.255m, StealthScore = 142.5m}],
     ];
     
     [Fact]
@@ -120,6 +120,6 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
         var result = BattleStatsCalculator.Process(shadow);
 
         // Assert
-        Assert.Equal(2.13, result.OverallRating);
+        Assert.Equal(2.13m, result.OverallRating);
     }
 }

@@ -47,7 +47,7 @@ public class BattleProcessor : IBattleProcessor
         };
     }
 
-    private static string GetStatWinner(double statOne, double statTwo, string shadowOneName, string shadowTwoName)
+    private static string GetStatWinner(decimal statOne, decimal statTwo, string shadowOneName, string shadowTwoName)
     {
         return statOne > statTwo 
             ? shadowOneName 
