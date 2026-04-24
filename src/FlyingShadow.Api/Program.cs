@@ -5,13 +5,28 @@ using FlyingShadow.Core.DTO.Configuration;
 using FlyingShadow.Core.DTO.Configuration.MockData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddFlyingShadowApiSupport()
-    .AddOpenApi()
+    .AddOpenApi(options =>
+    {
+        options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
+        options.AddDocumentTransformer((document, _, _) =>
+        {
+            document.Info = new()
+            {
+                Title = "Flying Daggers API",
+                Version = "1.0.0",
+                Description = "Flying Daggers API management",
+            };
+            
+            return Task.CompletedTask;
+        });
+    })
     .AddControllers();
 
 var mockData = ConfigReader.GetConfigurationSection<MockData>("MockData");
@@ -47,7 +62,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapOpenApi("/docs/FlyingShadow_OpenApiSpec.yaml");
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTitle("Flying Daggers API");
+        options.WithOpenApiRoutePattern("/docs/FlyingShadow_OpenApiSpec.yaml");
+    });
 }
 
 if (!app.Environment.IsEnvironment("Test"))
