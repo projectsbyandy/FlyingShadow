@@ -47,18 +47,38 @@ public class ResultBindExtensionsTests : ResultFixture
         Assert.Equal("Message from call 1: You triggered a success on a sync call number: 1", result.Value);
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    public void Bind_Passes_Null_Or_Empty_From_First_Call_To_Second(string? value)
+    [Fact]
+    public void Bind_Passes_Empty_From_First_Call_To_Second()
     {
         // Arrange / Act
-        var result = Result<string?, string>.Success(value)
+        var result = Result<string?, string>.Success("")
             .Bind(successMessage => Result<string, string>.Success($"Message from call 1: {successMessage}"));
-        
+
         // Act
         Assert.True(result.IsSuccess);
-        Assert.Equal($"Message from call 1: {value}", result.Value);
+        Assert.Equal("Message from call 1: ", result.Value);
+    }
+    
+    [Fact]
+    public void Bind_ResultSuccessNullValue_Throws_Null_Exception()
+    {
+        // Arrange / Act
+        var result = () => Result<string?, string>.Success(null);
+
+        // Act
+        var exception = Assert.Throws<ArgumentNullException>(result);
+        Assert.Equal("value", exception.ParamName);
+    }
+    
+    [Fact]
+    public void Bind_ResultFailureNullValue_Throws_Null_Exception()
+    {
+        // Arrange / Act
+        var result = () => Result<string?, string>.Failure(null);
+
+        // Act
+        var exception = Assert.Throws<ArgumentNullException>(result);
+        Assert.Equal("error", exception.ParamName);
     }
     
     #endregion

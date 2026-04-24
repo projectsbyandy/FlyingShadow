@@ -17,16 +17,19 @@ public class Result<T, TError>
  
     private Result(T value)
     {
-        Value = value;
+        Value = value ?? throw new ArgumentNullException(nameof(value));;
         IsSuccess = true;
     }
  
     private Result(TError error)
     {
-        Error = error;
+        Error = error ?? throw new ArgumentNullException(nameof(error));;
         IsSuccess = false;
     }
  
     public static Result<T, TError> Success(T value) => new(value);
     public static Result<T, TError> Failure(TError error) => new(error);
+    
+    public static implicit operator Result<T, TError>(T value) => new(value);
+    public static implicit operator Result<T, TError>(TError error) => new(error);
 }
