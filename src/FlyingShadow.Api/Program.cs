@@ -5,7 +5,6 @@ using FlyingShadow.Core.DTO.Configuration;
 using FlyingShadow.Core.DTO.Configuration.MockData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +13,6 @@ builder.Services
     .AddFlyingShadowApiSupport()
     .AddOpenApi(options =>
     {
-        options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
         options.AddDocumentTransformer((document, _, _) =>
         {
             document.Info = new()

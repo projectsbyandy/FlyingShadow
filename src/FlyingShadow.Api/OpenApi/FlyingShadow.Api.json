@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.4",
+  "openapi": "3.1.1",
   "info": {
     "title": "Flying Daggers API",
     "description": "Flying Daggers API management",
@@ -393,25 +393,37 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "title": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "status": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "format": "int32",
-            "nullable": true
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
           },
           "detail": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "instance": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "null",
+              "string"
+            ]
           }
         }
       },
@@ -511,18 +523,34 @@
           },
           "combatPower": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
             "format": "double"
           },
           "evasionIndex": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
             "format": "double"
           },
           "stealthScore": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
             "format": "double"
           },
           "overallRating": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
             "format": "double"
           }
         }
@@ -532,14 +560,26 @@
         "properties": {
           "shadowBlendScore": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
             "format": "int32"
           },
           "silenceRating": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
             "format": "int32"
           },
           "invisibilityDurationMs": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
             "format": "int32"
           },
           "acrobaticsLevel": {
