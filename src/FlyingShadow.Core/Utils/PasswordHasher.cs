@@ -1,8 +1,6 @@
-using FlyingShadow.Core.Services;
+namespace FlyingShadow.Core.Utils;
 
-namespace FlyingShadow.Api.Services;
-
-internal class PasswordHasher : IPasswordHasher
+public class PasswordHasher : IPasswordHasher
 {
     public string Hash(string password)
         => BCrypt.Net.BCrypt.HashPassword(password, workFactor: 14);

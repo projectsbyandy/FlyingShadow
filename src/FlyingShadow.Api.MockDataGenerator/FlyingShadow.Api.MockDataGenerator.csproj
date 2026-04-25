@@ -9,7 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
+      <PackageReference Include="Ardalis.GuardClauses" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.6" />
     </ItemGroup>
 
     <ItemGroup>

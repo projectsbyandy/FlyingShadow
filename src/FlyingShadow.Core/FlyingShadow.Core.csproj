@@ -9,4 +9,8 @@
     <ItemGroup>
         <InternalsVisibleTo Include="FlyingShadow.Core.Tests" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
+    </ItemGroup>
 </Project>

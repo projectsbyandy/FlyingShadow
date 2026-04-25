@@ -1,4 +1,4 @@
-namespace FlyingShadow.Core.Services;
+namespace FlyingShadow.Core.Utils;
 
 public interface IPasswordHasher
 {

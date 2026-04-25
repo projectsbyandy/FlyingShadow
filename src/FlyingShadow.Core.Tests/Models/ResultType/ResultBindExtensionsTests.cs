@@ -74,7 +74,7 @@ public class ResultBindExtensionsTests : ResultFixture
     public void Bind_ResultFailureNullValue_Throws_Null_Exception()
     {
         // Arrange / Act
-        var result = () => Result<string?, string>.Failure(null);
+        var result = () => Result<string?, string>.Failure(null!);
 
         // Act
         var exception = Assert.Throws<ArgumentNullException>(result);
