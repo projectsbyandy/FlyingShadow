@@ -9,8 +9,8 @@ internal class ShadowDataCopy : IShadowDataCopy
     {
         try
         {
-            File.Copy(Path.Combine(AppContext.BaseDirectory, "./StaticData/shadows.json"), context.FakeDataDestinationPaths.ShadowsPath, true);
-            File.Copy(Path.Combine(AppContext.BaseDirectory, "./StaticData/stealthMetrics.json"), context.FakeDataDestinationPaths.StealthMetricsPath, true);
+            File.Copy(Path.Combine(AppContext.BaseDirectory, "./StaticData/shadows.json"), context.MockDataOptions.FakeShadowsPath, true);
+            File.Copy(Path.Combine(AppContext.BaseDirectory, "./StaticData/stealthMetrics.json"), context.MockDataOptions.FakeStealthMetricsPath, true);
             Console.WriteLine($"MockDataGenerator: Copied Mock Shadow Data files");
         }
         catch (Exception ex)

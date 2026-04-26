@@ -43,7 +43,7 @@ internal class UserDataGenerator : IUserDataGenerator
 
     public async Task<Result<PipelineContext, int>> WriteJwtFileAsync(PipelineContext context)
     {
-        return await ProcessAsync(context.FakeDataDestinationPaths.JwtKeyPath, context, () => new
+        return await ProcessAsync(context.MockDataOptions.FakeJwtPath, context, () => new
         {
             jwt = new { key = context.JwtKey }
         });
@@ -51,7 +51,7 @@ internal class UserDataGenerator : IUserDataGenerator
 
     public async Task<Result<PipelineContext, int>> WriteLoginDetailsFileAsync(PipelineContext context)
     {
-        return await ProcessAsync(context.FakeDataDestinationPaths.LoginDetailsListPath, context, () =>
+        return await ProcessAsync(context.MockDataOptions.FakeLoginDetailsListPath, context, () =>
             new
             {
                 fakeUsers = new
@@ -68,7 +68,7 @@ internal class UserDataGenerator : IUserDataGenerator
     
     public async Task<Result<PipelineContext, int>> WriteUsersFileAsync(PipelineContext context)
     {
-        return await ProcessAsync(context.FakeDataDestinationPaths.UsersPath, context, () => new
+        return await ProcessAsync(context.MockDataOptions.FakeUsersPath, context, () => new
         {
             fakeUsers = new
             {

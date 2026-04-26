@@ -1,31 +1,38 @@
 using FlyingShadow.Api.MockDataGenerator.Models;
 using FlyingShadow.Core.Models.ResultType;
+using Microsoft.Extensions.Options;
 
 namespace FlyingShadow.Api.MockDataGenerator.Handler.Internal;
 
 internal class PreReqValidator : IPreReqValidator
 {
-    public Result<FakeDataDestinationPaths, int> CheckArguments(string[] args)
+    private readonly MockDataOptions _options;
+
+    public PreReqValidator(IOptions<MockDataOptions> options)
     {
-        if (args.Length != 5)
-        {
-            Console.Error.WriteLine("MockDataGenerator: Error - Expected Usage: `MockDataGenerator <fakeJwtPath> <fakeUserRequestPath> <fakeUserPath> <fakeShadowPath> <fakeStealthMetricPath>`");
-            return Result<FakeDataDestinationPaths, int>.Failure(1);
-        }
- 
-        var mappedPaths = new FakeDataDestinationPaths(args[0],  args[1], args[2], args[3], args[4]);
-        
-        return Result<FakeDataDestinationPaths, int>.Success(mappedPaths);
+        _options = options.Value;
     }
+
+    // public Result<FakeDataDestinationPaths, int> CheckArguments()
+    // {
+    //     if (_options.FakeJwtPath)
+    //     {
+    //         Console.Error.WriteLine("MockDataGenerator: Error - Expected Usage: `MockDataGenerator <fakeJwtPath> <fakeUserRequestPath> <fakeUserPath> <fakeShadowPath> <fakeStealthMetricPath>`");
+    //         return Result<FakeDataDestinationPaths, int>.Failure(1);
+    //     }
+    //
+    //     var mappedPaths = new FakeDataDestinationPaths(args[0],  args[1], args[2], args[3], args[4]);
+    //     
+    //     return Result<FakeDataDestinationPaths, int>.Success(mappedPaths);
+    // }
     
-    public Task<Result<PipelineContext, int>> CheckFilesExistAsync(
-        FakeDataDestinationPaths destinationPaths)
+    public Task<Result<PipelineContext, int>> CheckFilesExistAsync()
     {
-        var fakeLoginDetailsExists = File.Exists(destinationPaths.LoginDetailsListPath);
-        var fakeUsersExists  = File.Exists(destinationPaths.UsersPath);
-        var fakeShadowsExist = File.Exists(destinationPaths.ShadowsPath);
-        var fakeStealthMetricsExists  = File.Exists(destinationPaths.StealthMetricsPath);
-        var fakeJwtExists = File.Exists(destinationPaths.JwtKeyPath);
+        var fakeLoginDetailsExists = File.Exists(_options.FakeLoginDetailsListPath);
+        var fakeUsersExists  = File.Exists(_options.FakeJwtPath);
+        var fakeShadowsExist = File.Exists(_options.FakeShadowsPath);
+        var fakeStealthMetricsExists  = File.Exists(_options.FakeStealthMetricsPath);
+        var fakeJwtExists = File.Exists(_options.FakeJwtPath);
  
         if (fakeLoginDetailsExists && fakeUsersExists && fakeShadowsExist && fakeStealthMetricsExists && fakeJwtExists)
         {
@@ -34,7 +41,7 @@ internal class PreReqValidator : IPreReqValidator
         }
  
         var context = new PipelineContext(
-            FakeDataDestinationPaths: destinationPaths,
+            MockDataOptions: _options,
             JwtKey: string.Empty,
             Credentials: []
         );

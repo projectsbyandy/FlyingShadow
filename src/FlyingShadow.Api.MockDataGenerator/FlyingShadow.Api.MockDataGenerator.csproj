@@ -12,8 +12,14 @@
       <PackageReference Include="Ardalis.GuardClauses" Version="5.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.6" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.7" />
+      <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="10.0.7" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="FlyingShadow.Api.MockDataGenerator.Tests" />
+    </ItemGroup>
+    
     <ItemGroup>
       <ProjectReference Include="..\FlyingShadow.Core\FlyingShadow.Core.csproj" />
     </ItemGroup>

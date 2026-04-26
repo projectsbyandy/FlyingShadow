@@ -1,7 +1,7 @@
 namespace FlyingShadow.Api.MockDataGenerator.Models;
 
 internal record PipelineContext(
-    FakeDataDestinationPaths FakeDataDestinationPaths,
+    MockDataOptions MockDataOptions,
     string JwtKey,
     IReadOnlyList<UserCredentials> Credentials
 );

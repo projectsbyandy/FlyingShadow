@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingShadow.Core", "Flying
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingShadow.Core.Tests", "FlyingShadow.Core.Tests\FlyingShadow.Core.Tests.csproj", "{2E3BAE75-C81F-4989-B542-0EC3D90DE705}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingShadow.Api.MockDataGenerator.Tests", "FlyingShadow.Api.MockDataGenerator.Tests\FlyingShadow.Api.MockDataGenerator.Tests.csproj", "{7FEC449F-57FB-449C-83CA-2CA2CBB25E62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{2E3BAE75-C81F-4989-B542-0EC3D90DE705}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E3BAE75-C81F-4989-B542-0EC3D90DE705}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E3BAE75-C81F-4989-B542-0EC3D90DE705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FEC449F-57FB-449C-83CA-2CA2CBB25E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FEC449F-57FB-449C-83CA-2CA2CBB25E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FEC449F-57FB-449C-83CA-2CA2CBB25E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FEC449F-57FB-449C-83CA-2CA2CBB25E62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C8D20912-6D12-43F3-BD1C-66F00DCFC67B} = {702A8F13-FBE7-442D-A782-D8AA36AB3C95}
@@ -54,5 +60,6 @@ Global
 		{E90C377A-D93B-48F0-B6DC-A79EB3D96594} = {00822545-D759-4380-8674-0B89AB9E28CC}
 		{456427F1-8BB4-4A99-A284-BFB46B99C203} = {702A8F13-FBE7-442D-A782-D8AA36AB3C95}
 		{2E3BAE75-C81F-4989-B542-0EC3D90DE705} = {00822545-D759-4380-8674-0B89AB9E28CC}
+		{7FEC449F-57FB-449C-83CA-2CA2CBB25E62} = {00822545-D759-4380-8674-0B89AB9E28CC}
 	EndGlobalSection
 EndGlobal

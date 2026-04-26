@@ -18,10 +18,9 @@ internal class MockDataHandler
         _shadowDataCopy = shadowDataCopy;
     }
 
-    public async Task<int> Process(string [] args)
+    public async Task<int> Process()
     {
-        var result = await _preReqValidator.CheckArguments(args)
-            .BindAsync(_preReqValidator.CheckFilesExistAsync)
+        var result = await _preReqValidator.CheckFilesExistAsync()
             .BindAsync(_userDataGenerator.CredentialsAsync)
             .BindAsync(_userDataGenerator.WriteJwtFileAsync)
             .BindAsync(_userDataGenerator.WriteLoginDetailsFileAsync)
