@@ -9,7 +9,7 @@ internal class FileManager : IFileManager
         var fullPath = Path.Combine(AppContext.BaseDirectory, filePath);
         
         if (!File.Exists(fullPath))
-            throw new FileNotFoundException($"JSON file not found: {filePath}");
+            throw new FileNotFoundException($"File not found: {filePath}");
 
         await using var stream = File.OpenRead(fullPath);
 
@@ -23,7 +23,7 @@ internal class FileManager : IFileManager
     public async Task WriteAsync<T>(string filePath, T objectToWrite)
     {
         await File.WriteAllTextAsync(
-            filePath,
+            Path.Combine(AppContext.BaseDirectory, filePath),
             JsonSerializer.Serialize(objectToWrite, WriteJsonOpts));
     }
    

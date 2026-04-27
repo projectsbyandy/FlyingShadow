@@ -12,19 +12,6 @@ internal class PreReqValidator : IPreReqValidator
     {
         _options = options.Value;
     }
-
-    // public Result<FakeDataDestinationPaths, int> CheckArguments()
-    // {
-    //     if (_options.FakeJwtPath)
-    //     {
-    //         Console.Error.WriteLine("MockDataGenerator: Error - Expected Usage: `MockDataGenerator <fakeJwtPath> <fakeUserRequestPath> <fakeUserPath> <fakeShadowPath> <fakeStealthMetricPath>`");
-    //         return Result<FakeDataDestinationPaths, int>.Failure(1);
-    //     }
-    //
-    //     var mappedPaths = new FakeDataDestinationPaths(args[0],  args[1], args[2], args[3], args[4]);
-    //     
-    //     return Result<FakeDataDestinationPaths, int>.Success(mappedPaths);
-    // }
     
     public Task<Result<PipelineContext, int>> CheckFilesExistAsync()
     {
