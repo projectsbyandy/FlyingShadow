@@ -4,8 +4,16 @@ namespace FlyingShadow.Core.Models.ResultType;
 
 public class Result<T, TError>
 {
-    public T? Value { get; }
-    public TError? Error { get; }
+    public T Value => IsSuccess
+        ? field!
+        : throw new InvalidOperationException(
+            "Cannot access Value on a failed Result. Check IsSuccess before reading Value.");
+
+    public TError Error => IsFailure
+        ? field!
+        : throw new InvalidOperationException(
+            "Cannot access Error on a successful Result. Check IsFailure before reading Error.");
+
     
     [MemberNotNullWhen(true, nameof(Value))]
     [MemberNotNullWhen(false, nameof(Error))]
@@ -17,13 +25,13 @@ public class Result<T, TError>
  
     private Result(T value)
     {
-        Value = value ?? throw new ArgumentNullException(nameof(value));;
+        Value = value ?? throw new ArgumentNullException(nameof(value));
         IsSuccess = true;
     }
  
     private Result(TError error)
     {
-        Error = error ?? throw new ArgumentNullException(nameof(error));;
+        Error = error ?? throw new ArgumentNullException(nameof(error));
         IsSuccess = false;
     }
  

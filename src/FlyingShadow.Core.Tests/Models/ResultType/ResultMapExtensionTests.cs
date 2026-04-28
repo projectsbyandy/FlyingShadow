@@ -49,7 +49,6 @@ public class ResultMapExtensionTests : ResultFixture
         Assert.NotNull(result.Error);
         Assert.Equal(1, ConvertedMethodCalled);
         Assert.Equal("You triggered a failure on a sync call number: 3", result.Error);
-        Assert.Null(result.Value);
     }
 
     [Fact]
@@ -111,7 +110,6 @@ public class ResultMapExtensionTests : ResultFixture
         Assert.NotNull(result.Error);
         Assert.Equal(1, ConvertedMethodCalled);
         Assert.Equal("You triggered a failure on a sync call number: 3", result.Error);
-        Assert.Null(result.Value);
     }
     
     [Fact]
@@ -173,7 +171,6 @@ public class ResultMapExtensionTests : ResultFixture
         Assert.NotNull(result.Error);
         Assert.Equal(1, ConverterAsyncMethodCalled);
         Assert.Equal("You triggered a failure on a sync call number: 3", result.Error);
-        Assert.Null(result.Value);
     }
     
     [Fact]
@@ -187,7 +184,6 @@ public class ResultMapExtensionTests : ResultFixture
         Assert.NotNull(result.Error);
         Assert.Equal(0, ConverterAsyncMethodCalled);
         Assert.Equal("You triggered a failure on a sync call number: 1", result.Error);
-        Assert.Null(result.Value);
     }
     
     #endregion
@@ -235,7 +231,6 @@ public class ResultMapExtensionTests : ResultFixture
         Assert.NotNull(result.Error);
         Assert.Equal(1, ConverterAsyncMethodCalled);
         Assert.Equal("You triggered a failure on a sync call number: 3", result.Error);
-        Assert.Null(result.Value);
     }
     
     [Fact]

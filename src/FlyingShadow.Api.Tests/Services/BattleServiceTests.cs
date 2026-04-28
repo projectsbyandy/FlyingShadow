@@ -70,7 +70,6 @@ public class BattleServiceTests : ShadowDataFixture
         Assert.NotNull(result.Error);
         Assert.Equal(ErrorCode.NotFound, result.Error.Code);
         Assert.Equal($"{shadowOneCodeName} not found", result.Error.Message);
-        Assert.Null(result.Value);
     }
     
     [Fact]
@@ -92,7 +91,6 @@ public class BattleServiceTests : ShadowDataFixture
         Assert.NotNull(result.Error);
         Assert.Equal(ErrorCode.NotFound, result.Error.Code);
         Assert.Equal($"{shadowTwoCodeName} not found", result.Error.Message);
-        Assert.Null(result.Value);
     }
     
     [Fact]
@@ -111,7 +109,6 @@ public class BattleServiceTests : ShadowDataFixture
         Assert.NotNull(result.Error);
         Assert.Equal(ErrorCode.NotFound, result.Error.Code);
         Assert.Equal("No Metrics here", result.Error.Message);
-        Assert.Null(result.Value);
     }
 
     [Fact]
@@ -130,6 +127,5 @@ public class BattleServiceTests : ShadowDataFixture
         Assert.NotNull(result.Error);
         Assert.Equal(ErrorCode.UnableToProcessData, result.Error.Code);
         Assert.Equal("Unable To Process Data", result.Error.Message);
-        Assert.Null(result.Value);
     }
 }

@@ -1,4 +1,5 @@
 using FlyingShadow.Api.MockDataGenerator.Models;
+using FlyingShadow.Api.MockDataGenerator.Models.ProgressStatus;
 using FlyingShadow.Api.MockDataGenerator.Utilities;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Models.Users;
@@ -19,7 +20,7 @@ internal class UserDataGenerator : IUserDataGenerator
         _secretGenerator = secretGenerator;
     }
     
-    public async Task<Result<PipelineContext, int>> CredentialsAsync(PipelineContext context)
+    public async Task<Result<PipelineContext, FailureCode>> CredentialsAsync(PipelineContext context)
     {
         Console.WriteLine("MockDataGenerator: generating credentials...");
         
@@ -34,14 +35,14 @@ internal class UserDataGenerator : IUserDataGenerator
             return new UserCredentials(u.UserId, u.Email, password, hashedPassword);
         }).ToList();
  
-        return Result<PipelineContext, int>.Success(context with
+        return Result<PipelineContext, FailureCode>.Success(context with
         {
             JwtKey   = _secretGenerator.Jwt(),
             Credentials = credentials,
         });
     }
 
-    public async Task<Result<PipelineContext, int>> WriteJwtFileAsync(PipelineContext context)
+    public async Task<Result<PipelineContext, FailureCode>> WriteJwtFileAsync(PipelineContext context)
     {
         return await ProcessAsync(context.MockDataOptions.FakeJwtPath, context, () => new
         {
@@ -49,7 +50,7 @@ internal class UserDataGenerator : IUserDataGenerator
         });
     }
 
-    public async Task<Result<PipelineContext, int>> WriteLoginDetailsFileAsync(PipelineContext context)
+    public async Task<Result<PipelineContext, FailureCode>> WriteLoginDetailsFileAsync(PipelineContext context)
     {
         return await ProcessAsync(context.MockDataOptions.FakeLoginDetailsListPath, context, () =>
             new
@@ -66,7 +67,7 @@ internal class UserDataGenerator : IUserDataGenerator
         );
     }
     
-    public async Task<Result<PipelineContext, int>> WriteUsersFileAsync(PipelineContext context)
+    public async Task<Result<PipelineContext, FailureCode>> WriteUsersFileAsync(PipelineContext context)
     {
         return await ProcessAsync(context.MockDataOptions.FakeUsersPath, context, () => new
         {
@@ -82,7 +83,7 @@ internal class UserDataGenerator : IUserDataGenerator
         });
     }
 
-    private async Task<Result<PipelineContext, int>> ProcessAsync(string path, PipelineContext context, Func<object> generateObjectToWrite)
+    private async Task<Result<PipelineContext, FailureCode>> ProcessAsync(string path, PipelineContext context, Func<object> generateObjectToWrite)
     {
         try
         {
@@ -90,12 +91,12 @@ internal class UserDataGenerator : IUserDataGenerator
 
             await CreateFileAssetsAsync(path, asset);
             
-            return Result<PipelineContext, int>.Success(context);
+            return Result<PipelineContext, FailureCode>.Success(context);
         }
         catch (Exception ex)
         {
             await Console.Error.WriteLineAsync($"MockDataGenerator: failed to write {path} due to: {ex.Message}");
-            return Result<PipelineContext, int>.Failure(1);
+            return Result<PipelineContext, FailureCode>.Failure(FailureCode.Problem);
         }
     }
 

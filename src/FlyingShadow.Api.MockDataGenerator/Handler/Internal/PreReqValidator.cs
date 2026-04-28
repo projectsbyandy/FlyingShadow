@@ -1,4 +1,5 @@
 using FlyingShadow.Api.MockDataGenerator.Models;
+using FlyingShadow.Api.MockDataGenerator.Models.ProgressStatus;
 using FlyingShadow.Core.Models.ResultType;
 using Microsoft.Extensions.Options;
 
@@ -13,7 +14,7 @@ internal class PreReqValidator : IPreReqValidator
         _options = options.Value;
     }
     
-    public Task<Result<PipelineContext, int>> CheckFilesExistAsync()
+    public Task<Result<PipelineContext, FailureCode>> CheckFilesExistAsync()
     {
         var fakeLoginDetailsExists = File.Exists(_options.FakeLoginDetailsListPath);
         var fakeUsersExists  = File.Exists(_options.FakeJwtPath);
@@ -24,7 +25,7 @@ internal class PreReqValidator : IPreReqValidator
         if (fakeLoginDetailsExists && fakeUsersExists && fakeShadowsExist && fakeStealthMetricsExists && fakeJwtExists)
         {
             Console.WriteLine("MockDataGenerator: files already exist, skipping.");
-            return Task.FromResult(Result<PipelineContext, int>.Failure(0));
+            return Task.FromResult(Result<PipelineContext, FailureCode>.Failure(FailureCode.Warning));
         }
  
         var context = new PipelineContext(
@@ -33,6 +34,6 @@ internal class PreReqValidator : IPreReqValidator
             Credentials: []
         );
         
-        return Task.FromResult(Result<PipelineContext, int>.Success(context));
+        return Task.FromResult(Result<PipelineContext, FailureCode>.Success(context));
     }
 }

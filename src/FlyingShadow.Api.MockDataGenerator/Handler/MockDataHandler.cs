@@ -9,13 +9,13 @@ internal class MockDataHandler
 {
     private readonly IPreReqValidator _preReqValidator;
     private readonly IUserDataGenerator _userDataGenerator;
-    private readonly IShadowDataCopy _shadowDataCopy;
+    private readonly IShadowDataCopier _shadowDataCopier;
 
-    public MockDataHandler(IPreReqValidator preReqValidator, IUserDataGenerator userDataGenerator, IShadowDataCopy shadowDataCopy)
+    public MockDataHandler(IPreReqValidator preReqValidator, IUserDataGenerator userDataGenerator, IShadowDataCopier shadowDataCopier)
     {
         _userDataGenerator = userDataGenerator;
         _preReqValidator = preReqValidator;
-        _shadowDataCopy = shadowDataCopy;
+        _shadowDataCopier = shadowDataCopier;
     }
 
     public async Task<int> Process()
@@ -25,8 +25,8 @@ internal class MockDataHandler
             .BindAsync(_userDataGenerator.WriteJwtFileAsync)
             .BindAsync(_userDataGenerator.WriteLoginDetailsFileAsync)
             .BindAsync(_userDataGenerator.WriteUsersFileAsync)
-            .Bind(_shadowDataCopy.Process);
+            .Bind(_shadowDataCopier.Process);
         
-        return result.IsSuccess ? 0 : result.Value;
+        return result.IsSuccess ? (int)result.Value : (int)result.Error;
     }
 }

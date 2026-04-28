@@ -19,7 +19,7 @@ internal static class ServiceExtensions
             .AddSingleton<IPreReqValidator, PreReqValidator>()
             .AddSingleton<ISecretGenerator, SecretGenerator>()
             .AddSingleton<IUserDataGenerator, UserDataGenerator>()
-            .AddSingleton<IShadowDataCopy, ShadowDataCopy>()
+            .AddSingleton<IShadowDataCopier, ShadowDataCopier>()
             .AddSingleton<IFileManager, FileManager>()
             .AddSingleton<IPasswordHasher, PasswordHasher>();
         

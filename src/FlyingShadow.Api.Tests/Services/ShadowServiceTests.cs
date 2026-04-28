@@ -115,7 +115,6 @@ public class ShadowServiceTests : ShadowDataFixture
         
         // Assert
         Assert.True(shadowDetailsResult.IsFailure);
-        Assert.Null(shadowDetailsResult.Value);
         Assert.NotNull(shadowDetailsResult.Error);
         Assert.Equal(ErrorCode.UnableToProcessData, shadowDetailsResult.Error.Code);
         Assert.Equal("No Shadow Details mapped", shadowDetailsResult.Error.Message);
@@ -141,8 +140,6 @@ public class ShadowServiceTests : ShadowDataFixture
         
         // Assert
         Assert.True(shadowDetailsResult.IsFailure);
-        Assert.Null(shadowDetailsResult.Value);
-        Assert.NotNull(shadowDetailsResult.Error);
         Assert.Equal(ErrorCode.UnableToRetrieveData, shadowDetailsResult.Error.Code);
         Assert.Equal("Unable to retrieve Shadow or Metric Data", shadowDetailsResult.Error.Message);
     }

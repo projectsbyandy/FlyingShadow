@@ -17,7 +17,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal("You triggered a success on a sync call number: 2", result.Value);
-        Assert.Null(result.Error);
     }
     
     [Theory]
@@ -32,7 +31,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsFailure);
         Assert.Equal($"You triggered a failure on a sync call number: {expectedErrorCallNumber}", result.Error);
-        Assert.Null(result.Value);
     }
 
     [Fact]
@@ -95,7 +93,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal("You triggered a success on a sync call number: 2", result.Value);
-        Assert.Null(result.Error);
     }
     
     [Theory]
@@ -110,7 +107,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsFailure);
         Assert.Equal($"You triggered a failure on a {execution} call number: {expectedErrorCallNumber}", result.Error);
-        Assert.Null(result.Value);
     }
 
     [Fact]
@@ -139,7 +135,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal("You triggered a success on a async call number: 2", result.Value);
-        Assert.Null(result.Error);
     }
     
     [Theory]
@@ -154,7 +149,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsFailure);
         Assert.Equal($"You triggered a failure on a {execution} call number: {expectedErrorCallNumber}", result.Error);
-        Assert.Null(result.Value);
     }
 
     [Fact]
@@ -183,7 +177,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal("You triggered a success on a async call number: 2", result.Value);
-        Assert.Null(result.Error);
     }
     
     [Theory]
@@ -198,7 +191,6 @@ public class ResultBindExtensionsTests : ResultFixture
         // Assert
         Assert.True(result.IsFailure);
         Assert.Equal($"You triggered a failure on a async call number: {expectedErrorCallNumber}", result.Error);
-        Assert.Null(result.Value);
     }
     
     [Fact]
