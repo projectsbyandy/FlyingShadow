@@ -21,7 +21,11 @@ builder.Services
                 Version = "1.0.0",
                 Description = "Flying Daggers API management",
             };
-            
+            document.Servers =
+            [
+                new() { Url = "https://localhost:7113" }
+            ];
+
             return Task.CompletedTask;
         });
     })
@@ -60,11 +64,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapOpenApi("/docs/FlyingShadow_OpenApiSpec.yaml");
+    app.MapOpenApi("/openapi/FlyingShadow.Api.json");
     app.MapScalarApiReference(options =>
     {
         options.WithTitle("Flying Daggers API");
-        options.WithOpenApiRoutePattern("/docs/FlyingShadow_OpenApiSpec.yaml");
+        options.WithOpenApiRoutePattern("/openapi/FlyingShadow.Api.json");
+
     });
 }
 

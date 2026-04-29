@@ -5,6 +5,11 @@
     "description": "Flying Daggers API management",
     "version": "1.0.0"
   },
+  "servers": [
+    {
+      "url": "https://localhost:7113"
+    }
+  ],
   "paths": {
     "/api/Authentication/login": {
       "post": {
