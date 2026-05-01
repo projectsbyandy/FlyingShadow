@@ -60,9 +60,34 @@ The mock data generation is handled by the `FlyingShadow.Api.MockDataGenerator` 
     - Scenario D - *GenerateMockData* is set to `true` AND the mock files exist.
 
 # Open API generation
-The Flying Shadow open api spec will be generated here `FlyingShadow.Api/OpenApi` in yaml format.
+The Flying Shadow open api spec will be generated here `FlyingShadow.Api/OpenApi` in json format.
 
-To view the spec from the Scalar UI browse to `<localhost with port>/docs/FlyingShadow_OpenApiSpec.yaml`
+To view the spec from the Scalar UI browse to `<localhost with port>/openapi/FlyingShadow.Api.json`
+
+## Open API Tests
+### Initial Setup
+#### Local — scoped to the repo, version-pinned in a manifest
+`dotnet new tool-manifest`
+`dotnet tool install Microsoft.OpenApi.Kiota`
+
+#### Generate Client and DTOs
+A build target in the FlyingShadow.Api.Spec.Test project will generate the assets pre-compilation of the test library. This means any breaking changes to the Open Api spec should reflect in the generatated assets and break consuming tests.
+
+```
+dotnet kiota generate \
+  -l CSharp \
+  -d ./openapi.json \
+  -c FlyingShadowClient \
+  -n FlyingShadow.Client \
+  -o ./_Generated/FlyingShadow.Client
+```
+
+### Tests
+The tests are built using
+- Kiota generated a wrapper client and DTOs
+- Microsoft.AspNetCore.Mvc.Testing which spins up the API, creates a httpclient for use in wrapper client.
+
+NOTE - Error status codes throw a ProblemDetails (Kiota Api Exception).
 
 # Troubleshooting
 The folder and spec may not regenerate if the build system thinks nothing has changed (normally when the folder has been manaully deleted)

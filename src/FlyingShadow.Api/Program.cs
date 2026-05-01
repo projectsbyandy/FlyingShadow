@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using FlyingShadow.Api.Ioc;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
@@ -36,6 +37,11 @@ if (mockData is { IsEnabled: true, Source: Source.Json })
 {
     builder.Services.RegisterFakeJsonRepositories();
 }
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
+});
 
 var jwtSettings = ConfigReader.GetConfigurationSection<Jwt>("Jwt");
 

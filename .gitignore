@@ -294,6 +294,12 @@ bin
 # local appsettings file, which may contain secrets and should not be checked in
 appsettings.local.json
 
+# Mock data
 _GeneratedData/
+
+# Kiota generated code
+_Generated
+
+# Static analysis
 coverage/
 dotCover.xml
