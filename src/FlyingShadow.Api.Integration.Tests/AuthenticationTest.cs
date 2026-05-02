@@ -55,10 +55,10 @@ public class AuthenticationTest
     }
     
     [JsonMockDataTheory]
-    [InlineData("", "")]
-    [InlineData("bob", "test")]
-    [InlineData("mary", "watch")]
-    public async Task Verify_Invalid_Credentials_Returns_Unauthorized(string email, string password)
+    [InlineData("test@test.com", "boring")]
+    [InlineData("bob@test.com", "tester")]
+    [InlineData("mary@test.com", "watch")]
+    public async Task Verify_Login_With_Invalid_Credentials_Returns_Unauthorized(string email, string password)
     {
         // Arrange / Act
         var response = await _client.PostAsJsonAsync("api/authentication/login", new LoginDetails()
@@ -73,7 +73,7 @@ public class AuthenticationTest
     }
     
     [Fact]
-    public async Task Verify_Missing_Email_Returns_Unauthorized()
+    public async Task Verify_Login_Missing_Email_Returns_Unauthorized()
     {
         // Arrange / Act
         var response = await _client.PostAsJsonAsync("api/authentication/login", new
@@ -126,6 +126,43 @@ public class AuthenticationTest
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         var registerResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
         Assert.Equal(new ErrorResponse("Registration could not be completed."), registerResponse);
+    }
+    
+    public static IEnumerable<object?[]> InvalidRegistrations => new[]
+    {
+        new object?[] { null, null, new [] {"The Email field is required.", "The Password field is required." } },
+        new object?[] { "", "", new [] { "The Email field is not a valid e-mail address.", "The field Password must be a string or array type with a minimum length of '5'." } },
+        new object?[] { null, "testPassword", new [] { "The Email field is required." } },
+        new object?[] { "test@test.com", null, new[] { "The Password field is required." } },
+        new object?[] { "", "testPassword", new[] { "The Email field is not a valid e-mail address." } },
+        new object?[] { "test@test.com", "",  new[] { "The field Password must be a string or array type with a minimum length of '5'." } },
+        new object?[] { "not-an-email", "testPassword", new[] { "The Email field is not a valid e-mail address." } },
+        new object?[] { "test@test.com", "shor", new[] { "The field Password must be a string or array type with a minimum length of '5'." }}
+    };
+    
+    [Theory]
+    [MemberData(nameof(InvalidRegistrations))]
+    public async Task Verify_Register_With_Invalid_Details_Returns_Correct_Validation_Response(string email, string password, string[] expectedMessages)
+    {
+        // Arrange
+        var existingUser = new RegisterRequest()
+        {
+            Email = email,
+            Password = password
+        };
+        
+        // Act
+        var response = await _client.PostAsJsonAsync("api/authentication/register", existingUser,  _cancellationToken);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        var responseText = await response.Content.ReadAsStringAsync(_cancellationToken);
+
+        foreach (var message in expectedMessages)
+        {
+            Assert.Contains(message, responseText);
+
+        }
     }
     
     #endregion
