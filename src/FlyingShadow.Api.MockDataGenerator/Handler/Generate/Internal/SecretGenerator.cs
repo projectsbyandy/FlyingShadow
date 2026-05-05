@@ -9,6 +9,9 @@ internal class SecretGenerator : ISecretGenerator
 
     public string Password(int length = 16)
     {
+        if (length < 10)
+            throw new ArgumentOutOfRangeException(nameof(length), "must be greater than or equal to 10");
+        
         const string chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$";
         var maxValid = 256 - (256 % chars.Length);
         var sb = new StringBuilder(length);
