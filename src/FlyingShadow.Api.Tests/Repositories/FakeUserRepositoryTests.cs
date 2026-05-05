@@ -16,7 +16,7 @@ public class FakeUserRepositoryTests
     }
     
     [Fact]
-    public void Verify_A_User_Can_be_Added()
+    public void AddUser_WithValidDetails_IsSuccessful()
     {
         // Arrange
         var user = new User()
@@ -31,13 +31,13 @@ public class FakeUserRepositoryTests
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(user.Email, result.Value?.Email);
-        Assert.Equal(user.HashedPassword, result.Value?.HashedPassword);
-        Assert.Equal(user.UserId, result.Value?.UserId);
+        Assert.Equal(user.Email, result.Value.Email);
+        Assert.Equal(user.HashedPassword, result.Value.HashedPassword);
+        Assert.Equal(user.UserId, result.Value.UserId);
     }
     
     [Fact]
-    public void Verify_A_User_Can_Be_Retrieved()
+    public void GetUser_WithValidEmail_RetrievesUser()
     {
         // Arrange
         var user = new User()
@@ -53,13 +53,13 @@ public class FakeUserRepositoryTests
         
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(result.Value?.Email, user.Email);
+        Assert.Equal(user, result.Value);
     }
     
     [Theory]
     [InlineData("test@test.com")]
     [InlineData("larry@last.com")]
-    public void Verify_GetUser_With_An_Invalid_Email_Returns_Error(string email)
+    public void GetUser_WithAnInvalidEmail_ReturnsError(string email)
     {
         // Arrange / Act
         var result = _sut.GetUser(email);
@@ -69,24 +69,11 @@ public class FakeUserRepositoryTests
         Assert.Equal(result.Error, new Error(ErrorCode.NotFound, $"User with {email} was not found"));
     }
     
-    [Theory]
-    [InlineData("test@test.com")]
-    [InlineData("larry@last.com")]
-    public void Verify_Invalid_Email_With_Get_User_Returns_Error_(string email)
-    {
-        // Arrange / Act
-        var result = _sut.GetUser(email);
-        
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal(result.Error, new Error(ErrorCode.NotFound, $"User with {email} was not found"));
-    }
-
     [Fact]
-    public void Verify_CheckUserDoesNotExist_With_New_Email_Returns_Success()
+    public void EnsureUserDoesNotExist_WithNewEmail_ReturnsSuccess()
     {
         // Arrange
-        var userDoesNotExistEmail = "DoesNotExist@test.com";
+        const string userDoesNotExistEmail = "DoesNotExist@test.com";
         
         // Act
         var result = _sut.EnsureUserDoesNotExist(userDoesNotExistEmail);
@@ -97,10 +84,10 @@ public class FakeUserRepositoryTests
     }
     
     [Fact]
-    public void Verify_CheckUserDoesNotExist_With_Existing_Email_Returns_Failed()
+    public void EnsureUserDoesNotExist_WithExistingEmail_ReturnsFailure()
     {
         // Arrange
-        var userExistsEmail = "demo_user@sample.org";
+        const string userExistsEmail = "demo_user@sample.org";
         
         // Act
         var result = _sut.EnsureUserDoesNotExist(userExistsEmail);

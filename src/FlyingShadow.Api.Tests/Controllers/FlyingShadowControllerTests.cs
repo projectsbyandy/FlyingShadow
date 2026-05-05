@@ -24,7 +24,7 @@ public class FlyingShadowControllerTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Verify_Successfully_Retrieve_All_Shadows()
+    public void GetShadows_RetrievesAllShadows()
     {
         // Arrange
         _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetails()).Returns(Result<IList<ShadowDto>, Error>.Success(_expectedShadowDtos));
@@ -39,7 +39,7 @@ public class FlyingShadowControllerTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Verify_Problem_Retrieving_All_Shadows_Returns_500()
+    public void GetShadows_WithServiceError_Returns_500()
     {
         // Arrange
         _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetails()).Returns(Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnableToProcessData,

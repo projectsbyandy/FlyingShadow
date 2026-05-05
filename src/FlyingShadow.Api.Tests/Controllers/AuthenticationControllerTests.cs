@@ -37,7 +37,7 @@ public class AuthenticationControllerTests
     #region Login
     
     [Fact]
-    public void Verify_Login_WithValidCredentials_ReturnsOkWithTokenAndExpiry()
+    public void Login_WithValidCredentials_ReturnsOkWithTokenAndExpiry()
     {
         // Arrange
         _authenticationServiceMock.Setup(auth => auth.ValidateCredentials(It.IsAny<LoginDetails>()))
@@ -63,7 +63,7 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public void Verify_Login_WithInvalidCredentials_ReturnsUnauthorized()
+    public void Login_WithInvalidCredentials_ReturnsUnauthorized()
     {
         // Arrange
         _authenticationServiceMock.Setup(auth => auth.ValidateCredentials(It.IsAny<LoginDetails>()))
@@ -83,7 +83,7 @@ public class AuthenticationControllerTests
     #region Register
 
     [Fact]
-    public void Verify_User_Can_Successfully_Register()
+    public void Register_WithValidDetails_ReturnsCreatedWithUserId()
     {
         // Arrange
         
@@ -105,7 +105,7 @@ public class AuthenticationControllerTests
     }
     
     [Fact]
-    public void Verify_Registering_With_An_Existing_Email_Returns_BadRequest()
+    public void Register_WithAnExistingEmail_ReturnsBadRequest()
     {
         // Arrange
         _authenticationServiceMock.Setup(auth => auth.Register(It.IsAny<RegisterRequest>()))
@@ -121,7 +121,7 @@ public class AuthenticationControllerTests
     }
     
     [Fact]
-    public void Verify_Unexpected_Errors_Handled_Returns_500()
+    public void Register_WithServiceError_Returns500()
     {
         // Arrange
         _authenticationServiceMock.Setup(auth => auth.Register(It.IsAny<RegisterRequest>()))

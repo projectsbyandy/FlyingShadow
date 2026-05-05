@@ -16,7 +16,7 @@ public class BattleProcessorTests : ShadowDtoFixture
     }
 
     [Fact]
-    public void Verify_Processed_ShadowDTOs_Returns_Success()
+    public void Process_WithShadowDTOs_ReturnsSuccess()
     {
         // Act
         var result = _sut.Process(ShadowOne, ShadowTwo);
@@ -27,7 +27,7 @@ public class BattleProcessorTests : ShadowDtoFixture
     }
     
     [Fact]
-    public void Verify_Processed_ShadowDTOs_Returns_The_Correct_Stats_Winners()
+    public void Process_WithShadowDTOs_ReturnsTheStatsWinners()
     {
         // Arrange / Act
         var result = _sut.Process(ShadowOne, ShadowTwo);
@@ -40,7 +40,7 @@ public class BattleProcessorTests : ShadowDtoFixture
     }
     
     [Fact]
-    public void Verify_Processed_ShadowDTOs_Returns_Draw_Stats()
+    public void Process_WithEqualShadowStats_ReturnsDrawBreakdown()
     {
         // Arrange
         var updatedShadowOne = ShadowOne with {Rank = Rank.Danza, ShadowSkills = new() { AcrobaticsLevel =  AcrobaticsLevel.Advanced, InvisibilityDurationMs = 1, ShadowBlendScore = 1, SilenceRating = 1 }};
@@ -60,7 +60,7 @@ public class BattleProcessorTests : ShadowDtoFixture
     [InlineData(1, 1, "Draw!")]
     [InlineData(2, 1, "Fleeting Spirit Wins!")]
     [InlineData(1, 2, "Peeking Fish Wins!")]
-    public void Verify_Processed_ShadowDTOs_Returns_The_Correct_Outcome_Report_Response(int shadowOneSkillsLevel, int shadowTwoSkillsLevel, string expectedOutcome)
+    public void Process_WithDifferentSkillsLevel_ReturnsTheCorrectOutcomeReportResponse(int shadowOneSkillsLevel, int shadowTwoSkillsLevel, string expectedOutcome)
     {
         // Arrange
         var updatedShadowOne = ShadowOne with
@@ -98,7 +98,7 @@ public class BattleProcessorTests : ShadowDtoFixture
     }
     
     [Fact]
-    public void Verify_Shadows_Of_The_Same_Id_Cannot_Battle()
+    public void Process_WithTheSameShadowId_ReturnsUnableToProcess()
     {
         // Arrange
         var shadowTwoWithSameId= ShadowOne;
@@ -112,7 +112,7 @@ public class BattleProcessorTests : ShadowDtoFixture
     }
     
     [Fact]
-    public void Verify_Shadows_Of_The_Same_Clan_Cannot_Battle()
+    public void Process_WithShadowsOfTheSameClan_ReturnsUnableToProcess()
     {
         // Arrange
         var shadowTwoWithSameClan= ShadowOne with { Id = Guid.NewGuid() };

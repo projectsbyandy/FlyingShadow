@@ -6,7 +6,7 @@ public class PasswordHasherTests
 {
     private readonly IPasswordHasher _sut;
     private const string Password = "Hail Bob!";
-    private const string FourteenRoundExpectedHash = "$2a$14$n5yAsbuOBB9uU8wqZv4ibui1WkvdZYpDlQLYZ4DbeCFo6HRwcQGA2";
+    private const string TenRoundExpectedHash = "$2a$10$KZv9ilFXbBlE2YpGHE2TZuelIVIiGRPx0e7puw3fyeIhmyxpuj2oy";
     
     public PasswordHasherTests()
     {
@@ -21,13 +21,14 @@ public class PasswordHasherTests
         
         // Assert
         Assert.NotNull(hashedPassword);
-        Assert.NotEmpty(hashedPassword);    }
+        Assert.NotEmpty(hashedPassword);
+    }
     
     [Fact]
-    public void ValidateHash_WithValidDetails_ShouldReturnTrue()
+    public void Verify_WithValidDetails_ShouldReturnTrue()
     {
         // Arrange / Act
-        var result = _sut.Verify(Password, FourteenRoundExpectedHash);
+        var result = _sut.Verify(Password, TenRoundExpectedHash);
         
         // Assert
         Assert.True(result);

@@ -22,7 +22,7 @@ public class FlyingShadowTests : AuthenticationFixture
     }
     
     [JsonMockDataFact]
-    public async Task Verify_Get_Shadows_Returns_Correct_Data_With_Valid_Authentication_Token()
+    public async Task GetShadows_WithAuthenticatedToken_ReturnsCorrectShadowDataCount()
     {
         // Arrange
         var token = await GetAuthTokenAsync(_client, _cancellationToken);
@@ -41,7 +41,7 @@ public class FlyingShadowTests : AuthenticationFixture
     }
     
     [JsonMockDataFact]
-    public async Task Verify_Get_Shadows_With_Invalid_Authentication_Token_Returns_Unauthorized()
+    public async Task GetShadows_WithInvalidAuthenticationToken_ReturnsUnauthorized()
     {
         // Arrange
         const string invalidToken = "test";
@@ -55,7 +55,7 @@ public class FlyingShadowTests : AuthenticationFixture
     }
     
     [JsonMockDataFact]
-    public async Task Verify_Get_Shadows_With_A_Missing_Authentication_Token_Returns_Unauthorized()
+    public async Task GetShadows_WithMissingAuthenticationToken_ReturnsUnauthorized()
     {
         // Arrange / Act
         var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);

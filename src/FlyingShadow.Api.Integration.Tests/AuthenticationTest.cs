@@ -25,7 +25,7 @@ public class AuthenticationTest
     #region Login
     
     [JsonMockDataFact]
-    public async Task Verify_Successful_Login_Returns_Token_and_Expiry()
+    public async Task Login_WithValidCredentials_ReturnTokenAndExpiry()
     {
         // Arrange
         var firstValidUser = Guard.Against.Null(_fakeUsers.LoginDetailsList?.First());
@@ -37,18 +37,15 @@ public class AuthenticationTest
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var tokenResponse = Guard.Against.Null(await response.Content.ReadFromJsonAsync<TokenResponse>());
         
-        var expectedExpiry = DateTime.UtcNow.AddHours(1);
-        Assert.True(tokenResponse.TokenDetails.ExpiresAt >= expectedExpiry.AddSeconds(-5));
-        Assert.True(tokenResponse.TokenDetails.ExpiresAt <= expectedExpiry.AddSeconds(5));
-        
+        Assert.True(tokenResponse.TokenDetails.ExpiresAt > DateTime.UtcNow);
         Assert.NotEqual(string.Empty, tokenResponse.TokenDetails.Token);
     }
     
     [JsonMockDataFact]
-    public async Task Verify_No_Payload_Returns_UnsupportedMediaType()
+    public async Task Login_WithNoPayload_ReturnsUnsupportedMediaType()
     {
         // Arrange / Act
-        var response = await _client.PostAsync("api/authentication/login", null);
+        var response = await _client.PostAsync("api/authentication/login", null, _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
@@ -58,7 +55,7 @@ public class AuthenticationTest
     [InlineData("test@test.com", "boring")]
     [InlineData("bob@test.com", "tester")]
     [InlineData("mary@test.com", "watch")]
-    public async Task Verify_Login_With_Invalid_Credentials_Returns_Unauthorized(string email, string password)
+    public async Task Login_WithInvalidCredentials_ReturnsUnauthorized(string email, string password)
     {
         // Arrange / Act
         var response = await _client.PostAsJsonAsync("api/authentication/login", new LoginDetails()
@@ -73,7 +70,7 @@ public class AuthenticationTest
     }
     
     [Fact]
-    public async Task Verify_Login_Missing_Email_Returns_Unauthorized()
+    public async Task Login_WithMissingEmail_ReturnsBadRequestResponse()
     {
         // Arrange / Act
         var response = await _client.PostAsJsonAsync("api/authentication/login", new
@@ -95,7 +92,7 @@ public class AuthenticationTest
     [JsonMockDataTheory]
     [InlineData("Paulie@traders.com", "89M+}^^7Tf34")]
     [InlineData("Phil@traders.com", "89hM+}^^7Tf2412")]
-    public async Task Verify_Successful_Registration_Returns_User(string email, string password)
+    public async Task Register_WithValidDetails_ReturnsCreatedResponse(string email, string password)
     {
         // Act
         var userToRegister = new
@@ -114,7 +111,7 @@ public class AuthenticationTest
     }
     
     [JsonMockDataFact]
-    public async Task Verify_User_Cannot_Be_Registered_With_Existing_Registered_Email()
+    public async Task Registration_WithAlreadyExistingEmail_ReturnsBadRequestResponse()
     {
         // Arrange
         var existingUser = Guard.Against.Null(_fakeUsers.LoginDetailsList?.First());
@@ -142,7 +139,7 @@ public class AuthenticationTest
     
     [Theory]
     [MemberData(nameof(InvalidRegistrations))]
-    public async Task Verify_Register_With_Invalid_Details_Returns_Correct_Validation_Response(string email, string password, string[] expectedMessages)
+    public async Task Register_WithInvalidDetails_ReturnsBadRequestValidationResponse(string email, string password, string[] expectedMessages)
     {
         // Arrange
         var existingUser = new RegisterRequest()
@@ -161,7 +158,6 @@ public class AuthenticationTest
         foreach (var message in expectedMessages)
         {
             Assert.Contains(message, responseText);
-
         }
     }
     

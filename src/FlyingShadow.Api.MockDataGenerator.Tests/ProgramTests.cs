@@ -16,7 +16,7 @@ public class ProgramTests : IDisposable
     [InlineData([new[] {"FakeJwtPath","FakeLoginDetailsListPath","FakeUsersPath"}])]
     [InlineData([new[] {"FakeJwtPath","FakeLoginDetailsListPath"}])]
     [InlineData([new[] {"FakeJwtPath"}])]
-    public async Task Program_With_MissingArguments_ThrowsException(string[] missingFields)
+    public async Task Program_WithMissingArguments_ThrowsOptionsValidationException(string[] missingFields)
     {
         // Arrange
         var missingFieldsList = missingFields.ToList();

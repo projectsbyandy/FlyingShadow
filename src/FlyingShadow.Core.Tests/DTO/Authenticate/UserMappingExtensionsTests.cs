@@ -6,7 +6,7 @@ namespace FlyingShadow.Core.Tests.DTO.Authenticate;
 public class UserMappingExtensionsTests
 {
     [Fact]
-    public void Verify_User_To_UserDto_Mapping()
+    public void ToDto_FromUser_MapsCorrectly()
     {
         // Arrange
         var sut = new User()

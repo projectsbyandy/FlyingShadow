@@ -8,7 +8,7 @@ namespace FlyingShadow.Api.Tests.Repositories;
 
 public class FakeStealthMetricsRepositoryTests
 {
-    private readonly FakeStealthMetricsRepository _sut;
+    private readonly IStealthMetricsRepository _sut;
 
     public FakeStealthMetricsRepositoryTests()
     {
@@ -16,7 +16,7 @@ public class FakeStealthMetricsRepositoryTests
     }
 
     [Fact]
-    public void Verify_GetAll_Returns_StealthMetrics_Mock_Data()
+    public void GetAll_ReturnsStealthMetricsMockData()
     {
         // Arrange
         IStealthMetricsRepository sut = new FakeStealthMetricsRepository();
@@ -30,10 +30,10 @@ public class FakeStealthMetricsRepositoryTests
         Assert.All(stealthMetricsResult.Value, Assert.NotNull);
     }
 
-    [Fact] public void Verify_GetMetricsByShadowId_With_Valid_Id_Returns_StealthMetrics_Mock_Data()
+    [Fact] public void GetByShadowId_WithValidId_ReturnsStealthMetricsMockData()
     {
         // Arrange
-        var firstStealthMetrics = Guard.Against.Null(_sut.GetAll().Value?.First());    
+        var firstStealthMetrics = Guard.Against.Null(_sut.GetAll().Value.First());    
 
         // Act
         var fakeStealthMetricsResult = _sut.GetByShadowId(firstStealthMetrics.ShadowId);
@@ -45,7 +45,7 @@ public class FakeStealthMetricsRepositoryTests
     }
     
     [Fact]
-    public void Verify_GetMetricsByShadowId_With_Valid_Id_Returns_Not_Found_Error_Code()
+    public void GetByShadowId_WithValidId_ReturnsNotFoundErrorCode()
     {
         // Arrange
         var doesNotExistShadowId = Guid.NewGuid();

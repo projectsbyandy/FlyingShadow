@@ -25,13 +25,13 @@ public class BattleTests : AuthenticationFixture
     }
 
     [JsonMockDataFact]
-    public async Task Verify_AuthenticatedCall_ReturnsBattleResponse()
+    public async Task BattleStart_Authenticated_ReturnsBattleResponse()
     {
         // Arrange
         IList<Shadow> shadows = ConfigReader.GetConfigurationSection<List<Shadow>>("FakeShadows");
         var token = await GetAuthTokenAsync(_client, _cancellationToken);
         AddAuthHeader(_client, token);
-        
+
         var battleRequest = new BattleRequest(shadows.First().CodeName, shadows.Last().CodeName);
         
         // Act
@@ -62,7 +62,7 @@ public class BattleTests : AuthenticationFixture
     [InlineData("{}", new[] {"ShadowOneCodeName", "ShadowTwoCodeName"} )]
     [InlineData("{\"shadowOneCodeName\":\"test1\"}", new[] {"ShadowTwoCodeName" } )]
     [InlineData("{\"shadowTwoCodeName\":\"test2\"}", new[] {"ShadowOneCodeName" } )]
-    public async Task Verify_AuthenticatedCallToBattleEndpointWithMissingFields_ReturnsBadRequest(string requestBodyContent, string[] expectedMissingFieldsInError)
+    public async Task AuthenticatedBattleStart_WithMissingFields_ReturnsBadRequest(string requestBodyContent, string[] expectedMissingFieldsInError)
     {
         // Arrange
         var token = await GetAuthTokenAsync(_client, _cancellationToken);
@@ -80,7 +80,7 @@ public class BattleTests : AuthenticationFixture
     }
     
     [JsonMockDataFact]
-    public async Task Verify_UnauthenticatedCall_ReturnsUnauthorized()
+    public async Task UnauthenticatedBattleStart_ReturnsUnauthorized()
     {
         // Arrange / Act
         var response = await _client.PostAsync("api/Battle/Start", new StringContent(""), _cancellationToken);

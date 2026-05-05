@@ -14,28 +14,28 @@ namespace FlyingShadow.Api.Integration.Tests;
 [Collection(IntegrationTestCollection.Name)]
 public class FlyingShadowIntegrationTests : AuthenticationFixture, IDisposable
 {
-    private readonly HttpClient _client;
+    private readonly FlyingShadowWebAppTestFactory _factory;
     private readonly LoginDetails _loginDetails;
     private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
     
     public FlyingShadowIntegrationTests(FlyingShadowWebAppTestFactory factory)
     {
+        _factory = factory;
         _loginDetails = Guard.Against.Null(ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers").LoginDetailsList).First();
-
-        TestConfigReader.Add("appsettings.test.json");
-        
-        _client = factory.CreateClient();
     }
     
     [JsonMockDataFact]
-    public async Task Verify_Get_Shadows_With_An_Expired_Authentication_Token_Returns_Unauthorized()
+    public async Task GetShadows_WithExpiredAuthenticationToken_ReturnsUnauthorized()
     {
         // Arrange
-        var token = await GetAuthTokenAsync(_client);
+        TestConfigReader.Add("appsettings.test.json"); // expiry set to in the past
+
+        using HttpClient client = _factory.CreateClient();
+        var token = await GetAuthTokenAsync(client);
         
         // Act
-        AddAuthHeader(_client, token);
-        var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
+        AddAuthHeader(client, token);
+        var shadowResponse = await client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
         
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, shadowResponse.StatusCode);

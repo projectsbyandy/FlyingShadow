@@ -16,7 +16,7 @@ public class FakeShadowRepositoryTests
     }
 
     [Fact]
-    public void Verify_GetAll_Returns_Shadow_Mock_Data()
+    public void GetAll_ReturnsShadowMockData()
     {
         // Arrange / Act
         var fakeShadowsResult = _sut.GetAll();
@@ -28,10 +28,10 @@ public class FakeShadowRepositoryTests
     }
     
     [Fact]
-    public void Verify_GetShadowByCodeName_With_Valid_CodeName_Returns_Shadow_Mock_Data()
+    public void GetByCodeName_WithValidCodeName_ReturnsShadowMockData()
     {
         // Arrange
-        var firstShadow = Guard.Against.Null(_sut.GetAll().Value?.First());    
+        var firstShadow = Guard.Against.Null(_sut.GetAll().Value.First());    
 
         // Act
         var fakeShadowsResult = _sut.GetByCodeName(firstShadow.CodeName);
@@ -42,8 +42,26 @@ public class FakeShadowRepositoryTests
         Assert.Equal(firstShadow, fakeShadowsResult.Value);
     }
     
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetByCodeName_WithValidCodeNameWithMixedCasing_ReturnsShadowMockData(bool isUpper)
+    {
+        // Arrange
+        var firstShadow = Guard.Against.Null(_sut.GetAll().Value.First());    
+        var codeNameWithMixedCasing = isUpper ? firstShadow.CodeName.ToUpper() : firstShadow.CodeName.ToLower();
+        
+        // Act
+        var fakeShadowsResult = _sut.GetByCodeName(codeNameWithMixedCasing);
+        
+        // Assert
+        Assert.True(fakeShadowsResult.IsSuccess);
+        Assert.NotNull(fakeShadowsResult.Value);
+        Assert.Equal(firstShadow, fakeShadowsResult.Value);
+    }
+    
     [Fact]
-    public void Verify_GetShadowByCodeName_With_InValid_CodeName_Returns_Not_Found_ErrorCode()
+    public void GetShadowByCodeName_WithInValidCodeName_ReturnsNotFoundErrorCode()
     {
         // Arrange
         const string doesNotExistCodeName = "Shadow Dilbert";   

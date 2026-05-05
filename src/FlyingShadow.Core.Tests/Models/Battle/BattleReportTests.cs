@@ -35,7 +35,7 @@ public class BattleReportTests
     [Theory]
     [InlineData("Shadow Warrior")]
     [InlineData("Shadow Beast")]
-    public void Verify_BattleReport_With_Win_Converts_To_BattleResponse(string outcome)
+    public void ToBattleResponse_FromBattleReport_MapsCorrectly(string outcome)
     {
         // Arrange
         var battleReport = new BattleReport {
@@ -61,7 +61,7 @@ public class BattleReportTests
     }
     
     [Fact]
-    public void Verify_BattleReport_DrawOutcome_Converts_To_BattleResponse()
+    public void ToBattleReport_WithDrawOutcome_ReturnsCorrectBattleResponse()
     {
         // Arrange
         var battleReport = new BattleReport {

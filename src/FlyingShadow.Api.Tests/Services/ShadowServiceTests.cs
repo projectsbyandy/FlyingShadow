@@ -26,7 +26,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Verify_GetShadowDetails_Returns_Success()
+    public void GetShadowDetails_ReturnsSuccess()
     {
         // Arrange / Act
         var shadowDetailsResult = _sut.GetAllShadowDetails();
@@ -36,7 +36,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Verify_GetShadowDetails_Returns_Expected_ShadowDto_Count()
+    public void GetShadowDetails_ReturnsExpectedShadowDtoCount()
     {
         // Arrange / Act
         var shadowDetailsResult = _sut.GetAllShadowDetails();
@@ -47,7 +47,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Verify_GetShadowDetails_Correctly_Maps_StealthMetrics()
+    public void GetShadowDetails_CorrectlyMapsStealthMetrics()
     {
         // Arrange
         var expectedShadowDto = new ShadowDto()
@@ -75,7 +75,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Verify_GetShadowDetails_Only_Returns_Shadows_With_Successful_StealthMetrics_Mapping()
+    public void GetShadowDetails_WithMissingStealthMetrics_OnlyReturnsShadowsWithSuccessfulStealthMetricsMapping()
     {
         // Arrange
         var metricToRemoveIndex = StealthMetrics.ToList().FindIndex(m => m.InvisibilityDurationMs == 1022);
@@ -101,7 +101,7 @@ public class ShadowServiceTests : ShadowDataFixture
     [InlineData(true, false)]
     [InlineData(false, true)]
     [InlineData(true, true)]
-    public void Verify_GetShadowDetails_Returns_Error_When_No_Repository_Data_Empty(bool shadowListEmpty, bool stealthMetricsListEmpty)
+    public void GetShadowDetails_WithNoRepositoryData_ReturnsFailure(bool shadowListEmpty, bool stealthMetricsListEmpty)
     {
         // Arrange
         if (shadowListEmpty)
@@ -124,7 +124,7 @@ public class ShadowServiceTests : ShadowDataFixture
     [InlineData(true, false)]
     [InlineData(false, true)]
     [InlineData(false, false)]
-    public void Verify_GetShadowDetails_Returns_Error_When_Repository_Result_Returns_Error(bool isShadowResultSuccessful, bool isStealthMetricResultSuccessful)
+    public void GetShadowDetails_WhenRepositoryReturnsFailure_ReturnsFailure(bool isShadowResultSuccessful, bool isStealthMetricResultSuccessful)
     {
         // Arrange
         if (isShadowResultSuccessful is false)
@@ -147,7 +147,7 @@ public class ShadowServiceTests : ShadowDataFixture
     [Theory]
     [InlineData("Error 123: Unable to retrieve data")]
     [InlineData("Connection error")]
-    public void Verify_GetShadowDetails_Handles_Unexpected_Error(string exceptionMessage)
+    public void GetShadowDetails_WithUnexpectedErrors_ReturnsUnexpectedError(string exceptionMessage)
     {
         // Arrange
         _shadowRepositoryMock.Setup(r => r.GetAll ()).Throws(new Exception(exceptionMessage));
@@ -163,7 +163,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
 
     [Fact]
-    public void Verify_Map_Shadow_To_Dto()
+    public void GetAllShadows_ReturnsMappedShadowToDto()
     {
         // arrange
         var shadowId = Guid.NewGuid();

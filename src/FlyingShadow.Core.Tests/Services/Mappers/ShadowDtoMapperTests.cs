@@ -56,7 +56,7 @@ public class ShadowDtoMapperTests
     }
 
     [Fact]
-    public void ToList_With_Shadows_And_StealthMetrics_Returns_ShadowDTOs_List()
+    public void ToList_WithShadowsAndStealthMetrics_ReturnsShadowDTOsList()
     {
         // Arrange
         var expectedDtos = new List<ShadowDto>()
@@ -101,7 +101,7 @@ public class ShadowDtoMapperTests
     }
     
     [Fact]
-    public void ToSingle_With_Shadows_And_StealthMetrics_Returns_ShadowDTO()
+    public void ToSingle_WithShadowsAndStealthMetrics_ReturnsShadowDTO()
     {
         // Arrange
         var firstShadow = Shadows.First();
@@ -122,7 +122,7 @@ public class ShadowDtoMapperTests
     }
     
     [Fact]
-    public void ToList_Excludes_Shadows_With_No_Matching_StealthMetrics()
+    public void ToList_ExcludesShadowsWithNoMatchingStealthMetrics()
     {
         // Arrange
         var shadows = new List<Shadow> { Shadows[0] };

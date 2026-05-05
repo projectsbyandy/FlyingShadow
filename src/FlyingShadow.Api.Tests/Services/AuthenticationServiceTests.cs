@@ -55,8 +55,8 @@ public class AuthenticationServiceTests
         
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(loginDetails.Email, result.Value?.Email);
-        Assert.NotEqual(Guid.Empty, result.Value?.UserId);
+        Assert.Equal(loginDetails.Email, result.Value.Email);
+        Assert.NotEqual(Guid.Empty, result.Value.UserId);
         _passwordHasherFake.Verify(hasher => hasher.Verify(UserPassword, HashedPassword), Times.Once);
     }
     

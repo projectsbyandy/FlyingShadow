@@ -45,7 +45,7 @@ public class BattleControllerTests : ShadowDataFixture
         const string shadowOneName = "testShadowOne";
         
         // Act
-        var actionResult = _sut.Battle(new BattleRequest(shadowOneName, "testShadowOne"));
+        var actionResult = _sut.Battle(new BattleRequest(shadowOneName, "ShadowTwoCodeName"));
 
         // Assert
         var badResult = Assert.IsType<BadRequestObjectResult>(actionResult.Result);

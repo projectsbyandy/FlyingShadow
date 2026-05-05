@@ -10,7 +10,7 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
 {
     [Theory]
     [MemberData(nameof(RankTestData))]
-    public void Process_ShadowDto_With_Different_Ranks_Returns_Correct_Stats(Rank rank, Stats expectedStats)
+    public void Process_SameStatsButDifferentRanks_ReturnsCorrectCalculatedStats(Rank rank, Stats expectedStats)
     {
         // Arrange
         var shadowUpdatedRank = ShadowOne with
@@ -34,7 +34,7 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
 
     [Theory]
     [MemberData(nameof(AcrobaticTestData))]
-    public void Process_ShadowDto_With_Different_Acrobatics_Returns_Correct_Stats(AcrobaticsLevel acrobaticsLevel, Stats expectedStats)
+    public void Process_SameStatsButDifferentAcrobaticLevels_ReturnsCorrectCalculatedStats(AcrobaticsLevel acrobaticsLevel, Stats expectedStats)
     {
         // Arrange
         var shadowUpdatedAcrobaticsLevel = ShadowOne with
@@ -61,7 +61,7 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
 
     [Theory]
     [MemberData(nameof(ShadowStatsTestData))]
-    public void Process_ShadowDto_With_Different_Shadow_Skills_Returns_Correct_Stats(int invisbilityDuration, int shadowBlendScore, int silenceRating, Stats expectedStats)
+    public void Process_ShadowDtoWithDifferentShadowSkills_ReturnsCorrectCalculatedStats(int invisbilityDuration, int shadowBlendScore, int silenceRating, Stats expectedStats)
     {
         // Arrange
         var shadowUpdatedSkills = ShadowOne with
@@ -89,7 +89,7 @@ public class BattleStatsCalculatorTests : ShadowDtoFixture
     ];
     
     [Fact]
-    public void Process_OverallRating_Rounds_Down_At_Midpoint()
+    public void Process_OverallRating_RoundsDownAtMidpoint()
     {
         // Arrange
         // Inputs are chosen to produce an unrounded OverallRating of exactly 2.135.

@@ -88,7 +88,7 @@ public class FileManagerTests : IDisposable
     }
 
     [Fact]
-    public async Task ReadAsync_WithNonExistentFile_ThrowFileNotFoundException()
+    public async Task ReadAsync_WithNonExistentFile_ThrowsFileNotFoundException()
     {
         // Arrange
         var nonExistentfilePath = PathFor($"DoesNotExist_{Guid.NewGuid()}");

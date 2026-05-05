@@ -37,7 +37,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_With_Valid_Shadow_Data_Returns_BattleResponse()
+    public void Battle_WithValidShadowData_ReturnsBattleResponse()
     {
         // Arrange
         _battleProcessorMock
@@ -54,7 +54,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_With_Invalid_Shadow_One_CodeName_Returns_Failure()
+    public void Battle_WithInvalidShadowOneCodeName_ReturnsFailure()
     {
         // Arrange
         _shadowRepositoryMock
@@ -73,7 +73,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_With_Invalid_Shadow_Two_CodeName_Returns_Failure()
+    public void Battle_WithInvalidShadowTwoCodeName_ReturnsFailure()
     {
         // Arrange
         const string shadowTwoCodeName = "NonexistentCodeName";
@@ -94,7 +94,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_With_Invalid_StealthMetrics_CodeName_Returns_Failure()
+    public void Battle_WithInvalidStealthMetricsCodeName_ReturnsFailure()
     {
         // Arrange
         _stealthMetricsRepositoryMock
@@ -112,7 +112,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
 
     [Fact]
-    public void Battle_With_Failed_BattleProcessor_Returns_Failure()
+    public void Battle_WithFailedBattleProcessor_ReturnsFailure()
     {
         // Arrange
         _battleProcessorMock

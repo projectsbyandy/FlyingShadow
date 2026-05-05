@@ -11,8 +11,8 @@ public class ResultMapExtensionTests : ResultFixture
     public void Map_Success_MapsValue()
     {
         // Arrange / Act
-        var result = Call(false, 1)
-            .Map(message => Converter(message, 2));
+        var result = Call(isError: false, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -25,9 +25,9 @@ public class ResultMapExtensionTests : ResultFixture
     public void Map_SuccessMapsValue_ThenBindContinues()
     {   
         // Arrange / Act
-        var result = Call(false, 1)
-            .Map(message => Converter(message, 2))
-            .Bind(_ => Call(false, 3));
+        var result = Call(isError: false, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2))
+            .Bind(_ => Call(isError: false, callNumber: 3));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -40,9 +40,9 @@ public class ResultMapExtensionTests : ResultFixture
     public void Map_SuccessMapsValue_ThenBindFails()
     {
         // Arrange / Act
-        var result = Call(false, 1)
-            .Map(message => Converter(message, 2))
-            .Bind(_ => Call(true, 3));
+        var result = Call(isError: false, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2))
+            .Bind(_ => Call(isError: true, callNumber: 3));
 
         // Assert
         Assert.True(result.IsFailure);
@@ -55,8 +55,8 @@ public class ResultMapExtensionTests : ResultFixture
     public void Map_EarlierResolvedResultFailsBeforeMap_ThenMapperNotInvoked()
     {
         // Arrange / Act
-        var result = Call(true, 1)
-            .Map(message => Converter(message, 2));
+        var result = Call(isError: true, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2));
         
         // Assert
         Assert.True(result.IsFailure);
@@ -72,8 +72,8 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task Map_PendingSuccess_MapsValue()
     {
         // Arrange / Act
-        var result = await CallAsync(false, 1)
-            .Map(message => Converter(message, 2));
+        var result = await CallAsync(isError: false, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -86,9 +86,9 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task Map_PendingSuccessMapsValue_ThenBindContinues()
     {   
         // Arrange / Act
-        var result = await CallAsync(false, 1)
-            .Map(message => Converter(message, 2))
-            .Bind(_ => Call(false, 3));
+        var result = await CallAsync(isError: false, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2))
+            .Bind(_ => Call(isError: false, callNumber: 3));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -101,9 +101,9 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task Map_PendingSuccessMapsValue_ThenBindFails()
     {
         // Arrange / Act
-        var result = await CallAsync(false, 1)
-            .Map(message => Converter(message, 2))
-            .Bind(_ => Call(true, 3));
+        var result = await CallAsync(isError: false, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2))
+            .Bind(_ => Call(isError: true, callNumber: 3));
 
         // Assert
         Assert.True(result.IsFailure);
@@ -116,8 +116,8 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task Map_EarlierPendingResultFailsBeforeMap_ThenMapperNotInvoked()
     {
         // Arrange / Act
-        var result = await CallAsync(true, 1)
-            .Map(message => Converter(message, 2));
+        var result = await CallAsync(isError: true, callNumber: 1)
+            .Map(message => Converter(message, callNumber: 2));
         
         // Assert
         Assert.True(result.IsFailure);
@@ -133,8 +133,8 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_Success_AsyncMapsValue()
     {
         // Arrange / Act
-        var result = await Call(false, 1)
-            .MapAsync(message => ConverterAsync(message, 2));
+        var result = await Call(isError: false, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -147,9 +147,9 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_Success_AsyncMapsValue_ThenBindContinues()
     {   
         // Arrange / Act
-        var result = await Call(false, 1)
-            .MapAsync(message => ConverterAsync(message, 2))
-            .Bind(_ => Call(false, 3));
+        var result = await Call(isError: false, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2))
+            .Bind(_ => Call(isError: false, callNumber: 3));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -162,9 +162,9 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_SuccessAsyncMapsValue_ThenBindFails()
     {
         // Arrange / Act
-        var result = await Call(false, 1)
-            .MapAsync(message => ConverterAsync(message, 2))
-            .Bind(_ => Call(true, 3));
+        var result = await Call(isError: false, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2))
+            .Bind(_ => Call(isError: true, callNumber: 3));
 
         // Assert
         Assert.True(result.IsFailure);
@@ -177,8 +177,8 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_EarlierResolvedResultFailsBeforeMap_ThenMapperNotInvoked()
     {
         // Arrange / Act
-        var result = await Call(true, 1)
-            .MapAsync(message => ConverterAsync(message, 2));
+        var result = await Call(isError: true, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2));
         // Assert
         Assert.True(result.IsFailure);
         Assert.NotNull(result.Error);
@@ -193,8 +193,8 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_PendingSuccess_AsyncMapsValue()
     {
         // Arrange / Act
-        var result = await CallAsync(false, 1)
-            .MapAsync(message => ConverterAsync(message, 2));
+        var result = await CallAsync(isError: false, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -207,9 +207,9 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_PendingSuccessMapsValue_ThenBindContinues()
     {   
         // Arrange / Act
-        var result = await CallAsync(false, 1)
-            .MapAsync(message => ConverterAsync(message, 2))
-            .Bind(_ => Call(false, 3));
+        var result = await CallAsync(isError: false, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2))
+            .Bind(_ => Call(isError: false, callNumber: 3));
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -222,9 +222,9 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_PendingSuccessAsyncMapsValue_ThenBindFails()
     {
         // Arrange / Act
-        var result = await CallAsync(false, 1)
-            .MapAsync(message => ConverterAsync(message, 2))
-            .Bind(_ => Call(true, 3));
+        var result = await CallAsync(isError: false, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2))
+            .Bind(_ => Call(isError: true, callNumber: 3));
 
         // Assert
         Assert.True(result.IsFailure);
@@ -237,8 +237,8 @@ public class ResultMapExtensionTests : ResultFixture
     public async Task MapAsync_EarlierPendingResultFailsBeforeMap_ThenMapperNotInvoked()
     {
         // Arrange / Act
-        var result = await CallAsync(true, 1)
-            .MapAsync(message => ConverterAsync(message, 2));
+        var result = await CallAsync(isError: true, callNumber: 1)
+            .MapAsync(message => ConverterAsync(message, callNumber: 2));
         
         // Assert
         Assert.True(result.IsFailure);
