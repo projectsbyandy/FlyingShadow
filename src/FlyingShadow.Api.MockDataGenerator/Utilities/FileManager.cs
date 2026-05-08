@@ -26,7 +26,12 @@ internal class FileManager : IFileManager
             Path.Combine(AppContext.BaseDirectory, filePath),
             JsonSerializer.Serialize(objectToWrite, WriteJsonOpts));
     }
-   
+
+    public void CreateDirectory(string directoryPath)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(directoryPath) ?? throw new ArgumentNullException());
+    }
+
     private static readonly JsonSerializerOptions WriteJsonOpts = new() { WriteIndented = true };
 
     private static readonly JsonSerializerOptions ReadJsonOptions = new()

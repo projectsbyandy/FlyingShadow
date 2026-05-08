@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using FlyingShadow.Api.MockDataGenerator.Models;
 using FlyingShadow.Api.MockDataGenerator.Models.ProgressStatus;
 using FlyingShadow.Api.MockDataGenerator.Utilities;
@@ -23,17 +24,28 @@ internal class UserDataGenerator : IUserDataGenerator
     public async Task<Result<PipelineContext, FailureCode>> CredentialsAsync(PipelineContext context)
     {
         Console.WriteLine("MockDataGenerator: generating credentials...");
+        IReadOnlyList<UserCredentials> credentials;
         
-        var users = await _fileManager.ReadAsync<IList<User>>("StaticData/users.json");
-        var credentials = users.Select(u =>
+        try
         {
-            var password = _secretGenerator.Password();
-            var hashedPassword= _passwordHasher.Hash(password);
+            var users = await _fileManager.ReadAsync<IList<User>>("StaticData/users.json");
+            Guard.Against.Zero(users.Count, nameof(users));
+            
+            credentials = users.Select(u =>
+            {
+                var password = _secretGenerator.Password();
+                var hashedPassword= _passwordHasher.Hash(password);
  
-            Console.WriteLine($"MockDataGenerator: Created {u.Email}");
+                Console.WriteLine($"MockDataGenerator: Created {u.Email}");
  
-            return new UserCredentials(u.UserId, u.Email, password, hashedPassword);
-        }).ToList();
+                return new UserCredentials(u.UserId, u.Email, password, hashedPassword);
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("MockDataGenerator: failed to create credentials due to: " + ex.Message);
+            return Result<PipelineContext, FailureCode>.Failure(FailureCode.Problem);
+        }
  
         return Result<PipelineContext, FailureCode>.Success(context with
         {
@@ -57,11 +69,7 @@ internal class UserDataGenerator : IUserDataGenerator
             {
                 fakeUsers = new
                 {
-                    loginDetailsList = context.Credentials.Select(c => new
-                    {
-                        email = c.Email,
-                        password = c.Password,
-                    }),
+                    loginDetailsList = context.Credentials.Select(c => c.ToLoginDetails())
                 }
             }
         );
@@ -75,9 +83,9 @@ internal class UserDataGenerator : IUserDataGenerator
             {
                 users = context.Credentials.Select(c => new
                 {
-                    userId = c.UserId,
-                    email = c.Email,
-                    hashedPassword = c.HashedPassword
+                    UserId = c.UserId,
+                    Email = c.Email,
+                    HashedPassword = c.HashedPassword
                 })
             }
         });
@@ -102,7 +110,7 @@ internal class UserDataGenerator : IUserDataGenerator
 
     private async Task CreateFileAssetsAsync(string filePath, dynamic objectToWrite)
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? throw new ArgumentNullException());
+        _fileManager.CreateDirectory(filePath);
         await _fileManager.WriteAsync(filePath, objectToWrite);
         Console.WriteLine($"MockDataGenerator: written {filePath}");
     }

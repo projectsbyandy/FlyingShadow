@@ -17,7 +17,7 @@ internal class PreReqValidator : IPreReqValidator
     public Task<Result<PipelineContext, FailureCode>> CheckFilesExistAsync()
     {
         var fakeLoginDetailsExists = File.Exists(_options.FakeLoginDetailsListPath);
-        var fakeUsersExists  = File.Exists(_options.FakeJwtPath);
+        var fakeUsersExists  = File.Exists(_options.FakeUsersPath);
         var fakeShadowsExist = File.Exists(_options.FakeShadowsPath);
         var fakeStealthMetricsExists  = File.Exists(_options.FakeStealthMetricsPath);
         var fakeJwtExists = File.Exists(_options.FakeJwtPath);

@@ -18,6 +18,8 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="FlyingShadow.Api.MockDataGenerator.Tests" />
+        <!-- Moq assembly used to generate proxy classes-->
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
     </ItemGroup>
     
     <ItemGroup>
