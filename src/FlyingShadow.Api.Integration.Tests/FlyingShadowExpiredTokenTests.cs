@@ -12,15 +12,17 @@ using FlyingShadow.Core.DTO.Authenticate;
 namespace FlyingShadow.Api.Integration.Tests;
 
 [Collection(IntegrationTestCollection.Name)]
-public class FlyingShadowIntegrationTests : AuthenticationFixture, IDisposable
+public class FlyingShadowIntegrationTests : IClassFixture<AuthenticationFixture>, IDisposable
 {
     private readonly FlyingShadowWebAppTestFactory _factory;
     private readonly LoginDetails _loginDetails;
     private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
+    private readonly AuthenticationFixture _authFixture;
     
-    public FlyingShadowIntegrationTests(FlyingShadowWebAppTestFactory factory)
+    public FlyingShadowIntegrationTests(FlyingShadowWebAppTestFactory factory, AuthenticationFixture authFixture)
     {
         _factory = factory;
+        _authFixture = authFixture;
         _loginDetails = Guard.Against.Null(ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers").LoginDetailsList).First();
     }
     
@@ -34,7 +36,7 @@ public class FlyingShadowIntegrationTests : AuthenticationFixture, IDisposable
         var token = await GetAuthTokenAsync(client);
         
         // Act
-        AddAuthHeader(client, token);
+        _authFixture.AddAuthHeader(client, token);
         var shadowResponse = await client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
         
         // Assert

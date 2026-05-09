@@ -11,13 +11,15 @@ using FlyingShadow.Core.Models.Ninja;
 namespace FlyingShadow.Api.Integration.Tests;
 
 [Collection(IntegrationTestCollection.Name)]
-public class FlyingShadowTests : AuthenticationFixture
+public class FlyingShadowTests : IClassFixture<AuthenticationFixture>
 {
     private readonly HttpClient _client;
     private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
+    private readonly AuthenticationFixture _authFixture;
     
-    public FlyingShadowTests(FlyingShadowWebAppTestFactory factory)
+    public FlyingShadowTests(FlyingShadowWebAppTestFactory factory, AuthenticationFixture authFixture)
     {
+        _authFixture = authFixture;
         _client = factory.CreateClient();
     }
     
@@ -25,11 +27,11 @@ public class FlyingShadowTests : AuthenticationFixture
     public async Task GetShadows_WithAuthenticatedToken_ReturnsCorrectShadowDataCount()
     {
         // Arrange
-        var token = await GetAuthTokenAsync(_client, _cancellationToken);
+        var token = await _authFixture.GetAuthTokenAsync(_client, _cancellationToken);
         var jsonMockShadows = Guard.Against.Null(ConfigReader.GetConfigurationSection<List<Shadow>>("FakeShadows"));
 
         // Act
-        AddAuthHeader(_client, token);
+        _authFixture.AddAuthHeader(_client, token);
         var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows",  _cancellationToken);
         
         // Assert
@@ -47,7 +49,7 @@ public class FlyingShadowTests : AuthenticationFixture
         const string invalidToken = "test";
         
         // Act
-        AddAuthHeader(_client, invalidToken);
+        _authFixture.AddAuthHeader(_client, invalidToken);
         var shadowResponse = await _client.GetAsync("api/FlyingShadow/Shadows", _cancellationToken);
         
         // Assert

@@ -4,6 +4,7 @@ using FlyingShadow.Api.MockDataGenerator.Handler.Generate;
 using FlyingShadow.Api.MockDataGenerator.Handler.Generate.Internal;
 using FlyingShadow.Api.MockDataGenerator.Models;
 using FlyingShadow.Api.MockDataGenerator.Models.ProgressStatus;
+using FlyingShadow.Api.MockDataGenerator.Tests.Fixtures;
 using FlyingShadow.Api.MockDataGenerator.Utilities;
 using FlyingShadow.Core.Models.Users;
 using FlyingShadow.Core.Utils;
@@ -11,7 +12,7 @@ using Moq;
 
 namespace FlyingShadow.Api.MockDataGenerator.Tests.Handler.Generate;
 
-public class UserDataGeneratorTests : IDisposable
+public class UserDataGeneratorTests : PipelineContextFixture, IDisposable
 {
     private readonly IUserDataGenerator _userDataGenerator;
     private readonly Mock<IFileManager> _fileManagerMock = new();
@@ -55,7 +56,7 @@ public class UserDataGeneratorTests : IDisposable
     public async Task CredentialsAsync_Generates_JWT()
     {
         // Arrange
-        var pipelineContext = CreatePipelineContext();
+        var pipelineContext = BuildDefaultPipelineContext();
 
         // Act
         var result = await _userDataGenerator.CredentialsAsync(pipelineContext);
@@ -69,7 +70,7 @@ public class UserDataGeneratorTests : IDisposable
     public async Task CredentialsAsync_Generates_UserCredentials()
     {
         // Arrange
-        var pipelineContext = CreatePipelineContext();
+        var pipelineContext = BuildDefaultPipelineContext();
 
         // Act
         var result = await _userDataGenerator.CredentialsAsync(pipelineContext);
@@ -89,7 +90,7 @@ public class UserDataGeneratorTests : IDisposable
         _passwordHasherMock.Setup(hasher => hasher.Hash(It.IsAny<string>())).Throws<SaltParseException>();
         
         // Act
-        var result = await _userDataGenerator.CredentialsAsync(CreatePipelineContext());
+        var result = await _userDataGenerator.CredentialsAsync(BuildDefaultPipelineContext());
         
         // Assert
         Assert.True(result.IsFailure);
@@ -104,7 +105,7 @@ public class UserDataGeneratorTests : IDisposable
             .Throws<FileNotFoundException>();
         
         // Act
-        var result = await _userDataGenerator.CredentialsAsync(CreatePipelineContext());
+        var result = await _userDataGenerator.CredentialsAsync(BuildDefaultPipelineContext());
         
         // Assert
         Assert.True(result.IsFailure);
@@ -119,7 +120,7 @@ public class UserDataGeneratorTests : IDisposable
             .ReturnsAsync(new List<User>());
         
         // Act
-        var result = await _userDataGenerator.CredentialsAsync(CreatePipelineContext());
+        var result = await _userDataGenerator.CredentialsAsync(BuildDefaultPipelineContext());
         
         // Assert
         Assert.True(result.IsFailure);
@@ -130,7 +131,7 @@ public class UserDataGeneratorTests : IDisposable
     public async Task WriteJwtFileAsync_WithValidPath_WritesCorrectPayload()
     {
         // Arrange
-        var defaultContext = CreatePipelineContext();
+        var defaultContext = BuildDefaultPipelineContext();
         var context = defaultContext with
         {
             MockDataOptions = defaultContext.MockDataOptions with
@@ -162,7 +163,7 @@ public class UserDataGeneratorTests : IDisposable
             .Throws<OperationCanceledException>();
         
         // Act
-        var result = await _userDataGenerator.WriteJwtFileAsync(CreatePipelineContext());
+        var result = await _userDataGenerator.WriteJwtFileAsync(BuildDefaultPipelineContext());
 
         // Assert
         Assert.True(result.IsFailure);
@@ -173,7 +174,7 @@ public class UserDataGeneratorTests : IDisposable
     public async Task WriteLoginDetailsFileAsync_WithValidPath_WritesCorrectPayload()
     {
         // Arrange
-        var defaultContext = CreatePipelineContext();
+        var defaultContext = BuildDefaultPipelineContext();
         var context = defaultContext with
         {
             MockDataOptions = defaultContext.MockDataOptions with
@@ -213,7 +214,7 @@ public class UserDataGeneratorTests : IDisposable
     public async Task WriteUsersFileAsync_WithValidPath_WritesCorrectPayloadStructure()
     {
         // Arrange
-        var defaultContext = CreatePipelineContext();
+        var defaultContext = BuildDefaultPipelineContext();
         var context = defaultContext with
         {
             MockDataOptions = defaultContext.MockDataOptions with
@@ -247,23 +248,6 @@ public class UserDataGeneratorTests : IDisposable
        
         _fileManagerMock.Verify(manager => manager.CreateDirectory(It.IsAny<string>()), Times.Once);
         _fileManagerMock.Verify(manager => manager.WriteAsync(context.MockDataOptions.FakeUsersPath, It.IsAny<object>()), Times.Once);
-    }
-    
-    private PipelineContext CreatePipelineContext()
-    {
-        return new PipelineContext(new MockDataOptions()
-            {
-                FakeJwtPath = "unused",
-                FakeShadowsPath = "unused",
-                FakeStealthMetricsPath = "unused",
-                FakeLoginDetailsListPath = "unused",
-                FakeUsersPath = "unused"
-            }, 
-            JwtKey: "testJwt", Credentials: new List<UserCredentials>()
-            {
-                new (Guid.Parse("850f2704-3e52-47d0-a0a0-a9ba608d620f"), "test@test.com","password", "hashedPassword"),
-                new (Guid.Parse("b10f14c4-2c3a-4fc4-b0fe-94a37b8a4afb"), "test2@test.com","password2", "hashedPassword2")
-            });
     }
 
     public void Dispose()

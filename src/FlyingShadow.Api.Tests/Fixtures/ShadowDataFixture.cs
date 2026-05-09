@@ -8,7 +8,7 @@ namespace FlyingShadow.Api.Tests.Fixtures;
 
 public abstract class ShadowDataFixture : IDisposable
 {
-    public readonly IList<Shadow> Shadows = new List<Shadow>()
+    protected readonly IList<Shadow> Shadows = new List<Shadow>()
     {
         new()
         {
@@ -36,7 +36,7 @@ public abstract class ShadowDataFixture : IDisposable
         }
     };
     
-    public readonly IList<StealthMetrics> StealthMetrics = new List<StealthMetrics>()
+    protected readonly IList<StealthMetrics> StealthMetrics = new List<StealthMetrics>()
     {
         new()
         {

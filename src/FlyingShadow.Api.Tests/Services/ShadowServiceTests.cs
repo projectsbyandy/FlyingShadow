@@ -42,6 +42,7 @@ public class ShadowServiceTests : ShadowDataFixture
         var shadowDetailsResult = _sut.GetAllShadowDetails();
         
         // Assert
+        Assert.True(shadowDetailsResult.IsSuccess);
         Assert.NotNull(shadowDetailsResult.Value);
         Assert.Equal(3, shadowDetailsResult.Value.Count);
     }
@@ -70,6 +71,7 @@ public class ShadowServiceTests : ShadowDataFixture
         var shadowDetailsResult = _sut.GetAllShadowDetails();
         
         // Assert
+        Assert.True(shadowDetailsResult.IsSuccess);
         Assert.NotNull(shadowDetailsResult.Value);
         Assert.Contains(shadowDetailsResult.Value, shadow => shadow.Equals(expectedShadowDto));
     }

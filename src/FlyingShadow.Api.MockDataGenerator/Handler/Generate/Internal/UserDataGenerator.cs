@@ -83,9 +83,9 @@ internal class UserDataGenerator : IUserDataGenerator
             {
                 users = context.Credentials.Select(c => new
                 {
-                    UserId = c.UserId,
-                    Email = c.Email,
-                    HashedPassword = c.HashedPassword
+                    c.UserId,
+                    c.Email,
+                    c.HashedPassword
                 })
             }
         });

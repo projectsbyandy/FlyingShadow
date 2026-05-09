@@ -7,9 +7,9 @@ using FlyingShadow.Core.DTO.Configuration;
 
 namespace FlyingShadow.Api.Integration.Tests.Fixtures;
 
-public abstract class AuthenticationFixture
+public class AuthenticationFixture
 {
-    protected async Task<string> GetAuthTokenAsync(HttpClient client, CancellationToken ct)
+    public async Task<string> GetAuthTokenAsync(HttpClient client, CancellationToken ct)
     {
         var user = Guard.Against.Null(ConfigReader.GetConfigurationSection<FakeUsers>("FakeUsers").LoginDetailsList).First();
         var authResponse = await client.PostAsJsonAsync($"/api/authentication/login", user, ct);
@@ -18,7 +18,7 @@ public abstract class AuthenticationFixture
         return Guard.Against.NullOrEmpty(loginResponse?.TokenDetails.Token);
     }
 
-    protected void AddAuthHeader(HttpClient client, string token)
+    public void AddAuthHeader(HttpClient client, string token)
     {
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     }

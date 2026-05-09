@@ -14,13 +14,15 @@ using FlyingShadow.Core.Models.Ninja;
 namespace FlyingShadow.Api.Integration.Tests;
 
 [Collection(IntegrationTestCollection.Name)]
-public class BattleTests : AuthenticationFixture
+public class BattleTests : IClassFixture<AuthenticationFixture>
 {
     private readonly HttpClient _client;
     private readonly CancellationToken _cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(5)).Token;
-
-    public BattleTests(FlyingShadowWebAppTestFactory factory)
+    private readonly AuthenticationFixture _authFixture;
+    
+    public BattleTests(FlyingShadowWebAppTestFactory factory, AuthenticationFixture authFixture)
     {
+        _authFixture = authFixture;
         _client = factory.CreateClient();
     }
 
@@ -29,8 +31,8 @@ public class BattleTests : AuthenticationFixture
     {
         // Arrange
         IList<Shadow> shadows = ConfigReader.GetConfigurationSection<List<Shadow>>("FakeShadows");
-        var token = await GetAuthTokenAsync(_client, _cancellationToken);
-        AddAuthHeader(_client, token);
+        var token = await _authFixture.GetAuthTokenAsync(_client, _cancellationToken);
+        _authFixture.AddAuthHeader(_client, token);
 
         var battleRequest = new BattleRequest(shadows.First().CodeName, shadows.Last().CodeName);
         
@@ -65,8 +67,8 @@ public class BattleTests : AuthenticationFixture
     public async Task AuthenticatedBattleStart_WithMissingFields_ReturnsBadRequest(string requestBodyContent, string[] expectedMissingFieldsInError)
     {
         // Arrange
-        var token = await GetAuthTokenAsync(_client, _cancellationToken);
-        AddAuthHeader(_client, token);
+        var token = await _authFixture.GetAuthTokenAsync(_client, _cancellationToken);
+        _authFixture.AddAuthHeader(_client, token);
         var content = new StringContent(requestBodyContent, Encoding.UTF8, "application/json");
         
         // Act
