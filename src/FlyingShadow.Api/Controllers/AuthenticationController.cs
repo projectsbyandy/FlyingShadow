@@ -2,6 +2,7 @@ using FlyingShadow.Core.DTO.Authenticate;
 using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlyingShadow.Api.Controllers;
@@ -33,8 +34,9 @@ public class AuthenticationController : ControllerBase
             ? Ok(new LoginResponse(tokenResult.Value))
             : Unauthorized(new ErrorResponse("Invalid Email or Password"));
     }
-
+    
     [HttpPost("register")]
+    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

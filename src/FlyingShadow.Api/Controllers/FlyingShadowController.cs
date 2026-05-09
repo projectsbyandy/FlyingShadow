@@ -22,7 +22,6 @@ public class FlyingShadowController : ControllerBase
     [HttpGet("Shadows")]
     [Produces("application/json")]
     [ProducesResponseType( StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
     public ActionResult<IList<ShadowDto>> GetShadows()
     {

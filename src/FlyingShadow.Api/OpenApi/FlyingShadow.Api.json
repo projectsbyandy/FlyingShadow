@@ -283,22 +283,22 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "500": {
             "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -310,7 +310,11 @@
   "components": {
     "schemas": {
       "AcrobaticsLevel": {
-        "type": "integer"
+        "enum": [
+          "Beginner",
+          "Intermediate",
+          "Advanced"
+        ]
       },
       "BattleRequest": {
         "required": [
@@ -366,7 +370,14 @@
         }
       },
       "ErrorCode": {
-        "type": "integer"
+        "enum": [
+          "NotFound",
+          "AlreadyExists",
+          "UnexpectedError",
+          "InvalidCredentials",
+          "UnableToRetrieveData",
+          "UnableToProcessData"
+        ]
       },
       "LoginDetails": {
         "required": [
@@ -432,7 +443,11 @@
         }
       },
       "Rank": {
-        "type": "integer"
+        "enum": [
+          "Danza",
+          "Toshiyama",
+          "Oniwaban"
+        ]
       },
       "RegisterRequest": {
         "required": [

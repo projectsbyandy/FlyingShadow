@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using FlyingShadow.Api.Conventions;
 using FlyingShadow.Api.Ioc;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddFlyingShadowApiSupport()
+    .AddProblemDetails()
     .AddOpenApi(options =>
     {
         options.AddDocumentTransformer((document, _, _) =>
@@ -30,7 +32,13 @@ builder.Services
             return Task.CompletedTask;
         });
     })
-    .AddControllers();
+    .AddControllers(
+        options => options.Conventions.Add(new AuthorizeResponsesConvention())
+        )
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 var mockData = ConfigReader.GetConfigurationSection<MockData>("MockData");
 if (mockData is { IsEnabled: true, Source: Source.Json })
@@ -41,6 +49,8 @@ if (mockData is { IsEnabled: true, Source: Source.Json })
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
 });
 
 var jwtSettings = ConfigReader.GetConfigurationSection<Jwt>("Jwt");
@@ -83,6 +93,7 @@ if (!app.Environment.IsEnvironment("Test"))
 {
     app.UseHttpsRedirection();
 }
+app.UseStatusCodePages();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

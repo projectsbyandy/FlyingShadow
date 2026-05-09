@@ -20,7 +20,6 @@ public class BattleController : ControllerBase
     [HttpPost("start")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public ActionResult<BattleResponse> Battle([FromBody] BattleRequest request)
     {
        var result = _battleService.Battle(request.ShadowOneCodeName, request.ShadowTwoCodeName);
