@@ -15,7 +15,7 @@ public class PreReqValidatorTests : IDisposable
     
     public PreReqValidatorTests()
     {
-        _tempDir = Path.Combine(AppContext.BaseDirectory, AppContext.BaseDirectory, "test-temp");
+        _tempDir = Path.Combine(AppContext.BaseDirectory, AppContext.BaseDirectory, "test-temp", Guid.NewGuid().ToString());
         Directory.CreateDirectory(_tempDir);
     }
 
