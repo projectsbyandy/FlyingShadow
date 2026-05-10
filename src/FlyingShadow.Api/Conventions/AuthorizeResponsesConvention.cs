@@ -28,11 +28,9 @@ public sealed class AuthorizeResponsesConvention : IApplicationModelConvention
 
     private static bool RequiresAuthorization(ControllerModel controller, ActionModel action)
     {
-        // Action-level [AllowAnonymous] always wins.
         if (HasAttribute<IAllowAnonymous>(action))
             return false;
 
-        // If the action explicitly declares [Authorize], it overrides controller-level [AllowAnonymous].
         var actionHasAuthorize = HasAttribute<IAuthorizeData>(action);
 
         if (HasAttribute<IAllowAnonymous>(controller) && !actionHasAuthorize)

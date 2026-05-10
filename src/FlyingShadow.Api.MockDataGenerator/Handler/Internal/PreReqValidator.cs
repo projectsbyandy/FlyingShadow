@@ -22,7 +22,7 @@ internal class PreReqValidator : IPreReqValidator
         var fakeStealthMetricsExists  = File.Exists(_options.FakeStealthMetricsPath);
         var fakeJwtExists = File.Exists(_options.FakeJwtPath);
  
-        if (fakeLoginDetailsExists && fakeUsersExists && fakeShadowsExist && fakeStealthMetricsExists && fakeJwtExists)
+        if (fakeLoginDetailsExists || fakeUsersExists || fakeShadowsExist || fakeStealthMetricsExists || fakeJwtExists)
         {
             Console.WriteLine("MockDataGenerator: files already exist, skipping.");
             return Task.FromResult(Result<PipelineContext, FailureCode>.Failure(FailureCode.Warning));
