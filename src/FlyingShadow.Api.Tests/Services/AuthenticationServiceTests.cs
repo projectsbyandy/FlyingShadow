@@ -24,19 +24,19 @@ public class AuthenticationServiceTests
     public AuthenticationServiceTests()
     {
         _userRepositoryFake
-            .Setup(r => r.GetUser(UserEmail))
-            .Returns(Result<User, Error>.Success(new User
+            .Setup(r => r.GetUserAsync(UserEmail))
+            .ReturnsAsync(Result<User, Error>.Success(new User
             {
                 UserId = Guid.Parse("191410b1-9d45-498a-8c2a-b3faf3583fcc"), Email = UserEmail,
                 HashedPassword = HashedPassword
             }));
 
         _userRepositoryFake
-            .Setup(r => r.AddUser(It.IsAny<User>()))
-            .Returns<User>(Result<User, Error>.Success);
+            .Setup(r => r.AddUserAsync(It.IsAny<User>()))
+            .ReturnsAsync<User, IUserRepository, Result<User, Error>>(Result<User, Error>.Success);
 
         _userRepositoryFake
-            .Setup(r => r.EnsureUserDoesNotExist(UserEmail)).Returns(Result<Outcome, Error>.Success(new Outcome()));
+            .Setup(r => r.EnsureUserDoesNotExistAsync(UserEmail)).ReturnsAsync(Result<Outcome, Error>.Success(new Outcome()));
         
         _passwordHasherFake.Setup(hasher => hasher.Hash(It.IsAny<string>())).Returns(HashedPassword);
         _passwordHasherFake.Setup(hasher => hasher.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
@@ -45,13 +45,13 @@ public class AuthenticationServiceTests
     }
     
     [Fact]
-    public void ValidateCredentials_WithValidChecks_ReturnsEmailAndPassword()
+    public async Task ValidateCredentials_WithValidChecks_ReturnsEmailAndPassword()
     {
         // Arrange
         var loginDetails = new LoginDetails() {Email = UserEmail, Password = UserPassword};
         
         // Act
-        var result = _sut.ValidateCredentials(loginDetails);
+        var result = await _sut.ValidateCredentialsAsync(loginDetails);
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -61,15 +61,15 @@ public class AuthenticationServiceTests
     }
     
     [Fact]
-    public void ValidateCredentials_UserRepoReturnsUserNotFound_Returns_NotFoundError()
+    public async Task ValidateCredentials_UserRepoReturnsUserNotFound_Returns_NotFoundError()
     {
         // Arrange
         _userRepositoryFake
-            .Setup(r => r.GetUser(UserEmail))
-            .Returns<string>(email => Result<User, Error>.Failure(new Error(ErrorCode.NotFound, $"User:{email} not found")));
+            .Setup(r => r.GetUserAsync(UserEmail))
+            .ReturnsAsync<string, IUserRepository, Result<User, Error>>(email => Result<User, Error>.Failure(new Error(ErrorCode.NotFound, $"User:{email} not found")));
         
         // Act
-        var result = _sut.ValidateCredentials(new LoginDetails()
+        var result = await _sut.ValidateCredentialsAsync(new LoginDetails()
         {
             Email = UserEmail,
             Password = "Testing"
@@ -82,13 +82,13 @@ public class AuthenticationServiceTests
     }
     
     [Fact]
-    public void ValidateCredentials_ValidationReturnFalse_Returns_InvalidCredentialsError()
+    public async Task ValidateCredentials_ValidationReturnFalse_Returns_InvalidCredentialsError()
     {
         // Arrange
         _passwordHasherFake.Setup(hasher => hasher.Verify(It.IsAny<string>(), It.IsAny<string>())).Returns(false);
         
         // Act
-        var result = _sut.ValidateCredentials(new LoginDetails()
+        var result = await _sut.ValidateCredentialsAsync(new LoginDetails()
         {
             Email = UserEmail,
             Password = "Testing"
@@ -101,13 +101,13 @@ public class AuthenticationServiceTests
     }
     
     [Fact]
-    public void ValidateCredentials_HashVerifyThrowsException_Returns_UnexpectedError()
+    public async Task ValidateCredentials_HashVerifyThrowsException_Returns_UnexpectedError()
     {
         // Arrange
         _passwordHasherFake.Setup(hasher => hasher.Verify(It.IsAny<string>(), It.IsAny<string>())).Throws(new SaltParseException("Problem with salt value"));
 
         // Act
-        var result = _sut.ValidateCredentials(new LoginDetails()
+        var result = await _sut.ValidateCredentialsAsync(new LoginDetails()
         {
             Email = UserEmail,
             Password = "Testing"
@@ -122,19 +122,19 @@ public class AuthenticationServiceTests
     [Theory]
     [InlineData("", "Required input user.HashedPassword was empty.")]
     [InlineData(null, "Value cannot be null.")]
-    public void ValidateCredentials_SupplyingNullOrEmptyHashedPassword_Returns_Failure(string? badHashedPassword, string errorStartsWith)
+    public async Task ValidateCredentials_SupplyingNullOrEmptyHashedPassword_Returns_Failure(string? badHashedPassword, string errorStartsWith)
     {
         // Arrange
         _userRepositoryFake
-            .Setup(r => r.GetUser(UserEmail))
-            .Returns(Result<User, Error>.Success(new User
+            .Setup(r => r.GetUserAsync(UserEmail))
+            .ReturnsAsync(Result<User, Error>.Success(new User
             {
                 UserId = Guid.Parse("191410b1-9d45-498a-8c2a-b3faf3583fcc"), Email = UserEmail,
                 HashedPassword = badHashedPassword
             }));
         
         // Act
-        var result = _sut.ValidateCredentials(new LoginDetails()
+        var result = await _sut.ValidateCredentialsAsync(new LoginDetails()
         {
             Email = UserEmail,
             Password = "Testing"
@@ -148,10 +148,10 @@ public class AuthenticationServiceTests
     }
 
     [Fact]
-    public void Register_With_Valid_Details_Returns_UserDto()
+    public async Task Register_With_Valid_Details_Returns_UserDto()
     {
         // Arrange / Act
-        var result = _sut.Register(new RegisterRequest()
+        var result = await _sut.RegisterAsync(new RegisterRequest()
         {
             Email = UserEmail,
             Password = UserPassword
@@ -166,13 +166,13 @@ public class AuthenticationServiceTests
     }
     
     [Fact]
-    public void Register_VerifyPasswordThrowsHashException_Returns_Unexpected_Error()
+    public async Task Register_VerifyPasswordThrowsHashException_Returns_Unexpected_Error()
     {
         // Arrange
         _passwordHasherFake.Setup(hasher => hasher.Hash(It.IsAny<string>())).Throws(new SaltParseException("Problem with salt value"));
         
         // Act
-        var result = _sut.Register(new RegisterRequest()
+        var result = await _sut.RegisterAsync(new RegisterRequest()
         {
             Email = UserEmail,
             Password = UserPassword
@@ -186,15 +186,15 @@ public class AuthenticationServiceTests
     }
     
     [Fact]
-    public void Register_EnsureUserDoesNotExistReturnsFalse_Returns_AlreadyExistsFailure()
+    public async Task Register_EnsureUserDoesNotExistReturnsFalse_Returns_AlreadyExistsFailure()
     {
         // Arrange
         _userRepositoryFake
-            .Setup(r => r.EnsureUserDoesNotExist(UserEmail))
-            .Returns<string>(email => Result<Outcome, Error>.Failure(new Error(ErrorCode.AlreadyExists, $"User:{email} already exists")));
+            .Setup(r => r.EnsureUserDoesNotExistAsync(UserEmail))
+            .ReturnsAsync<string, IUserRepository, Result<Outcome, Error>>(email => Result<Outcome, Error>.Failure(new Error(ErrorCode.AlreadyExists, $"User:{email} already exists")));
         
         // Act
-        var result = _sut.Register(new RegisterRequest()
+        var result = await _sut.RegisterAsync(new RegisterRequest()
         {
             Email = UserEmail,
             Password = UserPassword

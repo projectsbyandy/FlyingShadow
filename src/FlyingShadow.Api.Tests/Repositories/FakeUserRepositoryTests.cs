@@ -16,7 +16,7 @@ public class FakeUserRepositoryTests
     }
     
     [Fact]
-    public void AddUser_WithValidDetails_IsSuccessful()
+    public async Task AddUser_WithValidDetails_IsSuccessful()
     {
         // Arrange
         var user = new User()
@@ -27,7 +27,7 @@ public class FakeUserRepositoryTests
         };
           
         // Act
-        var result = _sut.AddUser(user);
+        var result = await _sut.AddUserAsync(user);
         
         // Assert
         Assert.NotNull(result);
@@ -37,7 +37,7 @@ public class FakeUserRepositoryTests
     }
     
     [Fact]
-    public void GetUser_WithValidEmail_RetrievesUser()
+    public async Task GetUser_WithValidEmail_RetrievesUser()
     {
         // Arrange
         var user = new User()
@@ -46,10 +46,10 @@ public class FakeUserRepositoryTests
             Email = "Roger@test.com"
         };
           
-        _sut.AddUser(user);
+        await _sut.AddUserAsync(user);
         
         // Act
-        var result = _sut.GetUser(user.Email);
+        var result = await _sut.GetUserAsync(user.Email);
         
         // Assert
         Assert.NotNull(result);
@@ -59,10 +59,10 @@ public class FakeUserRepositoryTests
     [Theory]
     [InlineData("test@test.com")]
     [InlineData("larry@last.com")]
-    public void GetUser_WithAnInvalidEmail_ReturnsError(string email)
+    public async Task GetUser_WithAnInvalidEmail_ReturnsError(string email)
     {
         // Arrange / Act
-        var result = _sut.GetUser(email);
+        var result = await _sut.GetUserAsync(email);
         
         // Assert
         Assert.NotNull(result);
@@ -70,13 +70,13 @@ public class FakeUserRepositoryTests
     }
     
     [Fact]
-    public void EnsureUserDoesNotExist_WithNewEmail_ReturnsSuccess()
+    public async Task EnsureUserDoesNotExist_WithNewEmail_ReturnsSuccess()
     {
         // Arrange
         const string userDoesNotExistEmail = "DoesNotExist@test.com";
         
         // Act
-        var result = _sut.EnsureUserDoesNotExist(userDoesNotExistEmail);
+        var result = await _sut.EnsureUserDoesNotExistAsync(userDoesNotExistEmail);
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -84,13 +84,13 @@ public class FakeUserRepositoryTests
     }
     
     [Fact]
-    public void EnsureUserDoesNotExist_WithExistingEmail_ReturnsFailure()
+    public async Task EnsureUserDoesNotExist_WithExistingEmail_ReturnsFailure()
     {
         // Arrange
         const string userExistsEmail = "demo_user@sample.org";
         
         // Act
-        var result = _sut.EnsureUserDoesNotExist(userExistsEmail);
+        var result = await _sut.EnsureUserDoesNotExistAsync(userExistsEmail);
         
         // Assert
         Assert.True(result.IsFailure);

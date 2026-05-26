@@ -5,7 +5,7 @@ namespace FlyingShadow.Core.Repositories;
 
 public interface IUserRepository
 {
-    public Result<User, Error> GetUser(string email);
-    public Result<User, Error> AddUser(User user);
-    public Result<Outcome, Error> EnsureUserDoesNotExist(string email);
+    public Task<Result<User, Error>> GetUserAsync(string email);
+    public Task<Result<User, Error>> AddUserAsync(User user);
+    public Task<Result<Outcome, Error>> EnsureUserDoesNotExistAsync(string email);
 }

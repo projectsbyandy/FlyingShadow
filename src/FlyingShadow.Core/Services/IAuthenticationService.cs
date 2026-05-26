@@ -5,6 +5,6 @@ namespace FlyingShadow.Core.Services;
 
 public interface IAuthenticationService
 {
-    public Result<UserDto, Error> ValidateCredentials(LoginDetails request);
-    public Result<UserDto, Error>Register(RegisterRequest request);
+    public Task<Result<UserDto, Error>> ValidateCredentialsAsync(LoginDetails request);
+    public Task<Result<UserDto, Error>> RegisterAsync(RegisterRequest request);
 }

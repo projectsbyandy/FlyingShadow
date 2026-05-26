@@ -20,18 +20,18 @@ internal class AuthenticationService : IAuthenticationService
         _userRepository = userRepository;
     }
         
-    public Result<UserDto, Error> ValidateCredentials(LoginDetails request)
+    public async Task<Result<UserDto, Error>> ValidateCredentialsAsync(LoginDetails request)
     {
-        return _userRepository.GetUser(request.Email)
+        return await _userRepository.GetUserAsync(request.Email)
             .Bind(user => VerifyPassword(request, user));
     }
 
-    public Result<UserDto, Error> Register(RegisterRequest registerRequest)
+    public async Task<Result<UserDto, Error>> RegisterAsync(RegisterRequest registerRequest)
     {
         try
         {
-            return _userRepository.EnsureUserDoesNotExist(registerRequest.Email)
-                .Bind(_ => _userRepository.AddUser(new User()
+            return await _userRepository.EnsureUserDoesNotExistAsync(registerRequest.Email)
+                .BindAsync(_ => _userRepository.AddUserAsync(new User()
                 {
                     Email = registerRequest.Email,
                     HashedPassword = _passwordHasher.Hash(registerRequest.Password)

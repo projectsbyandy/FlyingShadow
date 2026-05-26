@@ -37,11 +37,11 @@ public class AuthenticationControllerTests
     #region Login
     
     [Fact]
-    public void Login_WithValidCredentials_ReturnsOkWithTokenAndExpiry()
+    public async Task Login_WithValidCredentials_ReturnsOkWithTokenAndExpiry()
     {
         // Arrange
-        _authenticationServiceMock.Setup(auth => auth.ValidateCredentials(It.IsAny<LoginDetails>()))
-            .Returns((LoginDetails loginDetails) => Result<UserDto, Error>.Success(new UserDto()
+        _authenticationServiceMock.Setup(auth => auth.ValidateCredentialsAsync(It.IsAny<LoginDetails>()))
+            .ReturnsAsync((LoginDetails loginDetails) => Result<UserDto, Error>.Success(new UserDto()
             {
                 UserId = Guid.NewGuid(),
                 Email = loginDetails.Email
@@ -53,7 +53,7 @@ public class AuthenticationControllerTests
         _tokenServiceMock.Setup(service => service.GenerateToken(It.IsAny<Guid>(), It.IsAny<string>())).Returns(Result<TokenDetails, Error>.Success(new TokenDetails(generatedJwt, generatedDateTimeExpiry)));
         
         // Act
-        var actionResult = _sut.Login(_loginDetails);
+        var actionResult = await _sut.LoginAsync(_loginDetails);
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
@@ -63,14 +63,14 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public void Login_WithInvalidCredentials_ReturnsUnauthorized()
+    public async Task Login_WithInvalidCredentials_ReturnsUnauthorized()
     {
         // Arrange
-        _authenticationServiceMock.Setup(auth => auth.ValidateCredentials(It.IsAny<LoginDetails>()))
-            .Returns(Result<UserDto, Error>.Failure(new Error(ErrorCode.InvalidCredentials, "The email or password provided is incorrect")));
+        _authenticationServiceMock.Setup(auth => auth.ValidateCredentialsAsync(It.IsAny<LoginDetails>()))
+            .ReturnsAsync(Result<UserDto, Error>.Failure(new Error(ErrorCode.InvalidCredentials, "The email or password provided is incorrect")));
         
         // Act
-        var actionResult = _sut.Login(_loginDetails);
+        var actionResult = await _sut.LoginAsync(_loginDetails);
         
         // Assert
         var unauthorizedObjectResult = Assert.IsType<UnauthorizedObjectResult>(actionResult.Result);
@@ -83,20 +83,19 @@ public class AuthenticationControllerTests
     #region Register
 
     [Fact]
-    public void Register_WithValidDetails_ReturnsCreatedWithUserId()
+    public async Task Register_WithValidDetails_ReturnsCreatedWithUserId()
     {
         // Arrange
-        
         var generatedUserId = Guid.NewGuid();
-        _authenticationServiceMock.Setup(auth => auth.Register(It.IsAny<RegisterRequest>()))
-            .Returns((RegisterRequest registerRequest) => Result<UserDto, Error>.Success(new UserDto()
+        _authenticationServiceMock.Setup(auth => auth.RegisterAsync(It.IsAny<RegisterRequest>()))
+            .ReturnsAsync((RegisterRequest registerRequest) => Result<UserDto, Error>.Success(new UserDto()
             {
                 UserId = generatedUserId,
                 Email = registerRequest.Email,
             }));
         
         // Act
-        var actionResult = _sut.Register(_registerRequest);
+        var actionResult = await _sut.RegisterAsync(_registerRequest);
         
         // Assert
         var createdResult = Assert.IsType<CreatedResult>(actionResult.Result);
@@ -105,14 +104,14 @@ public class AuthenticationControllerTests
     }
     
     [Fact]
-    public void Register_WithAnExistingEmail_ReturnsBadRequest()
+    public async Task Register_WithAnExistingEmail_ReturnsBadRequest()
     {
         // Arrange
-        _authenticationServiceMock.Setup(auth => auth.Register(It.IsAny<RegisterRequest>()))
-            .Returns((RegisterRequest registerRequest) => Result<UserDto, Error>.Failure(new Error(ErrorCode.AlreadyExists, $"User with {registerRequest.Email} already registered")));
+        _authenticationServiceMock.Setup(auth => auth.RegisterAsync(It.IsAny<RegisterRequest>()))
+            .ReturnsAsync((RegisterRequest registerRequest) => Result<UserDto, Error>.Failure(new Error(ErrorCode.AlreadyExists, $"User with {registerRequest.Email} already registered")));
         
         // Act
-        var actionResult = _sut.Register(_registerRequest);
+        var actionResult = await _sut.RegisterAsync(_registerRequest);
         
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(actionResult.Result);
@@ -121,14 +120,14 @@ public class AuthenticationControllerTests
     }
     
     [Fact]
-    public void Register_WithServiceError_Returns500()
+    public async Task Register_WithServiceError_Returns500()
     {
         // Arrange
-        _authenticationServiceMock.Setup(auth => auth.Register(It.IsAny<RegisterRequest>()))
-            .Returns((RegisterRequest registerRequest) => Result<UserDto, Error>.Failure(new Error(ErrorCode.UnexpectedError, $"Problem writing {registerRequest.Email} to DB")));
+        _authenticationServiceMock.Setup(auth => auth.RegisterAsync(It.IsAny<RegisterRequest>()))
+            .ReturnsAsync((RegisterRequest registerRequest) => Result<UserDto, Error>.Failure(new Error(ErrorCode.UnexpectedError, $"Problem writing {registerRequest.Email} to DB")));
         
         // Act
-        var actionResult = _sut.Register(_registerRequest);
+        var actionResult = await _sut.RegisterAsync(_registerRequest);
         
         // Assert
         var objectResult = Assert.IsType<ObjectResult>(actionResult.Result);

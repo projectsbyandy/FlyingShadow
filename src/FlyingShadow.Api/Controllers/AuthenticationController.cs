@@ -25,9 +25,9 @@ public class AuthenticationController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public ActionResult<LoginResponse> Login([FromBody] LoginDetails user)
+    public async Task<ActionResult<LoginResponse>> LoginAsync([FromBody] LoginDetails user)
     {
-        var tokenResult = _authenticationService.ValidateCredentials(user)
+        var tokenResult = await _authenticationService.ValidateCredentialsAsync(user)
             .Bind(userDto => _tokenService.GenerateToken(userDto.UserId, userDto.Email));
         
         return tokenResult.IsSuccess 
@@ -40,9 +40,9 @@ public class AuthenticationController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public ActionResult<RegisterResponse> Register([FromBody] RegisterRequest request)
+    public async Task<ActionResult<RegisterResponse>> RegisterAsync([FromBody] RegisterRequest request)
     {
-        var result = _authenticationService.Register(request);
+        var result = await _authenticationService.RegisterAsync(request);
 
         return result.IsSuccess
             ? Created(string.Empty, new RegisterResponse(result.Value.UserId))

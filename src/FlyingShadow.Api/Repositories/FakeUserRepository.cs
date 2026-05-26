@@ -23,28 +23,28 @@ internal class FakeUserRepository : WithMockData<IList<User>>, IUserRepository
             "Users Mock data has not been configured");
     }
 
-    public Result<User, Error> GetUser(string email)
+    public async Task<Result<User, Error>> GetUserAsync(string email)
     {
         var user = _users.SingleOrDefault(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         
-        return user is not null 
+        return await Task.FromResult(user is not null 
             ? Result<User, Error>.Success(user)
-            : Result<User, Error>.Failure(new Error(ErrorCode.NotFound, $"User with {email} was not found"));
+            : Result<User, Error>.Failure(new Error(ErrorCode.NotFound, $"User with {email} was not found")));
     }
 
-    public Result<User, Error> AddUser(User user)
+    public async Task<Result<User, Error>> AddUserAsync(User user)
     {
         _users.Add(user);
 
-        return Result<User, Error>.Success(user);
+        return await Task.FromResult(Result<User, Error>.Success(user));
     }
 
-    public Result<Outcome, Error> EnsureUserDoesNotExist(string email)
+    public async Task<Result<Outcome, Error>> EnsureUserDoesNotExistAsync(string email)
     {
         var exists = _users.Any(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         
-        return exists
+        return await Task.FromResult(exists
             ? Result<Outcome, Error>.Failure(new Error(ErrorCode.AlreadyExists, $"User with {email} already registered"))
-            : Result<Outcome, Error>.Success(Outcome.Value);
+            : Result<Outcome, Error>.Success(Outcome.Value));
     }
 }
