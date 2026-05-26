@@ -22,18 +22,18 @@ internal class FakeStealthMetricsRepository : WithMockData<IList<StealthMetrics>
             "Stealth Metrics Mock data has not been configured");
     }
 
-    public Result<IList<StealthMetrics>, Error> GetAll()
+    public async Task<Result<IList<StealthMetrics>, Error>> GetAllAsync()
     {
-        return Result<IList<StealthMetrics>, Error>.Success(_stealthMetrics);
+        return await Task.FromResult(Result<IList<StealthMetrics>, Error>.Success(_stealthMetrics));
     }
 
-    public Result<StealthMetrics, Error> GetByShadowId(Guid id)
+    public async Task<Result<StealthMetrics, Error>> GetByShadowIdAsync(Guid id)
     {
         var metrics = _stealthMetrics.ToList()
             .Find(s => s.ShadowId.Equals(id));
 
-        return metrics is null
+        return await Task.FromResult(metrics is null
             ? Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound, $"Stealth metrics with ShadowId: {id} does not exist"))
-            : Result<StealthMetrics, Error>.Success(metrics);
+            : Result<StealthMetrics, Error>.Success(metrics));
     }
 }

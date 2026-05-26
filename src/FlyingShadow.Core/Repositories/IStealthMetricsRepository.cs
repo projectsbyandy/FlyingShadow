@@ -5,6 +5,6 @@ namespace FlyingShadow.Core.Repositories;
 
 public interface IStealthMetricsRepository
 {
-    public Result<IList<StealthMetrics>, Error> GetAll();
-    public Result<StealthMetrics, Error> GetByShadowId(Guid id);
+    public Task<Result<IList<StealthMetrics>, Error>> GetAllAsync();
+    public Task<Result<StealthMetrics, Error>> GetByShadowIdAsync(Guid id);
 }

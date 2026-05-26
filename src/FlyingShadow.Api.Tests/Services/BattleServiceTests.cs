@@ -25,8 +25,8 @@ public class BattleServiceTests : ShadowDataFixture
         _shadowRepositoryMock.Setup(repo => repo.GetByCodeNameAsync(It.IsAny<string>()))
             .ReturnsAsync(Result<Shadow, Error>.Success(Shadows.First()));
 
-        _stealthMetricsRepositoryMock.Setup(repo => repo.GetByShadowId(It.IsAny<Guid>()))
-            .Returns(Result<StealthMetrics, Error>.Success(StealthMetrics.First()));
+        _stealthMetricsRepositoryMock.Setup(repo => repo.GetByShadowIdAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(Result<StealthMetrics, Error>.Success(StealthMetrics.First()));
 
         _shadowDtoMapperMock
             .Setup(mapper => mapper.ToSingle(It.IsAny<Shadow>(), It.IsAny<StealthMetrics>()))
@@ -98,8 +98,8 @@ public class BattleServiceTests : ShadowDataFixture
     {
         // Arrange
         _stealthMetricsRepositoryMock
-            .Setup(repo => repo.GetByShadowId(It.IsAny<Guid>()))
-            .Returns(Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound, "No Metrics here")));
+            .Setup(repo => repo.GetByShadowIdAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound, "No Metrics here")));
         
         // Act
         var result = await _sut.BattleAsync("CodeNameExists", "Test");

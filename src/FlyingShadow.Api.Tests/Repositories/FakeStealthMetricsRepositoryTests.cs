@@ -16,13 +16,13 @@ public class FakeStealthMetricsRepositoryTests
     }
 
     [Fact]
-    public void GetAll_ReturnsStealthMetricsMockData()
+    public async Task GetAll_ReturnsStealthMetricsMockData()
     {
         // Arrange
         IStealthMetricsRepository sut = new FakeStealthMetricsRepository();
       
         // Act
-        var stealthMetricsResult = sut.GetAll();
+        var stealthMetricsResult = await sut.GetAllAsync();
         
         // Assert
         Assert.True(stealthMetricsResult.IsSuccess);
@@ -30,13 +30,15 @@ public class FakeStealthMetricsRepositoryTests
         Assert.All(stealthMetricsResult.Value, Assert.NotNull);
     }
 
-    [Fact] public void GetByShadowId_WithValidId_ReturnsStealthMetricsMockData()
+    [Fact] 
+    public async Task GetByShadowId_WithValidId_ReturnsStealthMetricsMockData()
     {
         // Arrange
-        var firstStealthMetrics = Guard.Against.Null(_sut.GetAll().Value.First());    
+        var metricsResult = await _sut.GetAllAsync();
+        var firstStealthMetrics = Guard.Against.Null(metricsResult.Value.First());    
 
         // Act
-        var fakeStealthMetricsResult = _sut.GetByShadowId(firstStealthMetrics.ShadowId);
+        var fakeStealthMetricsResult = await _sut.GetByShadowIdAsync(firstStealthMetrics.ShadowId);
         
         // Assert
         Assert.True(fakeStealthMetricsResult.IsSuccess);
@@ -45,13 +47,13 @@ public class FakeStealthMetricsRepositoryTests
     }
     
     [Fact]
-    public void GetByShadowId_WithValidId_ReturnsNotFoundErrorCode()
+    public async Task GetByShadowId_WithValidId_ReturnsNotFoundErrorCode()
     {
         // Arrange
         var doesNotExistShadowId = Guid.NewGuid();
 
         // Act
-        var fakeStealthMetricsResult = _sut.GetByShadowId(doesNotExistShadowId);
+        var fakeStealthMetricsResult = await _sut.GetByShadowIdAsync(doesNotExistShadowId);
         
         // Assert
         Assert.True(fakeStealthMetricsResult.IsFailure);

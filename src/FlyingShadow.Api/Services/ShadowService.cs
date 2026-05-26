@@ -25,7 +25,7 @@ internal class ShadowService : IShadowService
         try
         {
             var shadowResult = await _shadowRepository.GetAllAsync();
-            var stealthMetricsResult = _stealthMetricsRepository.GetAll();
+            var stealthMetricsResult = await _stealthMetricsRepository.GetAllAsync();
              
             if (shadowResult.IsFailure || stealthMetricsResult.IsFailure)
                 return Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, "Unable to retrieve Shadow or Metric Data"));

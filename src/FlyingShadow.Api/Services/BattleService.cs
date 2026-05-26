@@ -40,8 +40,8 @@ internal class BattleService : IBattleService
     private async Task<Result<ShadowDto, Error>> GetShadowDtoAsync(string codeName)
     {
         return await _shadowRepository.GetByCodeNameAsync(codeName)
-            .Bind(shadow => _stealthMetricsRepository
-                .GetByShadowId(shadow.Id)
+            .BindAsync(shadow => _stealthMetricsRepository
+                .GetByShadowIdAsync(shadow.Id)
                 .Map(metrics => _shadowDtoMapper.ToSingle(shadow, metrics)));
     }
 }

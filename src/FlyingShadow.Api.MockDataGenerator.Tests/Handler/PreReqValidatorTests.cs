@@ -9,7 +9,7 @@ namespace FlyingShadow.Api.MockDataGenerator.Tests.Handler;
 
 public class PreReqValidatorTests : IDisposable
 {
-    private IPreReqValidator _sut;
+    private IPreReqValidator? _sut;
     private readonly Mock<IOptions<MockDataOptions>> _mockOptions = new();
     private readonly string _tempDir;
     
