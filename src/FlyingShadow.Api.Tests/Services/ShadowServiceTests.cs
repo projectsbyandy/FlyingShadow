@@ -13,33 +13,33 @@ namespace FlyingShadow.Api.Tests.Services;
 
 public class ShadowServiceTests : ShadowDataFixture
 {
-    private IShadowService _sut;
+    private readonly IShadowService _sut;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
     private readonly IShadowDtoMapper _shadowDtoMapper = new ShadowDtoMapper();
 
     public ShadowServiceTests()
     {
-        _shadowRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<Shadow>, Error>.Success(Shadows));
+        _shadowRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IList<Shadow>, Error>.Success(Shadows));
         _stealthMetricsRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<StealthMetrics>, Error>.Success(StealthMetrics));
         _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object,  _shadowDtoMapper);
     }
     
     [Fact]
-    public void GetShadowDetails_ReturnsSuccess()
+    public async Task GetShadowDetails_ReturnsSuccess()
     {
         // Arrange / Act
-        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.True(shadowDetailsResult.IsSuccess);
     }
     
     [Fact]
-    public void GetShadowDetails_ReturnsExpectedShadowDtoCount()
+    public async Task GetShadowDetails_ReturnsExpectedShadowDtoCount()
     {
         // Arrange / Act
-        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.True(shadowDetailsResult.IsSuccess);
@@ -48,7 +48,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void GetShadowDetails_CorrectlyMapsStealthMetrics()
+    public async Task GetShadowDetails_CorrectlyMapsStealthMetrics()
     {
         // Arrange
         var expectedShadowDto = new ShadowDto()
@@ -68,7 +68,7 @@ public class ShadowServiceTests : ShadowDataFixture
         };
         
         // Act
-        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.True(shadowDetailsResult.IsSuccess);
@@ -77,7 +77,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void GetShadowDetails_WithMissingStealthMetrics_OnlyReturnsShadowsWithSuccessfulStealthMetricsMapping()
+    public async Task GetShadowDetails_WithMissingStealthMetrics_OnlyReturnsShadowsWithSuccessfulStealthMetricsMapping()
     {
         // Arrange
         var metricToRemoveIndex = StealthMetrics.ToList().FindIndex(m => m.InvisibilityDurationMs == 1022);
@@ -89,7 +89,7 @@ public class ShadowServiceTests : ShadowDataFixture
             .ToList();
         
         // Act
-        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.NotNull(shadowDetailsResult.Value);
@@ -103,7 +103,7 @@ public class ShadowServiceTests : ShadowDataFixture
     [InlineData(true, false)]
     [InlineData(false, true)]
     [InlineData(true, true)]
-    public void GetShadowDetails_WithNoRepositoryData_ReturnsFailure(bool shadowListEmpty, bool stealthMetricsListEmpty)
+    public async Task GetShadowDetails_WithNoRepositoryData_ReturnsFailure(bool shadowListEmpty, bool stealthMetricsListEmpty)
     {
         // Arrange
         if (shadowListEmpty)
@@ -113,7 +113,7 @@ public class ShadowServiceTests : ShadowDataFixture
             StealthMetrics.Clear();
         
         // Act
-        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.True(shadowDetailsResult.IsFailure);
@@ -126,11 +126,11 @@ public class ShadowServiceTests : ShadowDataFixture
     [InlineData(true, false)]
     [InlineData(false, true)]
     [InlineData(false, false)]
-    public void GetShadowDetails_WhenRepositoryReturnsFailure_ReturnsFailure(bool isShadowResultSuccessful, bool isStealthMetricResultSuccessful)
+    public async Task GetShadowDetails_WhenRepositoryReturnsFailure_ReturnsFailure(bool isShadowResultSuccessful, bool isStealthMetricResultSuccessful)
     {
         // Arrange
         if (isShadowResultSuccessful is false)
-            _shadowRepositoryMock.Setup(r => r.GetAll ()).Returns(Result<IList<Shadow>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, "Unable to fetch Shadows.")));
+            _shadowRepositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(Result<IList<Shadow>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, "Unable to fetch Shadows.")));
 
         if (isStealthMetricResultSuccessful is false)
             _stealthMetricsRepositoryMock.Setup(r => r.GetAll()).Returns(
@@ -138,7 +138,7 @@ public class ShadowServiceTests : ShadowDataFixture
                     "Unable to fetch stealth metrics.")));
         
         // Act
-        var shadowDetailsResult = _sut.GetAllShadowDetails();
+        var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.True(shadowDetailsResult.IsFailure);
@@ -149,13 +149,13 @@ public class ShadowServiceTests : ShadowDataFixture
     [Theory]
     [InlineData("Error 123: Unable to retrieve data")]
     [InlineData("Connection error")]
-    public void GetShadowDetails_WithUnexpectedErrors_ReturnsUnexpectedError(string exceptionMessage)
+    public async Task GetShadowDetails_WithUnexpectedErrors_ReturnsUnexpectedError(string exceptionMessage)
     {
         // Arrange
-        _shadowRepositoryMock.Setup(r => r.GetAll ()).Throws(new Exception(exceptionMessage));
+        _shadowRepositoryMock.Setup(r => r.GetAllAsync()).Throws(new Exception(exceptionMessage));
         
         // Act / Assert
-        var shadowDetailResult = _sut.GetAllShadowDetails();
+        var shadowDetailResult = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.True(shadowDetailResult.IsFailure);
@@ -165,7 +165,7 @@ public class ShadowServiceTests : ShadowDataFixture
     }
 
     [Fact]
-    public void GetAllShadows_ReturnsMappedShadowToDto()
+    public async Task GetAllShadows_ReturnsMappedShadowToDto()
     {
         // arrange
         var shadowId = Guid.NewGuid();
@@ -188,11 +188,11 @@ public class ShadowServiceTests : ShadowDataFixture
             SilenceRating = 52
         };
         
-        _shadowRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<Shadow>, Error>.Success(new List<Shadow> { sourceShadow }));
+        _shadowRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IList<Shadow>, Error>.Success(new List<Shadow> { sourceShadow }));
         _stealthMetricsRepositoryMock.Setup(s => s.GetAll()).Returns(Result<IList<StealthMetrics>, Error>.Success(new List<StealthMetrics> { sourceStealthMetrics }));
         
         // Act
-        var shadowDetailsResults = _sut.GetAllShadowDetails();
+        var shadowDetailsResults = await _sut.GetAllShadowDetailsAsync();
         
         // Assert
         Assert.NotNull(shadowDetailsResults.Value);

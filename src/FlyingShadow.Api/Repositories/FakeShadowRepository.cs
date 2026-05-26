@@ -22,18 +22,18 @@ internal class FakeShadowRepository : WithMockData<IList<Shadow>>, IShadowReposi
             "Shadow Mock data has not been configured");
     }
 
-    public Result<IList<Shadow>, Error> GetAll()
+    public Task<Result<IList<Shadow>, Error>> GetAllAsync()
     {
-        return Result<IList<Shadow>, Error>.Success(_shadows);
+        return Task.FromResult(Result<IList<Shadow>, Error>.Success(_shadows));
     }
 
-    public Result<Shadow, Error> GetByCodeName(string codeName)
+    public Task<Result<Shadow, Error>> GetByCodeNameAsync(string codeName)
     {
         var shadow = _shadows.ToList()
             .Find(s => s.CodeName.Equals(codeName, StringComparison.CurrentCultureIgnoreCase));
 
-        return shadow is null
+        return Task.FromResult(shadow is null
             ? Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow code name: {codeName} does not exist"))
-            : Result<Shadow, Error>.Success(shadow);
+            : Result<Shadow, Error>.Success(shadow));
     }
 }

@@ -5,5 +5,5 @@ namespace FlyingShadow.Core.Services.Battle;
 
 public interface IBattleService
 {
-    public Result<BattleResponse, Error> Battle(string shadowOneName, string shadowTwoName);
+    public Task<Result<BattleResponse, Error>> BattleAsync(string shadowOneName, string shadowTwoName);
 }

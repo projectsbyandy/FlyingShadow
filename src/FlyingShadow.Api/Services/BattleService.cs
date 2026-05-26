@@ -22,14 +22,14 @@ internal class BattleService : IBattleService
         _battleProcessor = battleProcessor;
     }
 
-    public Result<BattleResponse, Error> Battle(string shadowOneName, string shadowTwoName)
+    public async Task<Result<BattleResponse, Error>> BattleAsync(string shadowOneName, string shadowTwoName)
     {
-        var shadowOneResult = GetShadowDto(shadowOneName);
+        var shadowOneResult = await GetShadowDtoAsync(shadowOneName);
         
         if (shadowOneResult.IsFailure)
             return Result<BattleResponse, Error>.Failure(shadowOneResult.Error);
         
-        var shadowTwoResult = GetShadowDto(shadowTwoName);
+        var shadowTwoResult = await GetShadowDtoAsync(shadowTwoName);
         
         if (shadowTwoResult.IsFailure)
             return Result<BattleResponse, Error>.Failure(shadowTwoResult.Error);
@@ -37,9 +37,9 @@ internal class BattleService : IBattleService
         return _battleProcessor.Process(shadowOneResult.Value, shadowTwoResult.Value);
     }
 
-    private Result<ShadowDto, Error> GetShadowDto(string codeName)
+    private async Task<Result<ShadowDto, Error>> GetShadowDtoAsync(string codeName)
     {
-        return _shadowRepository.GetByCodeName(codeName)
+        return await _shadowRepository.GetByCodeNameAsync(codeName)
             .Bind(shadow => _stealthMetricsRepository
                 .GetByShadowId(shadow.Id)
                 .Map(metrics => _shadowDtoMapper.ToSingle(shadow, metrics)));

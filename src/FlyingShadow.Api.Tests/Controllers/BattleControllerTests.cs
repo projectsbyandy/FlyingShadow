@@ -20,14 +20,14 @@ public class BattleControllerTests : ShadowDataFixture
     }
 
     [Fact]
-    public void Battle_ServiceReturnsSuccess_Returns_Valid_BattleResponse()
+    public async Task Battle_ServiceReturnsSuccess_Returns_Valid_BattleResponse()
     {
         // Arrange
-        _mockBattleService.Setup(service => service.Battle(It.IsAny<string>(), It.IsAny<string>()))
-            .Returns(Result<BattleResponse, Error>.Success(BattleResponse));
+        _mockBattleService.Setup(service => service.BattleAsync(It.IsAny<string>(), It.IsAny<string>()))
+            .ReturnsAsync(Result<BattleResponse, Error>.Success(BattleResponse));
         
         // Act
-        var actionResult = _sut.Battle(new BattleRequest("testShadowOne", "testShadowOne"));
+        var actionResult = await _sut.BattleAsync(new BattleRequest("testShadowOne", "testShadowOne"));
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
@@ -36,16 +36,16 @@ public class BattleControllerTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_ServiceReturnsFailure_Returns_Error_BattleResponse()
+    public async Task Battle_ServiceReturnsFailure_Returns_Error_BattleResponse()
     {
         // Arrange
-        _mockBattleService.Setup(service => service.Battle(It.IsAny<string>(), It.IsAny<string>()))
-            .Returns<string, string>((shadowOneCodeName, _) => Result<BattleResponse, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow: {shadowOneCodeName} not found")));
+        _mockBattleService.Setup(service => service.BattleAsync(It.IsAny<string>(), It.IsAny<string>()))
+            .ReturnsAsync<string, string, IBattleService, Result<BattleResponse, Error>>((shadowOneCodeName, _) => Result<BattleResponse, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow: {shadowOneCodeName} not found")));
         
         const string shadowOneName = "testShadowOne";
         
         // Act
-        var actionResult = _sut.Battle(new BattleRequest(shadowOneName, "ShadowTwoCodeName"));
+        var actionResult = await _sut.BattleAsync(new BattleRequest(shadowOneName, "ShadowTwoCodeName"));
 
         // Assert
         var badResult = Assert.IsType<BadRequestObjectResult>(actionResult.Result);

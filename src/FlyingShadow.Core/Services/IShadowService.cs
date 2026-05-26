@@ -5,5 +5,5 @@ namespace FlyingShadow.Core.Services;
 
 public interface IShadowService
 {
-    public Result<IList<ShadowDto>, Error> GetAllShadowDetails();
+    public Task<Result<IList<ShadowDto>, Error>> GetAllShadowDetailsAsync();
 }

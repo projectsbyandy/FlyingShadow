@@ -23,9 +23,9 @@ public class FlyingShadowController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType( StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
-    public ActionResult<IList<ShadowDto>> GetShadows()
+    public async Task<ActionResult<IList<ShadowDto>>> GetShadowsAsync()
     {
-        var result = _shadowService.GetAllShadowDetails();
+        var result = await _shadowService.GetAllShadowDetailsAsync();
         
         return result.IsSuccess
             ? Ok(result.Value)

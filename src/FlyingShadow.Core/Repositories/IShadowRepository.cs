@@ -5,6 +5,6 @@ namespace FlyingShadow.Core.Repositories;
 
 public interface IShadowRepository
 {
-    public Result<IList<Shadow>, Error> GetAll();
-    public Result<Shadow, Error> GetByCodeName(string codeName);
+    public Task<Result<IList<Shadow>, Error>> GetAllAsync();
+    public Task<Result<Shadow, Error>> GetByCodeNameAsync(string codeName);
 }

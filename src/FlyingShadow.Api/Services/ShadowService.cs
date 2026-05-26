@@ -20,11 +20,11 @@ internal class ShadowService : IShadowService
         _shadowDtoMapper = shadowDtoMapper;
     }
 
-    public Result<IList<ShadowDto>, Error> GetAllShadowDetails()
+    public async Task<Result<IList<ShadowDto>, Error>> GetAllShadowDetailsAsync()
     {
         try
         {
-            var shadowResult = _shadowRepository.GetAll();
+            var shadowResult = await _shadowRepository.GetAllAsync();
             var stealthMetricsResult = _stealthMetricsRepository.GetAll();
              
             if (shadowResult.IsFailure || stealthMetricsResult.IsFailure)

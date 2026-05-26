@@ -20,9 +20,9 @@ public class BattleController : ControllerBase
     [HttpPost("start")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<BattleResponse> Battle([FromBody] BattleRequest request)
+    public async Task<ActionResult<BattleResponse>> BattleAsync([FromBody] BattleRequest request)
     {
-       var result = _battleService.Battle(request.ShadowOneCodeName, request.ShadowTwoCodeName);
+       var result = await _battleService.BattleAsync(request.ShadowOneCodeName, request.ShadowTwoCodeName);
        
        if (result.IsSuccess)
            return Ok(result.Value);

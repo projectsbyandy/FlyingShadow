@@ -16,10 +16,10 @@ public class FakeShadowRepositoryTests
     }
 
     [Fact]
-    public void GetAll_ReturnsShadowMockData()
+    public async Task GetAll_ReturnsShadowMockData()
     {
         // Arrange / Act
-        var fakeShadowsResult = _sut.GetAll();
+        var fakeShadowsResult = await _sut.GetAllAsync();
         
         // Assert
         Assert.True(fakeShadowsResult.IsSuccess);
@@ -28,13 +28,14 @@ public class FakeShadowRepositoryTests
     }
     
     [Fact]
-    public void GetByCodeName_WithValidCodeName_ReturnsShadowMockData()
+    public async Task GetByCodeName_WithValidCodeName_ReturnsShadowMockData()
     {
         // Arrange
-        var firstShadow = Guard.Against.Null(_sut.GetAll().Value.First());    
+        var shadows = await _sut.GetAllAsync();
+        var firstShadow = Guard.Against.Null(shadows.Value.First());    
 
         // Act
-        var fakeShadowsResult = _sut.GetByCodeName(firstShadow.CodeName);
+        var fakeShadowsResult = await _sut.GetByCodeNameAsync(firstShadow.CodeName);
         
         // Assert
         Assert.True(fakeShadowsResult.IsSuccess);
@@ -45,14 +46,15 @@ public class FakeShadowRepositoryTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void GetByCodeName_WithValidCodeNameWithMixedCasing_ReturnsShadowMockData(bool isUpper)
+    public async Task GetByCodeName_WithValidCodeNameWithMixedCasing_ReturnsShadowMockData(bool isUpper)
     {
         // Arrange
-        var firstShadow = Guard.Against.Null(_sut.GetAll().Value.First());    
+        var shadows = await _sut.GetAllAsync();
+        var firstShadow = Guard.Against.Null(shadows.Value.First());    
         var codeNameWithMixedCasing = isUpper ? firstShadow.CodeName.ToUpper() : firstShadow.CodeName.ToLower();
         
         // Act
-        var fakeShadowsResult = _sut.GetByCodeName(codeNameWithMixedCasing);
+        var fakeShadowsResult = await _sut.GetByCodeNameAsync(codeNameWithMixedCasing);
         
         // Assert
         Assert.True(fakeShadowsResult.IsSuccess);
@@ -61,13 +63,13 @@ public class FakeShadowRepositoryTests
     }
     
     [Fact]
-    public void GetShadowByCodeName_WithInValidCodeName_ReturnsNotFoundErrorCode()
+    public async Task GetShadowByCodeName_WithInValidCodeName_ReturnsNotFoundErrorCode()
     {
         // Arrange
         const string doesNotExistCodeName = "Shadow Dilbert";   
 
         // Act
-        var fakeShadowsResult = _sut.GetByCodeName(doesNotExistCodeName);
+        var fakeShadowsResult = await _sut.GetByCodeNameAsync(doesNotExistCodeName);
         
         // Assert
         Assert.True(fakeShadowsResult.IsFailure);

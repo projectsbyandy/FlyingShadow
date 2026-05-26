@@ -24,13 +24,13 @@ public class FlyingShadowControllerTests : ShadowDataFixture
     }
     
     [Fact]
-    public void GetShadows_RetrievesAllShadows()
+    public async Task GetShadows_RetrievesAllShadows()
     {
         // Arrange
-        _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetails()).Returns(Result<IList<ShadowDto>, Error>.Success(_expectedShadowDtos));
+        _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetailsAsync()).ReturnsAsync(Result<IList<ShadowDto>, Error>.Success(_expectedShadowDtos));
         
         // Act
-        var actionResult = _sut.GetShadows();
+        var actionResult = await _sut.GetShadowsAsync();
         
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
@@ -39,14 +39,14 @@ public class FlyingShadowControllerTests : ShadowDataFixture
     }
     
     [Fact]
-    public void GetShadows_WithServiceError_Returns_500()
+    public async Task GetShadows_WithServiceError_Returns_500()
     {
         // Arrange
-        _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetails()).Returns(Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnableToProcessData,
+        _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetailsAsync()).ReturnsAsync(Result<IList<ShadowDto>, Error>.Failure(new Error(ErrorCode.UnableToProcessData,
             "No Shadow Details mapped")));
         
         // Act
-        var actionResult = _sut.GetShadows();
+        var actionResult = await _sut.GetShadowsAsync();
         
         // Assert
         var result = Assert.IsType<ObjectResult>(actionResult.Result);

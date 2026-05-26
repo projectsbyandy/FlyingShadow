@@ -22,8 +22,8 @@ public class BattleServiceTests : ShadowDataFixture
         
     public BattleServiceTests()
     {
-        _shadowRepositoryMock.Setup(repo => repo.GetByCodeName(It.IsAny<string>()))
-            .Returns(Result<Shadow, Error>.Success(Shadows.First()));
+        _shadowRepositoryMock.Setup(repo => repo.GetByCodeNameAsync(It.IsAny<string>()))
+            .ReturnsAsync(Result<Shadow, Error>.Success(Shadows.First()));
 
         _stealthMetricsRepositoryMock.Setup(repo => repo.GetByShadowId(It.IsAny<Guid>()))
             .Returns(Result<StealthMetrics, Error>.Success(StealthMetrics.First()));
@@ -37,7 +37,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_WithValidShadowData_ReturnsBattleResponse()
+    public async Task Battle_WithValidShadowData_ReturnsBattleResponse()
     {
         // Arrange
         _battleProcessorMock
@@ -45,7 +45,7 @@ public class BattleServiceTests : ShadowDataFixture
             .Returns(Result<BattleResponse, Error>.Success(BattleResponse));
         
         // Act
-        var result = _sut.Battle("Test", "Test");
+        var result = await _sut.BattleAsync("Test", "Test");
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -54,16 +54,16 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_WithInvalidShadowOneCodeName_ReturnsFailure()
+    public async Task Battle_WithInvalidShadowOneCodeName_ReturnsFailure()
     {
         // Arrange
         _shadowRepositoryMock
-            .Setup(repo => repo.GetByCodeName(It.IsAny<string>()))
-            .Returns<string>(codeName => Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"{codeName} not found")));
+            .Setup(repo => repo.GetByCodeNameAsync(It.IsAny<string>()))
+            .ReturnsAsync<string, IShadowRepository, Result<Shadow, Error>>(codeName => Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"{codeName} not found")));
 
         const string shadowOneCodeName = "NonexistentCodeName";
         // Act
-        var result = _sut.Battle(shadowOneCodeName, "shadowTwoExists");
+        var result = await _sut.BattleAsync(shadowOneCodeName, "shadowTwoExists");
         
         // Assert
         Assert.True(result.IsFailure);
@@ -73,18 +73,18 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_WithInvalidShadowTwoCodeName_ReturnsFailure()
+    public async Task Battle_WithInvalidShadowTwoCodeName_ReturnsFailure()
     {
         // Arrange
         const string shadowTwoCodeName = "NonexistentCodeName";
 
         _shadowRepositoryMock
-            .SetupSequence(repo => repo.GetByCodeName(It.IsAny<string>()))
-            .Returns(Result<Shadow, Error>.Success(Shadows.First()))
-            .Returns(Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"{shadowTwoCodeName} not found")));
+            .SetupSequence(repo => repo.GetByCodeNameAsync(It.IsAny<string>()))
+            .ReturnsAsync(Result<Shadow, Error>.Success(Shadows.First()))
+            .ReturnsAsync(Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"{shadowTwoCodeName} not found")));
         
         // Act
-        var result = _sut.Battle("shadowOneExists", shadowTwoCodeName);
+        var result = await _sut.BattleAsync("shadowOneExists", shadowTwoCodeName);
         
         // Assert
         Assert.True(result.IsFailure);
@@ -94,7 +94,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
     
     [Fact]
-    public void Battle_WithInvalidStealthMetricsCodeName_ReturnsFailure()
+    public async Task Battle_WithInvalidStealthMetricsCodeName_ReturnsFailure()
     {
         // Arrange
         _stealthMetricsRepositoryMock
@@ -102,7 +102,7 @@ public class BattleServiceTests : ShadowDataFixture
             .Returns(Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound, "No Metrics here")));
         
         // Act
-        var result = _sut.Battle("CodeNameExists", "Test");
+        var result = await _sut.BattleAsync("CodeNameExists", "Test");
         
         // Assert
         Assert.True(result.IsFailure);
@@ -112,7 +112,7 @@ public class BattleServiceTests : ShadowDataFixture
     }
 
     [Fact]
-    public void Battle_WithFailedBattleProcessor_ReturnsFailure()
+    public async Task Battle_WithFailedBattleProcessor_ReturnsFailure()
     {
         // Arrange
         _battleProcessorMock
@@ -120,7 +120,7 @@ public class BattleServiceTests : ShadowDataFixture
             .Returns(Result<BattleResponse, Error>.Failure(new Error(ErrorCode.UnableToProcessData, "Unable To Process Data")));
         
         // Act
-        var result = _sut.Battle("Test", "Test");
+        var result = await _sut.BattleAsync("Test", "Test");
         
         // Assert
         Assert.True(result.IsFailure);
