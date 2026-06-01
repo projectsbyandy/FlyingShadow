@@ -4,12 +4,13 @@ using FlyingShadow.Api.Conventions;
 using FlyingShadow.Api.Ioc;
 using FlyingShadow.Api.Utils;
 using FlyingShadow.Core.DTO.Configuration;
-using FlyingShadow.Core.DTO.Configuration.MockData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
 
 builder.Services
     .AddFlyingShadowApiSupport()
@@ -40,11 +41,8 @@ builder.Services
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-var mockData = ConfigReader.GetConfigurationSection<MockData>("MockData");
-if (mockData is { IsEnabled: true, Source: Source.Json })
-{
-    builder.Services.RegisterFakeJsonRepositories();
-}
+var dbServer = ConfigReader.GetConfigurationSection<DbServer>("DbServer");
+builder.Services.AddRepositories(isMock: dbServer is { IsMock: true });
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {

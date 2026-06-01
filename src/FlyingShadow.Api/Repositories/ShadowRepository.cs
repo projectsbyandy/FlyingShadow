@@ -21,13 +21,14 @@ internal class ShadowRepository : IShadowRepository
     {
         try
         {
-            const string sql = $"""
-                                SELECT *
-                                FROM Shadows
-                                """;
+            const string query = 
+                $"""
+                SELECT *
+                FROM shadows
+                """;
         
             using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var shadows = Guard.Against.Null(conn.QuerySingleOrDefault<IList<Shadow>>(sql));
+            var shadows = Guard.Against.Null(conn.Query<Shadow>(query)).ToList();
             
             return Result<IList<Shadow>, Error>.Success(shadows);
         }
@@ -37,8 +38,27 @@ internal class ShadowRepository : IShadowRepository
         }
     }
 
-    public Task<Result<Shadow, Error>> GetByCodeNameAsync(string codeName)
+    public async Task<Result<Shadow, Error>> GetByCodeNameAsync(string codeName)
     {
-        throw new NotImplementedException();
+        try
+        {
+            const string query = 
+                $"""
+                 SELECT *
+                 FROM shadows
+                 WHERE code_name = @codeName
+                 """;
+        
+            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
+            var shadow = conn.QuerySingleOrDefault<Shadow>(query, new {codeName});
+            
+            return shadow is null
+                ? Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow with CodeName: {codeName} not found"))
+                : Result<Shadow, Error>.Success(shadow);
+        }
+        catch (Exception ex)
+        {
+            return Result<Shadow, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
+        }
     }
 }

@@ -4,6 +4,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 using Ardalis.GuardClauses;
+using FlyingShadow.Api.Repositories;
+using FlyingShadow.Core.Repositories;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FlyingShadow.Api.Spec.Tests.Support;
 
@@ -25,6 +30,22 @@ public sealed class FlyingShadowClientBuilder : WebApplicationFactory<Program>
         return BuildWithToken(loginResponse.TokenDetails.Token);
     }
 
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.UseEnvironment("Testing");
+
+        builder.ConfigureServices(services =>
+        {
+            services.RemoveAll<IUserRepository>();
+            services.RemoveAll<IShadowRepository>();
+            services.RemoveAll<IStealthMetricsRepository>();
+
+            services.AddSingleton<IUserRepository, FakeUserRepository>();
+            services.AddSingleton<IShadowRepository, FakeShadowRepository>();
+            services.AddSingleton<IStealthMetricsRepository, FakeStealthMetricsRepository>();
+        });
+    }
+    
     private FlyingShadowClient BuildWithToken(string token)
     {
         var handlers = KiotaClientFactory.CreateDefaultHandlers();
@@ -35,6 +56,8 @@ public sealed class FlyingShadowClientBuilder : WebApplicationFactory<Program>
 
     private HttpClientRequestAdapter CreateAdapter(IList<DelegatingHandler> handlers)
     {
+        DisableKiotaUpdateCheck();
+        
         var httpClient = KiotaClientFactory.Create(handlers, Server.CreateHandler());
 
         return new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient)
@@ -42,4 +65,6 @@ public sealed class FlyingShadowClientBuilder : WebApplicationFactory<Program>
             BaseUrl = Server.BaseAddress.ToString().TrimEnd('/'),
         };
     }
+    
+    private static void DisableKiotaUpdateCheck() => Environment.SetEnvironmentVariable("KIOTA_OFFLINE_ENABLED", "true");
 }

@@ -2,6 +2,7 @@ namespace FlyingShadow.Core.Models.Ninja;
 
 public record Shadow
 {
+    public Shadow() { }
     public Guid Id { get; set; }
     public required string CodeName { get; set; }
     public required string Clan { get; set; }

@@ -11,19 +11,19 @@ Stats based battle simulator between Shadows.
 
 1. Navigate to `FlyingShadow.Api` properties folder, create a `launchSettings.json` file with the contents copied from `launchSettings.template.json`
 
-1. By default, Flying Shadow is configured to use mock data. To make this optional and only configured when running the API locally:
-
- - Create an `appsettings.local.json` in the same location as appsettings.json (if not already present) and configure the mock data flag and source. For example
+1. Flying Shadow can be configured to use mock data when running the API locally:
+ - Create an `appsettings.local.json` in the same location as appsettings.json (if not already present) and configure the mock data flag with the dbServer node. For example
 
 ```
-  "mockData": {
-    "isEnabled": true,
-    "source": "json"
+  "dbServer": {
+    "isMock": true
   }
 ```
-- Delete the `mockData` entry from appsettings.json
+- This configuration will replace the standard repositories with mock versions which read data from the generated json.
 
-1. Run the unit and integration tests either via IDE or via commandline (from the directory with the solution file) using `dotnet test`.
+> **_NOTE:_**  By default, the FlyingShadow Api will use a postgres db for data. Please see [setup postgres section](#postgres-db-setup)
+
+1. Run the unit and integration tests either via IDE or via commandline (from the directory with the solution file) using `dotnet test`. All tests including integration and openapi spec are configured to use Mock data.
 
 ## Start the service
 #### From the IDE 
@@ -59,12 +59,44 @@ The mock data generation is handled by the `FlyingShadow.Api.MockDataGenerator` 
     - Scenario C - `Directory.Build.props` file is missing
     - Scenario D - *GenerateMockData* is set to `true` AND the mock files exist.
 
+# Postgres DB Setup
+The Flying Shadow API can be configured to use Postgres as a datasource. A script has been included to create a database and populate with sample data. 
+
+## Pre-req
+- Postgres 10 or later
+- admin access
+- postgres service is running
+
+## Setup
+1. Navigate to the folder `FlyingShadowDbSetup`
+1. Run `psql -U <admin / superuser> -d postgres -f flyingshadow_setup.sql`
+1. Update the appsettings to include the relevant connection details to the db. For example:
+
+```json
+  "dbServer": {
+      "isMock": "false",
+      "host": "localhost",
+      "port": 5432,
+      "MinPoolSize": 10,
+      "MaxPoolSize": 10,
+      "database": "flyingshadow",
+      "username": "test_user"
+  },
+```
+1. Update your appsettings.local.json (ignored from git) with the user password
+
+{
+  "dbServer": {
+    "password": "<postgres user password>"
+  }
+}
+
 # Open API generation
 The Flying Shadow open api spec will be generated here `FlyingShadow.Api/OpenApi` in json format.
 
 To view the spec from the Scalar UI browse to `<localhost with port>/openapi/FlyingShadow.Api.json`
 
-## Open API Tests
+## OpenAPI Tests
 ### Initial Setup
 #### Local — scoped to the repo, version-pinned in a manifest
 `dotnet new tool-manifest`

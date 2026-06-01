@@ -1,6 +1,8 @@
+using FlyingShadow.Api.Db;
 using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
 using FlyingShadow.Api.Utils;
+using FlyingShadow.Core.Db;
 using FlyingShadow.Core.DTO.Configuration;
 using FlyingShadow.Core.Repositories;
 using FlyingShadow.Core.Services;
@@ -14,23 +16,35 @@ internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddFlyingShadowApiSupport(this IServiceCollection services)
     {
-        services.AddScoped<Configuration>(_ => ConfigReader.GetConfiguration<Configuration>())
+        services.AddSingleton<Configuration>(_ => ConfigReader.GetConfiguration<Configuration>())
             .AddScoped<IAuthenticationService, AuthenticationService>()
-            .AddScoped<IPasswordHasher, PasswordHasher>()
             .AddScoped<IShadowService, ShadowService>()
             .AddScoped<IBattleService, BattleService>()
             .AddScoped<ITokenService, TokenService>()
+            .AddSingleton<IPasswordHasher, PasswordHasher>()
             .AddSingleton<IShadowDtoMapper, ShadowDtoMapper>()
             .AddSingleton<IBattleProcessor, BattleProcessor>();
         
         return services;
     }
-
-    public static IServiceCollection RegisterFakeJsonRepositories(this IServiceCollection services)
+    
+    public static IServiceCollection AddRepositories(this IServiceCollection services, bool isMock = false)
     {
-        services.AddSingleton<IUserRepository, FakeUserRepository>()
-            .AddSingleton<IShadowRepository, FakeShadowRepository>()
-            .AddSingleton<IStealthMetricsRepository, FakeStealthMetricsRepository>();
+        if (isMock)
+        {
+            services.AddSingleton<IUserRepository, FakeUserRepository>()
+                .AddSingleton<IShadowRepository, FakeShadowRepository>()
+                .AddSingleton<IStealthMetricsRepository, FakeStealthMetricsRepository>();
+        }
+        else
+        {
+            services
+                .AddSingleton<IDbConnectionFactory, NpgSqlConnectionFactory>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IShadowRepository, ShadowRepository>()
+                .AddScoped<IStealthMetricsRepository, StealthMetricsRepository>();
+            
+        }
         
         return services;
     }
