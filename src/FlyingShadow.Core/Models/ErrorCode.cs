@@ -7,5 +7,7 @@ public enum ErrorCode
     UnexpectedError,
     InvalidCredentials,
     UnableToRetrieveData,
-    UnableToProcessData
+    UnableToProcessData,
+    DbConnectionProblem,
+    Conflict
 }

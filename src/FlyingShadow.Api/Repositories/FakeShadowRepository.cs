@@ -22,9 +22,9 @@ internal class FakeShadowRepository : WithMockData<IList<Shadow>>, IShadowReposi
             "Shadow Mock data has not been configured");
     }
 
-    public Task<Result<IList<Shadow>, Error>> GetAllAsync()
+    public Task<Result<IEnumerable<Shadow>, Error>> GetAllAsync()
     {
-        return Task.FromResult(Result<IList<Shadow>, Error>.Success(_shadows));
+        return Task.FromResult(Result<IEnumerable<Shadow>, Error>.Success(_shadows));
     }
 
     public Task<Result<Shadow, Error>> GetByCodeNameAsync(string codeName)

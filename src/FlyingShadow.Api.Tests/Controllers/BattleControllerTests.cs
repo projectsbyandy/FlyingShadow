@@ -27,7 +27,10 @@ public class BattleControllerTests : ShadowDataFixture
             .ReturnsAsync(Result<BattleResponse, Error>.Success(BattleResponse));
         
         // Act
-        var actionResult = await _sut.BattleAsync(new BattleRequest("testShadowOne", "testShadowOne"));
+        var actionResult = await _sut.BattleAsync(new BattleRequest() {
+            ShadowOneCodeName = "testShadowOne", 
+            ShadowTwoCodeName = "testShadowOne"
+        });
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
@@ -45,8 +48,11 @@ public class BattleControllerTests : ShadowDataFixture
         const string shadowOneName = "testShadowOne";
         
         // Act
-        var actionResult = await _sut.BattleAsync(new BattleRequest(shadowOneName, "ShadowTwoCodeName"));
-
+        var actionResult = await _sut.BattleAsync(new BattleRequest() {
+            ShadowOneCodeName = shadowOneName, 
+            ShadowTwoCodeName = "testShadowOne"
+        });
+        
         // Assert
         var badResult = Assert.IsType<BadRequestObjectResult>(actionResult.Result);
         var battleResponse = Assert.IsType<Error>(badResult.Value);

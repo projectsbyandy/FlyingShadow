@@ -34,7 +34,10 @@ public class BattleTests : IClassFixture<AuthenticationFixture>
         var token = await _authFixture.GetAuthTokenAsync(_client, _cancellationToken);
         _authFixture.AddAuthHeader(_client, token);
 
-        var battleRequest = new BattleRequest(shadows.First().CodeName, shadows.Last().CodeName);
+        var battleRequest = new BattleRequest() {
+            ShadowOneCodeName = shadows.First().CodeName,
+            ShadowTwoCodeName = shadows.Last().CodeName
+        };
         
         // Act
         var response = await _client.PostAsJsonAsync("api/Battle/Start", battleRequest, _cancellationToken);

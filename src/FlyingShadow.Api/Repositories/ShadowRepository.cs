@@ -1,7 +1,4 @@
-using Ardalis.GuardClauses;
-using Dapper;
 using FlyingShadow.Core.Db;
-using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Repositories;
@@ -10,55 +7,33 @@ namespace FlyingShadow.Api.Repositories;
 
 internal class ShadowRepository : IShadowRepository
 {
-    private readonly IDbConnectionFactory _dbConnectionFactory;
+    private readonly IQueryProcessor _queryProcessor;
 
-    public ShadowRepository(IDbConnectionFactory dbConnectionFactory)
+    public ShadowRepository(IQueryProcessor queryProcessor)
     {
-        _dbConnectionFactory = dbConnectionFactory;
+        _queryProcessor = queryProcessor;
     }
 
-    public async Task<Result<IList<Shadow>, Error>> GetAllAsync()
+    public async Task<Result<IEnumerable<Shadow>, Error>> GetAllAsync()
     {
-        try
-        {
-            const string query = 
-                $"""
-                SELECT *
-                FROM shadows
-                """;
+        const string query = 
+            $"""
+            SELECT *
+            FROM shadows
+            """;
         
-            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var shadows = Guard.Against.Null(conn.Query<Shadow>(query)).ToList();
-            
-            return Result<IList<Shadow>, Error>.Success(shadows);
-        }
-        catch (Exception ex)
-        {
-            return Result<IList<Shadow>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
-        }
+        return await _queryProcessor.QueryAsync<Shadow>(query);
     }
 
     public async Task<Result<Shadow, Error>> GetByCodeNameAsync(string codeName)
     {
-        try
-        {
-            const string query = 
-                $"""
-                 SELECT *
-                 FROM shadows
-                 WHERE code_name = @codeName
-                 """;
-        
-            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var shadow = conn.QuerySingleOrDefault<Shadow>(query, new {codeName});
-            
-            return shadow is null
-                ? Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"Shadow with CodeName: {codeName} not found"))
-                : Result<Shadow, Error>.Success(shadow);
-        }
-        catch (Exception ex)
-        {
-            return Result<Shadow, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
-        }
+        const string query =
+            $"""
+             SELECT *
+             FROM shadows
+             WHERE code_name = @codeName
+             """;
+
+        return await _queryProcessor.QuerySingleOrDefaultAsync<Shadow>(query, $"Shadow with CodeName: {codeName} not found",new {codeName});
     }
 }

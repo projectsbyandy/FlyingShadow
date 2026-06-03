@@ -20,7 +20,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- =============================================================
 -- TABLE: shadows
 -- =============================================================
-CREATE TABLE public.shadows (
+CREATE TABLE IF NOT EXISTS public.shadows (
     id         UUID DEFAULT gen_random_uuid() NOT NULL,
     code_name  TEXT NOT NULL,
     clan       TEXT NOT NULL,
@@ -32,20 +32,22 @@ CREATE TABLE public.shadows (
 -- =============================================================
 -- TABLE: stealthmetrics
 -- =============================================================
-CREATE TABLE public.stealthmetrics (
+CREATE TABLE IF NOT EXISTS public.stealthmetrics (
     id                       UUID    DEFAULT gen_random_uuid() NOT NULL,
     shadow_id                UUID    NOT NULL,
     shadow_blend_score       INTEGER NOT NULL,
     silence_rating           INTEGER NOT NULL,
     invisibility_duration_ms INTEGER NOT NULL,
     acrobatics_level         TEXT    NOT NULL,
-    CONSTRAINT stealthmetrics_pkey PRIMARY KEY (id)
+    CONSTRAINT stealthmetrics_pkey PRIMARY KEY (id),
+    CONSTRAINT stealthmetrics_shadow_id_fkey FOREIGN KEY (shadow_id)
+        REFERENCES public.shadows(id)
 );
 
 -- =============================================================
 -- TABLE: users
 -- =============================================================
-CREATE TABLE public.users (
+CREATE TABLE IF NOT EXISTS public.users (
     user_id         UUID DEFAULT gen_random_uuid() NOT NULL,
     email           TEXT NOT NULL,
     hashed_password TEXT NOT NULL,
@@ -55,7 +57,7 @@ CREATE TABLE public.users (
 -- =============================================================
 -- TABLE: testsupport
 -- =============================================================
-CREATE TABLE public.testsupport (
+CREATE TABLE IF NOT EXISTS public.testsupport (
     jwt TEXT NOT NULL
 );
 
@@ -215,7 +217,8 @@ INSERT INTO public.shadows (id, code_name, clan, origin, rank) VALUES
 ('550e8400-e29b-41d4-a716-000000000177', 'Silent Shroud',     'Anbu',              'Various',           'Danza'),
 ('550e8400-e29b-41d4-a716-000000000178', 'Silent Dagger',     'Hyuga Clan',        'Land of Rain',      'Toshiyama'),
 ('550e8400-e29b-41d4-a716-000000000179', 'Silent Talon',      'Uzumaki Clan',      'Land of Sound',     'Oniwaban'),
-('550e8400-e29b-41d4-a716-000000000180', 'Silent Serpent',    'Uchiha Clan',       'Land of Fire',      'Danza');
+('550e8400-e29b-41d4-a716-000000000180', 'Silent Serpent',    'Uchiha Clan',       'Land of Fire',      'Danza')
+ON CONFLICT (id) DO NOTHING;
 
 -- =============================================================
 -- DATA: stealthmetrics  (150 rows)
@@ -370,20 +373,8 @@ INSERT INTO public.stealthmetrics (id, shadow_id, shadow_blend_score, silence_ra
 ('b2c3d4e5-f6a7-4b8c-9d0e-000000000177', '550e8400-e29b-41d4-a716-000000000177',  73,   2, 4768, 'Advanced'),
 ('b2c3d4e5-f6a7-4b8c-9d0e-000000000178', '550e8400-e29b-41d4-a716-000000000178',  98,  48, 4215, 'Intermediate'),
 ('b2c3d4e5-f6a7-4b8c-9d0e-000000000179', '550e8400-e29b-41d4-a716-000000000179',  89,  62, 3577, 'Beginner'),
-('b2c3d4e5-f6a7-4b8c-9d0e-000000000180', '550e8400-e29b-41d4-a716-000000000180',  36,  92, 3932, 'Beginner');
-
--- =============================================================
--- DATA: users  (2 rows)
--- =============================================================
-INSERT INTO public.users (user_id, email, hashed_password) VALUES
-('820bad3a-58cd-4f6f-970c-11e7aca30b89', 'demo_user@sample.org', '$2a$10$OkM83.R6Ix/E.x0iLo9Z3u/KMTHbpJiG9fYLUAehKg1WgWW85ZL6q'),
-('58d6bc7b-06a7-421e-8f38-4f0e9d09420d', 'john.doe@sample.org',  '$2a$10$fiNcWV8gRZAL1.WIi7qLvOhvZKvM4B8oywpiKtPbtauRbk5/YqvmW');
-
--- =============================================================
--- DATA: testsupport  (1 row — JWT token)
--- =============================================================
-INSERT INTO public.testsupport (jwt) VALUES
-('DE186661262016DE34991BDD6838195C17BC77B05E2BD2F83BA45D3F78B9A26A1449FDD1ADBE253CA7D19A730E76D8C4219F30F2460F3C3AE8BDA588B0C1EC84');
+('b2c3d4e5-f6a7-4b8c-9d0e-000000000180', '550e8400-e29b-41d4-a716-000000000180',  36,  92, 3932, 'Beginner')
+ON CONFLICT (id) DO NOTHING;
 
 -- =============================================================
 -- User - Setup test user with Read / Write

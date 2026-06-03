@@ -23,7 +23,9 @@ internal static class ServiceCollectionExtensions
             .AddScoped<ITokenService, TokenService>()
             .AddSingleton<IPasswordHasher, PasswordHasher>()
             .AddSingleton<IShadowDtoMapper, ShadowDtoMapper>()
-            .AddSingleton<IBattleProcessor, BattleProcessor>();
+            .AddSingleton<IBattleProcessor, BattleProcessor>()
+            .AddSingleton<IDbConnectionFactory, NpgSqlConnectionFactory>()
+            .AddTransient<IQueryProcessor, QueryProcessor>();
         
         return services;
     }
@@ -39,11 +41,9 @@ internal static class ServiceCollectionExtensions
         else
         {
             services
-                .AddSingleton<IDbConnectionFactory, NpgSqlConnectionFactory>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IShadowRepository, ShadowRepository>()
                 .AddScoped<IStealthMetricsRepository, StealthMetricsRepository>();
-            
         }
         
         return services;
