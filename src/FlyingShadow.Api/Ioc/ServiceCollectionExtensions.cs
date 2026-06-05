@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using FlyingShadow.Api.Db;
 using FlyingShadow.Api.Repositories;
 using FlyingShadow.Api.Services;
@@ -24,7 +25,12 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<IPasswordHasher, PasswordHasher>()
             .AddSingleton<IShadowDtoMapper, ShadowDtoMapper>()
             .AddSingleton<IBattleProcessor, BattleProcessor>()
-            .AddSingleton<IDbConnectionFactory, NpgSqlConnectionFactory>()
+            .AddSingleton<IDbConnectionFactory>(sp =>
+            {
+                var dbServer = sp.GetRequiredService<Configuration>().DbServer;
+                Guard.Against.Null(dbServer, "Error setting up DbConnectionFactory, DbServer configuration is not present");
+                return new NpgSqlConnectionFactory(DbConnectionStringBuilder.Map(dbServer));
+            })
             .AddTransient<IQueryProcessor, QueryProcessor>();
         
         return services;
