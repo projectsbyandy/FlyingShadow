@@ -41,7 +41,7 @@ public class PgSqlTestContainerFixture : IAsyncLifetime
         
         _respawner = await Respawner.CreateAsync(_npgsqlConnection, new RespawnerOptions {
             DbAdapter = DbAdapter.Postgres,
-            SchemasToInclude = new[] { "public" }
+            SchemasToInclude = ["public"]
         });
     }
 

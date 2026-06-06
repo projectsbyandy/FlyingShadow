@@ -9,56 +9,34 @@ namespace FlyingShadow.Api.Repositories;
 
 internal class StealthMetricsRepository : IStealthMetricsRepository
 {
-    private readonly IDbConnectionFactory _dbConnectionFactory;
+    private readonly IQueryProcessor _queryProcessor;
 
-    public StealthMetricsRepository(IDbConnectionFactory dbConnectionFactory)
+    public StealthMetricsRepository(IQueryProcessor queryProcessor)
     {
-        _dbConnectionFactory = dbConnectionFactory;
+        _queryProcessor = queryProcessor;
     }
 
-    public async Task<Result<IList<StealthMetrics>, Error>> GetAllAsync()
+    public async Task<Result<IEnumerable<StealthMetrics>, Error>> GetAllAsync()
     {
-        try
-        {
-            const string query = 
-                $"""
-                 SELECT *
-                 FROM stealthmetrics
-                 """;
-        
-            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var allStealthMetrics = await conn.QueryAsync<StealthMetrics>(query);
-            
-            return Result<IList<StealthMetrics>, Error>.Success(allStealthMetrics.ToList());
-        }
-        catch (Exception ex)
-        {
-            return Result<IList<StealthMetrics>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
-        }
+        const string query =
+            $"""
+             SELECT *
+             FROM stealthmetrics
+             """;
+
+        return await _queryProcessor.QueryAsync<StealthMetrics>(query);
     }
 
     public async Task<Result<StealthMetrics, Error>> GetByShadowIdAsync(Guid id)
     {
-        try
-        {
-            const string query = 
-                $"""
-                 SELECT *
-                 FROM stealthmetrics
-                 WHERE shadow_id = @id
-                 """;
-        
-            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var stealthMetrics = await conn.QuerySingleOrDefaultAsync<StealthMetrics>(query, new { id });
+        const string query =
+            $"""
+             SELECT *
+             FROM stealthmetrics
+             WHERE shadow_id = @id
+             """;
 
-            return stealthMetrics is null
-                ? Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.NotFound,
-                    $"StealthMetrics with ShadowId: {id} not found"))
-                : Result<StealthMetrics, Error>.Success(stealthMetrics);
-        }
-        catch (Exception ex)
-        {
-            return Result<StealthMetrics, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
-        }
+        return await _queryProcessor.QuerySingleOrDefaultAsync<StealthMetrics>(query,
+            $"Stealth Metrics with ShadowId: {id} not found", new { id });
     }
 }

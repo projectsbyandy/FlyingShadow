@@ -22,9 +22,9 @@ internal class FakeStealthMetricsRepository : WithMockData<IList<StealthMetrics>
             "Stealth Metrics Mock data has not been configured");
     }
 
-    public async Task<Result<IList<StealthMetrics>, Error>> GetAllAsync()
+    public async Task<Result<IEnumerable<StealthMetrics>, Error>> GetAllAsync()
     {
-        return await Task.FromResult(Result<IList<StealthMetrics>, Error>.Success(_stealthMetrics));
+        return await Task.FromResult(Result<IEnumerable<StealthMetrics>, Error>.Success(_stealthMetrics));
     }
 
     public async Task<Result<StealthMetrics, Error>> GetByShadowIdAsync(Guid id)

@@ -21,7 +21,7 @@ public class ShadowServiceTests : ShadowDataFixture
     public ShadowServiceTests()
     {
         _shadowRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<Shadow>, Error>.Success(Shadows));
-        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IList<StealthMetrics>, Error>.Success(StealthMetrics));
+        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<StealthMetrics>, Error>.Success(StealthMetrics));
         _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object,  _shadowDtoMapper);
     }
     
@@ -134,7 +134,7 @@ public class ShadowServiceTests : ShadowDataFixture
 
         if (isStealthMetricResultSuccessful is false)
             _stealthMetricsRepositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(
-                Result<IList<StealthMetrics>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData,
+                Result<IEnumerable<StealthMetrics>, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData,
                     "Unable to fetch stealth metrics.")));
         
         // Act
@@ -189,7 +189,7 @@ public class ShadowServiceTests : ShadowDataFixture
         };
         
         _shadowRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<Shadow>, Error>.Success(new List<Shadow> { sourceShadow }));
-        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IList<StealthMetrics>, Error>.Success(new List<StealthMetrics> { sourceStealthMetrics }));
+        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<StealthMetrics>, Error>.Success(new List<StealthMetrics> { sourceStealthMetrics }));
         
         // Act
         var shadowDetailsResults = await _sut.GetAllShadowDetailsAsync();
