@@ -9,7 +9,7 @@ namespace FlyingShadow.Api.Integration.Tests;
 
 public class QueryProcessorTests : IClassFixture<PgSqlTestContainerFixture>, IAsyncLifetime
 {
-    private IQueryProcessor _sut;
+    private IQueryProcessor? _sut;
     private readonly PgSqlTestContainerFixture _dbFixture;
     private readonly IDbConnectionFactory _dbFactory;
     
@@ -29,7 +29,7 @@ public class QueryProcessorTests : IClassFixture<PgSqlTestContainerFixture>, IAs
         _sut = new QueryProcessor(_dbFactory);
         
         // Act
-        var result = await _sut.QueryAsync<Shadow>("Select * From Shadows");
+        var result = await _sut.QueryAsync<Shadow>("SELECT * FROM shadows");
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -44,7 +44,7 @@ public class QueryProcessorTests : IClassFixture<PgSqlTestContainerFixture>, IAs
         _sut = new QueryProcessor(_dbFactory);
         
         // Act
-        var result = await _sut.QuerySingleOrDefaultAsync<Shadow>("Select * From Shadows WHERE code_name = 'Silent Talon'");
+        var result = await _sut.QuerySingleOrDefaultAsync<Shadow>("SELECT * FROM shadows WHERE code_name = 'Silent Talon'");
         
         // Assert
         Assert.True(result.IsSuccess);
@@ -63,11 +63,74 @@ public class QueryProcessorTests : IClassFixture<PgSqlTestContainerFixture>, IAs
         _sut = new QueryProcessor(_dbFactory);
         
         // Act
-        var result = await _sut.QuerySingleOrDefaultAsync<Shadow>("Select * From Shadows WHERE code_name = 'DoesNotExist'");
+        var result = await _sut.QuerySingleOrDefaultAsync<Shadow>("SELECT * FROM shadows WHERE code_name = 'DoesNotExist'");
         
         // Assert
         Assert.True(result.IsFailure);
         Assert.NotNull(result.Error);
         Assert.Equal(new Error(ErrorCode.NotFound, "Item not found"), result.Error);
+    }
+    
+    [Fact]
+    public async Task ExecuteAsync_WithExistingPrimaryKey_ReturnsFailureWithConflict()
+    {
+        // Arrange
+        _sut = new QueryProcessor(_dbFactory);
+        
+        // Act
+        var result = await _sut.ExecuteAsync("INSERT INTO shadows (id, code_name, clan, origin, rank) " +
+                                             "VALUES ('550e8400-e29b-41d4-a716-000000000178', 'Silent Dagger', 'Hyuga Clan',  'Land of Rain', 'Toshiyama')");
+       
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal(new Error(ErrorCode.Conflict, "duplicate key value violates unique constraint \"shadows_pkey\""), result.Error);
+    }
+    
+    [Fact]
+    public async Task ExecuteAsync_WithValidInsert_ReturnsSuccessWithUpdatedRows()
+    {
+        // Arrange
+        _sut = new QueryProcessor(_dbFactory);
+        
+        // Act
+        var result = await _sut.ExecuteAsync("INSERT INTO shadows (id, code_name, clan, origin, rank) " +
+                                             "VALUES ('a117c09c-f761-4606-b17c-a7b828c2a22e', 'Silent Dagger', 'Hyuga Clan',  'Land of Rain', 'Toshiyama')");
+       
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(1, result.Value);
+    }
+    
+    [Fact]
+    public async Task ExecuteAsync_WithInvalidSqlValue_ReturnsFailureUnableToProcess()
+    {
+        // Arrange
+        _sut = new QueryProcessor(_dbFactory);
+        
+        // Act
+        var result = await _sut.ExecuteAsync("INSERT INTO shadows (id, code_name, clan, origin, rank) " +
+                                             "VALUES ('bob', 'Silent Dagger', 'Hyuga Clan',  'Land of Rain', 'Toshiyama')");
+       
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal(new Error(ErrorCode.UnableToProcessData, "invalid input syntax for type uuid: \"bob\""), result.Error);
+    }
+    
+    [Fact]
+    public async Task ExecuteAsync_WithNonExistentForeignKey_ReturnsFailureWithForeignKeyConstraintConflict()
+    {
+        // Arrange
+        _sut = new QueryProcessor(_dbFactory);
+        
+        // Act
+        var result = await _sut.ExecuteAsync("INSERT INTO stealthmetrics (shadow_id, shadow_blend_score, silence_rating, invisibility_duration_ms, acrobatics_level) " +
+                                             "VALUES ('2855b7f6-24ff-43bf-b30c-b6538dea7a54', 98, 48, 4215, 'Intermediate')");
+        
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal(new Error(ErrorCode.Conflict, "insert or update on table \"stealthmetrics\" violates foreign key constraint \"stealthmetrics_shadow_id_fkey\""), result.Error);
     }
 }

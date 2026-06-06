@@ -69,7 +69,7 @@ internal class QueryProcessor : IQueryProcessor
                 PostgresErrorCodes.ForeignKeyViolation => ErrorCode.Conflict,
                 _                                      => ErrorCode.UnableToProcessData
             };
-            return Result<T, Error>.Failure(new Error(code, ex.Message));
+            return Result<T, Error>.Failure(new Error(code, ex.MessageText));
         }
         catch (NpgsqlException ex)
         {
