@@ -1,4 +1,3 @@
-using System.Data.Common;
 using FlyingShadow.Core.DTO.Configuration;
 using DbConnectionStringBuilder = FlyingShadow.Core.Utils.DbConnectionStringBuilder;
 

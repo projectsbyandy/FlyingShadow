@@ -10,24 +10,23 @@ using Moq;
 
 namespace FlyingShadow.Api.Tests.Controllers;
 
-public class FlyingShadowControllerTests : ShadowDataFixture
+public class FlyingShadowControllerTests : IClassFixture<ShadowDataFixture>
 {
     private FlyingShadowController _sut;
-    private Mock<IShadowService> _shadowServiceMock;
-    private readonly IList<ShadowDto> _expectedShadowDtos;
+    private readonly Mock<IShadowService> _shadowServiceMock = new();
+    private readonly IEnumerable<ShadowDto> _expectedShadowDtos;
 
-    public FlyingShadowControllerTests()
+    public FlyingShadowControllerTests(ShadowDataFixture shadowDataFixture)
     {
-        _shadowServiceMock = new  Mock<IShadowService>();
         _sut = new FlyingShadowController(_shadowServiceMock.Object);
-        _expectedShadowDtos = GetShadowDTOs();
+        _expectedShadowDtos = shadowDataFixture.GetShadowDTOs();
     }
     
     [Fact]
     public async Task GetShadows_RetrievesAllShadows()
     {
         // Arrange
-        _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetailsAsync()).ReturnsAsync(Result<IList<ShadowDto>, Error>.Success(_expectedShadowDtos));
+        _shadowServiceMock.Setup(shadowService => shadowService.GetAllShadowDetailsAsync()).ReturnsAsync(Result<IList<ShadowDto>, Error>.Success(_expectedShadowDtos.ToList()));
         
         // Act
         var actionResult = await _sut.GetShadowsAsync();

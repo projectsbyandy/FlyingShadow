@@ -9,13 +9,15 @@ using Moq;
 
 namespace FlyingShadow.Api.Tests.Controllers;
 
-public class BattleControllerTests : ShadowDataFixture
+public class BattleControllerTests : IClassFixture<ShadowDataFixture>
 {
     private readonly BattleController _sut;
+    private readonly ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IBattleService> _mockBattleService = new();
 
-    public BattleControllerTests()
+    public BattleControllerTests(ShadowDataFixture shadowDataFixture)
     {
+        _shadowDataFixture = shadowDataFixture;
         _sut = new BattleController(_mockBattleService.Object);
     }
 
@@ -24,7 +26,7 @@ public class BattleControllerTests : ShadowDataFixture
     {
         // Arrange
         _mockBattleService.Setup(service => service.BattleAsync(It.IsAny<string>(), It.IsAny<string>()))
-            .ReturnsAsync(Result<BattleResponse, Error>.Success(BattleResponse));
+            .ReturnsAsync(Result<BattleResponse, Error>.Success(_shadowDataFixture.BattleResponse));
         
         // Act
         var actionResult = await _sut.BattleAsync(new BattleRequest() {
@@ -35,7 +37,7 @@ public class BattleControllerTests : ShadowDataFixture
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
         var battleResponse = Assert.IsType<BattleResponse>(okResult.Value);
-        Assert.Equal(battleResponse, BattleResponse);
+        Assert.Equal(battleResponse, _shadowDataFixture.BattleResponse);
     }
     
     [Fact]

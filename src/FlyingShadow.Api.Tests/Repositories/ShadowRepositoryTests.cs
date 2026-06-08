@@ -9,13 +9,15 @@ using Moq;
 
 namespace FlyingShadow.Api.Tests.Repositories;
 
-public class ShadowRepositoryTests : ShadowDataFixture
+public class ShadowRepositoryTests : IClassFixture<ShadowDataFixture>
 {
     private readonly IShadowRepository _sut;
+    private readonly ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IQueryProcessor> _queryProcessorMock = new();
     
-    public ShadowRepositoryTests()
+    public ShadowRepositoryTests(ShadowDataFixture shadowDataFixture)
     {
+        _shadowDataFixture = shadowDataFixture;
         _sut = new ShadowRepository(_queryProcessorMock.Object);
     }
 
@@ -24,7 +26,7 @@ public class ShadowRepositoryTests : ShadowDataFixture
     {
         // Arrange
         _queryProcessorMock.Setup(qp => qp.QueryAsync<Shadow>(It.IsAny<string>(), It.IsAny<object?>()))
-            .ReturnsAsync(Result<IEnumerable<Shadow>, Error>.Success(Shadows));
+            .ReturnsAsync(Result<IEnumerable<Shadow>, Error>.Success(_shadowDataFixture.Shadows));
 
         // Act
         var result = await _sut.GetAllAsync();
@@ -32,7 +34,7 @@ public class ShadowRepositoryTests : ShadowDataFixture
         // Assert
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
-        Assert.Equal(Shadows, result.Value);
+        Assert.Equal(_shadowDataFixture.Shadows, result.Value);
     }
     
     [Fact]
@@ -57,7 +59,7 @@ public class ShadowRepositoryTests : ShadowDataFixture
     public async Task GetByCodeNameAsync_WhenQuerySucceeds_ReturnsSuccessWithShadow()
     {
         // Arrange
-        var shadow = Shadows.First();
+        var shadow = _shadowDataFixture.Shadows.First();
         
         _queryProcessorMock.Setup(qp => qp.QuerySingleOrDefaultAsync<Shadow>(It.IsAny<string>(), It.IsAny<string?>(), It.IsAny<object?>()))
         .ReturnsAsync(Result<Shadow, Error>.Success(shadow));

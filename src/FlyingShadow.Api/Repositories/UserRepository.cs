@@ -1,5 +1,3 @@
-using Ardalis.GuardClauses;
-using Dapper;
 using FlyingShadow.Core.Db;
 using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.ResultType;
@@ -10,80 +8,50 @@ namespace FlyingShadow.Api.Repositories;
 
 internal class UserRepository : IUserRepository
 {
-    private readonly IDbConnectionFactory _dbConnectionFactory;
+    private readonly IQueryProcessor _queryProcessor;
 
-    public UserRepository(IDbConnectionFactory dbConnectionFactory)
+    public UserRepository(IQueryProcessor queryProcessor)
     {
-        _dbConnectionFactory = dbConnectionFactory;
+        _queryProcessor = queryProcessor;
     }
 
     public async Task<Result<User, Error>> GetUserAsync(string email)
     {
-        try
-        {
-            const string query = 
-                $"""
-                 SELECT * 
-                 FROM users 
-                 WHERE email = @email
-                 """;
-        
-            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var user = Guard.Against.Null(conn.QuerySingleOrDefault<User>(query, new { email }));
-            
-            return Result<User, Error>.Success(user);
-        }
-        catch (Exception ex)
-        {
-            return Result<User, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
-        }    
+        const string query =
+            $"""
+             SELECT * 
+             FROM users 
+             WHERE email = @email
+             """;
+
+        return await _queryProcessor.QuerySingleOrDefaultAsync<User>(query, $"User with email: {email} not found",
+            new { email });
     }
 
     public async Task<Result<User, Error>> AddUserAsync(User user)
     {
-        try
-        {
-            const string query = 
-                $"""
-                 INSERT INTO users(user_id, email, hashed_password) 
-                 VALUES(@userid::uuid, @email, @hashedPassword)
-                 """;
-        
-            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var rowsAffected = await conn.ExecuteAsync(query, new { user.UserId, user.Email, user.HashedPassword });
-            
-            return rowsAffected > 0
+        const string query =
+            $"""
+             INSERT INTO users(user_id, email, hashed_password) 
+             VALUES(@userid::uuid, @email, @hashedPassword)
+             """;
+
+        var result = await _queryProcessor.ExecuteAsync(query, new { user.UserId, user.Email, user.HashedPassword });
+
+        return result.IsSuccess
+            ? result.Value is 1
                 ? Result<User, Error>.Success(user)
-                : Result<User, Error>.Failure(new Error(ErrorCode.UnableToProcessData, $"Problem adding new user {user.Email}"));
-        }
-        catch (Exception ex)
-        {
-            return Result<User, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
-        }
+                : Result<User, Error>.Failure(new Error(ErrorCode.UnexpectedError, $"Only expecting 1 row updated but got {result.Value}"))
+            : Result<User, Error>.Failure(result.Error);
     }
 
     public async Task<Result<Outcome, Error>> EnsureUserDoesNotExistAsync(string email)
     {
-        try
-        {
-            const string query = 
-                $"""
-                 SELECT * 
-                 FROM users 
-                 WHERE email = @email
-                 """;
-        
-            using var conn = await _dbConnectionFactory.OpenConnectionAsync();
-            var user = conn.QuerySingleOrDefault<User>(query, new { email });
+        var result = await GetUserAsync(email);
 
-            return user is null
-                ? Result<Outcome, Error>.Success(Outcome.Value)
-                : Result<Outcome, Error>.Failure(new Error(ErrorCode.AlreadyExists,
-                    $"User with {email} already registered"));
-        }
-        catch (Exception ex)
-        {
-            return Result<Outcome, Error>.Failure(new Error(ErrorCode.UnableToRetrieveData, ex.Message));
-        }
+        return result is { IsFailure: true, Error.Code: ErrorCode.NotFound }
+            ? Result<Outcome, Error>.Success(Outcome.Value)
+            : Result<Outcome, Error>.Failure(new Error(ErrorCode.AlreadyExists,
+                $"User with {email} already registered"));
     }
 }

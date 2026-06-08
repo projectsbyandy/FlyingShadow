@@ -1,6 +1,4 @@
-using Dapper;
 using FlyingShadow.Core.Db;
-using FlyingShadow.Core.Models;
 using FlyingShadow.Core.Models.Ninja;
 using FlyingShadow.Core.Models.ResultType;
 using FlyingShadow.Core.Repositories;

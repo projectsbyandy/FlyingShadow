@@ -57,7 +57,7 @@ public class QueryProcessorTests : IClassFixture<PgSqlTestContainerFixture>, IAs
     }
     
     [Fact]
-    public async Task QuerySingleOrDefaultAsync_WithData_ReturnsFailureWithNotFound()
+    public async Task QuerySingleOrDefaultAsync_WithData_ReturnsFailureWithNotFoundWithDefaultMessage()
     {
         // Arrange
         _sut = new QueryProcessor(_dbFactory);
@@ -69,6 +69,22 @@ public class QueryProcessorTests : IClassFixture<PgSqlTestContainerFixture>, IAs
         Assert.True(result.IsFailure);
         Assert.NotNull(result.Error);
         Assert.Equal(new Error(ErrorCode.NotFound, "Item not found"), result.Error);
+    }
+    
+    [Fact]
+    public async Task QuerySingleOrDefaultAsync_WithCustomNotFoundMessage_ReturnsFailureWithCustomMessage()
+    {
+        // Arrange
+        _sut = new QueryProcessor(_dbFactory);
+        const string customNotFoundMessage = "This Shadow does not exist";
+        
+        // Act
+        var result = await _sut.QuerySingleOrDefaultAsync<Shadow>("SELECT * FROM shadows WHERE code_name = 'DoesNotExist'", customNotFoundMessage);
+        
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.NotNull(result.Error);
+        Assert.Equal(new Error(ErrorCode.NotFound, customNotFoundMessage), result.Error);
     }
     
     [Fact]

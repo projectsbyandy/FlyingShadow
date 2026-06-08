@@ -2,13 +2,14 @@ using FlyingShadow.Core.DTO.Battle;
 using FlyingShadow.Core.DTO.Ninja;
 using FlyingShadow.Core.Models.Battle;
 using FlyingShadow.Core.Models.Ninja;
+using FlyingShadow.Core.Models.Users;
 using FlyingShadow.Core.Services.Mappers;
 
 namespace FlyingShadow.Api.Tests.Fixtures;
 
-public abstract class ShadowDataFixture : IDisposable
+public class ShadowDataFixture : IDisposable
 {
-    protected readonly IList<Shadow> Shadows = new List<Shadow>()
+    public readonly IEnumerable<Shadow> Shadows = new List<Shadow>()
     {
         new()
         {
@@ -36,7 +37,7 @@ public abstract class ShadowDataFixture : IDisposable
         }
     };
     
-    protected readonly IList<StealthMetrics> StealthMetrics = new List<StealthMetrics>()
+    public readonly IEnumerable<StealthMetrics> StealthMetrics = new List<StealthMetrics>()
     {
         new()
         {
@@ -67,7 +68,7 @@ public abstract class ShadowDataFixture : IDisposable
         }
     };
 
-    protected IList<ShadowDto> GetShadowDTOs()
+    public IEnumerable<ShadowDto> GetShadowDTOs()
     {
         var shadowMapper = new ShadowDtoMapper();
         var metricsById = StealthMetrics.ToDictionary(m => m.ShadowId);
@@ -78,7 +79,29 @@ public abstract class ShadowDataFixture : IDisposable
             .ToList();   
     }
 
-    protected readonly BattleResponse BattleResponse = new()
+    public readonly IList<User> Users = new List<User>()
+    {
+        new()
+        {
+            Email = "tim.h@horton.com",
+            UserId = Guid.Parse("3beeba67-fdfb-4ed8-a470-f45327fc0c29"),
+            HashedPassword = ""
+        },
+        new()
+        {
+            Email = "sally.lindle@horton.com",
+            UserId = Guid.Parse("7bc9e0bf-d7aa-49eb-b825-44ff0c5496bb"),
+            HashedPassword = ""
+        },
+        new()
+        {
+            Email = "greg.based@horton.com",
+            UserId = Guid.Parse("0d771dae-d2a8-4299-849d-d09d7027aee8"),
+            HashedPassword = ""
+        }
+    };
+
+    public readonly BattleResponse BattleResponse = new()
     {
         Outcome = "test",
         ShadowOneStats = new Stats()
@@ -107,7 +130,8 @@ public abstract class ShadowDataFixture : IDisposable
 
     public void Dispose()
     {
-        Shadows.Clear();
-        StealthMetrics.Clear();
+        Shadows.ToList().Clear();
+        StealthMetrics.ToList().Clear();
+        Users.ToList().Clear();
     }
 }

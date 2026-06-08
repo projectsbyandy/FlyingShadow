@@ -12,25 +12,27 @@ using Moq;
 
 namespace FlyingShadow.Api.Tests.Services;
 
-public class BattleServiceTests : ShadowDataFixture
+public class BattleServiceTests : IClassFixture<ShadowDataFixture>
 {
     private readonly IBattleService _sut;
+    private readonly ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
     private readonly Mock<IShadowDtoMapper> _shadowDtoMapperMock = new();
     private readonly Mock<IBattleProcessor> _battleProcessorMock = new();
         
-    public BattleServiceTests()
+    public BattleServiceTests(ShadowDataFixture shadowDataFixture)
     {
+        _shadowDataFixture = shadowDataFixture;
         _shadowRepositoryMock.Setup(repo => repo.GetByCodeNameAsync(It.IsAny<string>()))
-            .ReturnsAsync(Result<Shadow, Error>.Success(Shadows.First()));
+            .ReturnsAsync(Result<Shadow, Error>.Success(_shadowDataFixture.Shadows.First()));
 
         _stealthMetricsRepositoryMock.Setup(repo => repo.GetByShadowIdAsync(It.IsAny<Guid>()))
-            .ReturnsAsync(Result<StealthMetrics, Error>.Success(StealthMetrics.First()));
+            .ReturnsAsync(Result<StealthMetrics, Error>.Success(_shadowDataFixture.StealthMetrics.First()));
 
         _shadowDtoMapperMock
             .Setup(mapper => mapper.ToSingle(It.IsAny<Shadow>(), It.IsAny<StealthMetrics>()))
-            .Returns(GetShadowDTOs().First());
+            .Returns(_shadowDataFixture.GetShadowDTOs().First());
         
         _sut = new BattleService(_shadowRepositoryMock.Object, _shadowDtoMapperMock.Object, 
             _stealthMetricsRepositoryMock.Object, _battleProcessorMock.Object);
@@ -42,7 +44,7 @@ public class BattleServiceTests : ShadowDataFixture
         // Arrange
         _battleProcessorMock
             .Setup(processor => processor.Process(It.IsAny<ShadowDto>(), It.IsAny<ShadowDto>()))
-            .Returns(Result<BattleResponse, Error>.Success(BattleResponse));
+            .Returns(Result<BattleResponse, Error>.Success(_shadowDataFixture.BattleResponse));
         
         // Act
         var result = await _sut.BattleAsync("Test", "Test");
@@ -50,7 +52,7 @@ public class BattleServiceTests : ShadowDataFixture
         // Assert
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
-        Assert.Equal(BattleResponse, result.Value);
+        Assert.Equal(_shadowDataFixture.BattleResponse, result.Value);
     }
     
     [Fact]
@@ -80,7 +82,7 @@ public class BattleServiceTests : ShadowDataFixture
 
         _shadowRepositoryMock
             .SetupSequence(repo => repo.GetByCodeNameAsync(It.IsAny<string>()))
-            .ReturnsAsync(Result<Shadow, Error>.Success(Shadows.First()))
+            .ReturnsAsync(Result<Shadow, Error>.Success(_shadowDataFixture.Shadows.First()))
             .ReturnsAsync(Result<Shadow, Error>.Failure(new Error(ErrorCode.NotFound, $"{shadowTwoCodeName} not found")));
         
         // Act

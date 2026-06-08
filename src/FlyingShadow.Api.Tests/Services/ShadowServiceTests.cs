@@ -11,17 +11,19 @@ using Moq;
 
 namespace FlyingShadow.Api.Tests.Services;
 
-public class ShadowServiceTests : ShadowDataFixture
+public class ShadowServiceTests : IClassFixture<ShadowDataFixture>
 {
     private readonly IShadowService _sut;
+    private readonly ShadowDataFixture _shadowDataFixture;
     private readonly Mock<IShadowRepository> _shadowRepositoryMock = new();
     private readonly Mock<IStealthMetricsRepository> _stealthMetricsRepositoryMock = new();
     private readonly IShadowDtoMapper _shadowDtoMapper = new ShadowDtoMapper();
 
-    public ShadowServiceTests()
+    public ShadowServiceTests(ShadowDataFixture shadowDataFixture)
     {
-        _shadowRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<Shadow>, Error>.Success(Shadows));
-        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<StealthMetrics>, Error>.Success(StealthMetrics));
+        _shadowDataFixture = shadowDataFixture;
+        _shadowRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<Shadow>, Error>.Success(_shadowDataFixture.Shadows));
+        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<StealthMetrics>, Error>.Success(_shadowDataFixture.StealthMetrics));
         _sut = new ShadowService(_shadowRepositoryMock.Object, _stealthMetricsRepositoryMock.Object,  _shadowDtoMapper);
     }
     
@@ -80,13 +82,17 @@ public class ShadowServiceTests : ShadowDataFixture
     public async Task GetShadowDetails_WithMissingStealthMetrics_OnlyReturnsShadowsWithSuccessfulStealthMetricsMapping()
     {
         // Arrange
-        var metricToRemoveIndex = StealthMetrics.ToList().FindIndex(m => m.InvisibilityDurationMs == 1022);
-        StealthMetrics.RemoveAt(metricToRemoveIndex);
+        var localStealthMetrics = _shadowDataFixture.StealthMetrics.ToList();
+        var metricToRemoveIndex = localStealthMetrics.FindIndex(m => m.InvisibilityDurationMs == 1022);
+        localStealthMetrics.RemoveAt(metricToRemoveIndex);
         
-        var expectedShadowIds = Shadows
-            .Where(s => StealthMetrics.Any(m => m.ShadowId == s.Id))
+        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<StealthMetrics>, Error>.Success(localStealthMetrics.AsEnumerable()));
+
+        var expectedShadowIds = _shadowDataFixture.Shadows
+            .Where(s => localStealthMetrics.Any(m => m.ShadowId == s.Id))
             .Select(s => s.Id)
             .ToList();
+        
         
         // Act
         var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
@@ -106,11 +112,17 @@ public class ShadowServiceTests : ShadowDataFixture
     public async Task GetShadowDetails_WithNoRepositoryData_ReturnsFailure(bool shadowListEmpty, bool stealthMetricsListEmpty)
     {
         // Arrange
-        if (shadowListEmpty)
-            Shadows.Clear();
+        var localShadows = _shadowDataFixture.Shadows;
+        var localStealthMetrics = _shadowDataFixture.StealthMetrics;
         
-        if(stealthMetricsListEmpty) 
-            StealthMetrics.Clear();
+        if (shadowListEmpty)
+            localShadows = Enumerable.Empty<Shadow>();
+        
+        if (stealthMetricsListEmpty) 
+            localStealthMetrics = Enumerable.Empty<StealthMetrics>();
+        
+        _shadowRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<Shadow>, Error>.Success(localShadows));
+        _stealthMetricsRepositoryMock.Setup(s => s.GetAllAsync()).ReturnsAsync(Result<IEnumerable<StealthMetrics>, Error>.Success(localStealthMetrics));
         
         // Act
         var shadowDetailsResult = await _sut.GetAllShadowDetailsAsync();
