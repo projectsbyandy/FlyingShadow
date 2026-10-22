@@ -127,3 +127,10 @@ The folder and spec may not regenerate if the build system thinks nothing has ch
 ```
 dotnet build --no-incremental
 ```
+
+API spec not being generated
+- error MSB3073: The command "dotnet kiota
+
+```
+dotnet tool restore
+```
