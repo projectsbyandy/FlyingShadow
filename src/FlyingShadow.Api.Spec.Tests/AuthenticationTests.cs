@@ -23,12 +23,11 @@ public class AuthenticationTests
         var validUser = _fakeUsers.ValidUser();
         
         // Act
-        var loginResponse = await _client.Api.Authentication.Login.PostAsync(
-            new LoginDetails
+        var loginResponse = await _client.Api.Authentication.Login.PostAsync(new LoginDetails
             {
                 Email = validUser.Email,
                 Password = validUser.Password
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
         
         // Assert
         Assert.NotNull(loginResponse);
@@ -41,12 +40,11 @@ public class AuthenticationTests
     public async Task Login_WithInvalidCredentials_ReturnsUnauthorized()
     {
         // Arrange / Act
-        var exception = await Assert.ThrowsAsync<ProblemDetails>(() => _client.Api.Authentication.Login.PostAsync(
-            new LoginDetails()
+        var exception = await Assert.ThrowsAsync<ProblemDetails>(() => _client.Api.Authentication.Login.PostAsync(new LoginDetails()
             {
                 Email = "invalidEmail@test.com",
                 Password = "invalidPassword",
-            }));
+            }, cancellationToken: TestContext.Current.CancellationToken));
         
         // Assert
         Assert.Equal(401, exception.ResponseStatusCode);
@@ -56,11 +54,10 @@ public class AuthenticationTests
     public async Task Login_WithMissingPassword_ReturnsBadRequest()
     {
         // Arrange / Act
-        var exception = await Assert.ThrowsAsync<ProblemDetails>(() => _client.Api.Authentication.Login.PostAsync(
-            new LoginDetails()
+        var exception = await Assert.ThrowsAsync<ProblemDetails>(() => _client.Api.Authentication.Login.PostAsync(new LoginDetails()
             {
                 Email = "test@test.com"
-            }));
+            }, cancellationToken: TestContext.Current.CancellationToken));
         
         // Assert
         Assert.Equal(400, exception.ResponseStatusCode);
@@ -70,12 +67,11 @@ public class AuthenticationTests
     public async Task Register_WithNewUser_ReturnsUserId()
     {
         // Arrange / Act
-        var registerResponse = await _client.Api.Authentication.Register.PostAsync(
-            new RegisterRequest
+        var registerResponse = await _client.Api.Authentication.Register.PostAsync(new RegisterRequest
             {
                 Email = $"{Guid.NewGuid()}@test.com",
                 Password = "testPassword"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         Assert.NotNull(registerResponse);
@@ -92,21 +88,19 @@ public class AuthenticationTests
             Password = "testPassword",
         };
 
-        await _client.Api.Authentication.Register.PostAsync(
-            new RegisterRequest
+        await _client.Api.Authentication.Register.PostAsync(new RegisterRequest
             {
                 Email = userDetails.Email,
                 Password = userDetails.Password
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
         
         // Act
-        var loginResponse = await _client.Api.Authentication.Login.PostAsync(
-            new LoginDetails
+        var loginResponse = await _client.Api.Authentication.Login.PostAsync(new LoginDetails
             {
                 Email = userDetails.Email,
                 Password = userDetails.Password
             }
-        );
+, cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         Assert.NotNull(loginResponse?.TokenDetails);
@@ -137,7 +131,7 @@ public class AuthenticationTests
         };
             
         // Arrange
-        var exception = await Assert.ThrowsAsync<ProblemDetails>(() => _client.Api.Authentication.Register.PostAsync(details));
+        var exception = await Assert.ThrowsAsync<ProblemDetails>(() => _client.Api.Authentication.Register.PostAsync(details, cancellationToken: TestContext.Current.CancellationToken));
         
         // Assert
         Assert.Equal(400, exception.ResponseStatusCode);

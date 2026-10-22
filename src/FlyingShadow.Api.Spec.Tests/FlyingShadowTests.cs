@@ -23,7 +23,7 @@ public class FlyingShadowTests
         var authenticatedClient = await _factory.BuildAuthenticatedAsync(_fakeUserLoginsProvider.ValidUser());
         
         // Act
-        var shadows = await authenticatedClient.Api.FlyingShadow.Shadows.GetAsync();
+        var shadows = await authenticatedClient.Api.FlyingShadow.Shadows.GetAsync(cancellationToken: TestContext.Current.CancellationToken);
         
         // Assert
         Assert.NotNull(shadows);
@@ -37,7 +37,7 @@ public class FlyingShadowTests
         var authenticatedClient = await _factory.BuildAuthenticatedAsync(_fakeUserLoginsProvider.ValidUser());
         
         // Act
-        var shadows = await authenticatedClient.Api.FlyingShadow.Shadows.GetAsync();
+        var shadows = await authenticatedClient.Api.FlyingShadow.Shadows.GetAsync(cancellationToken: TestContext.Current.CancellationToken);
         
         // Assert
         Assert.NotNull(shadows);
@@ -64,7 +64,7 @@ public class FlyingShadowTests
         var client = _factory.BuildUnauthenticated();
         
         // Act
-        var details = await Assert.ThrowsAsync<ProblemDetails>(() => client.Api.FlyingShadow.Shadows.GetAsync());
+        var details = await Assert.ThrowsAsync<ProblemDetails>(() => client.Api.FlyingShadow.Shadows.GetAsync(cancellationToken: TestContext.Current.CancellationToken));
         
         // Assert
         Assert.Equal(401, details.ResponseStatusCode);
